@@ -22,8 +22,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test": "react-scripts test --watchAll=false",
+    "test-coverage": "npm test -- --coverage --verbose --runInBand",
+    "see-coverage": "cd coverage/lcov-report && index.html",
     "prettier": "prettier --write src/**/*.{js,jsx,css} && prettier --check src/**/*.{js,jsx,css}"
   },
   "eslintConfig": {
