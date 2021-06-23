@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+/.vscode
+/public
+# testing
+/coverage
+# Build
+/build
+# files
+.vscode
+.env
+package-lock.json
