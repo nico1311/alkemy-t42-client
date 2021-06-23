@@ -1,11 +1,17 @@
 {
-  "name": "my-app",
+  "name": "team-42-ong-proyect",
   "version": "0.1.0",
   "private": true,
+  "description": "A proyect for ong, challenge of Alkemy.",
+  "keywords": [
+    "Challenge",
+    "APP",
+    "ONG",
+    "react",
+    "proyect"
+  ],
+  "license": "MIT",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.1.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -15,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write src/**/*.{js,jsx,css} && prettier --check src/**/*.{js,jsx,css}"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.3.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.1.9"
   }
 }
