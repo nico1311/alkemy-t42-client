@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useFetch from '../../hooks/useFetch';
 import {
   makeStyles,
   Grid,
@@ -8,7 +9,6 @@ import {
   List,
   ListItem,
 } from '@material-ui/core';
-
 const theme = createMuiTheme();
 const useStyles = makeStyles({
   footer: {
@@ -16,9 +16,8 @@ const useStyles = makeStyles({
     flexGrow: '1',
     color: 'white',
     padding: '0.8rem',
-  },
-  font: {
-    color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
   },
   footerSocialLink: {
     margin: theme.spacing(0.6, 0),
@@ -30,105 +29,100 @@ const useStyles = makeStyles({
   copyright: {
     margin: theme.spacing(5, 0),
   },
+  marginAuto: {
+    margin: 'auto',
+  },
+  maxWidth: {
+    maxWidth: '1400px',
+  },
 });
 
 export default function Footer() {
-  const mock = {
-    image:
-      'https://cdn-sp.radionacional.com.ar/wp-content/uploads/2017/04/ONG.png',
-    name: 'ONG example name',
-    linksWeb: ['Who we are', 'Contact', 'Example'],
-    socialLinks: [
-      'SocialLink Example',
-      'SocialLink Example',
-      'SocialLink Example',
-    ],
-  };
+  let socialLinks = [];
+  let socialLinksLink = [];
+
+  const data = useFetch(
+    'http://localhost:4000/organizations/1/public',
+  ).response;
+  for (let key in data.socialLinks) {
+    socialLinksLink.push(data.socialLinks[key]);
+    socialLinks.push(key);
+  }
   const classes = useStyles();
+  const mock = {
+    linksWeb: ['Example', 'Example', 'Example'],
+  };
+
   return (
     <footer className={classes.footer}>
-      <Grid container>
-        <Grid
-          xs={12}
-          sm={4}
-          container
-          justify='space-around'
-          alignItems='center'
-          align='center'
-        >
-          <img src={mock.image} alt='' width='120px' />
-          <Typography variant='h5' className={classes.font}>
-            {mock.name}
-          </Typography>
+      <Grid container className={classes.maxWidth}>
+        <Grid item xs={12} sm={4} className={classes.marginAuto}>
+          <Grid container justify='center' alignItems='center' align='center'>
+            <img src={data.image} alt='' width='120px' />
+            <Typography variant='h5'>{data.name}</Typography>
+          </Grid>
         </Grid>
 
-        <Grid
-          sm={4}
-          xs={6}
-          container
-          direction='row'
-          justify='space-around'
-          align='flex-start'
-        >
-          <List>
-            <ListItem>
-              <Typography variant='h6' className={classes.listTitle}>
-                About Us
-              </Typography>
-            </ListItem>
-            {mock.linksWeb.map((item) => (
+        <Grid item sm={4} xs={6}>
+          <Grid container justify='space-around' align='flex-start'>
+            <List>
               <ListItem>
-                <Link className={classes.footerSocialLink} href={`#${item}`}>
-                  {item}
-                </Link>
+                <Typography variant='h6' className={classes.listTitle}>
+                  About Us
+                </Typography>
               </ListItem>
-            ))}
-          </List>
+              {mock.linksWeb.map((item, i) => (
+                <ListItem key={i}>
+                  <Link className={classes.footerSocialLink} href={`#${item}`}>
+                    {item}
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
         </Grid>
 
-        <Grid
-          xs={6}
-          sm={4}
-          container
-          direction='row'
-          justify='space-around'
-          align='flex-start'
-        >
-          <List>
-            <ListItem>
-              <Typography variant='h6' className={classes.listTitle}>
-                Follow Us
-              </Typography>
-            </ListItem>
-            {mock.socialLinks.map((item) => (
+        <Grid item xs={6} sm={4}>
+          <Grid container justify='space-around' align='flex-start'>
+            <List>
               <ListItem>
-                <Link
-                  target='_blank'
-                  rel='noreferrer'
-                  href='http://youtube.com'
-                  className={classes.footerSocialLink}
-                >
-                  {item}
-                </Link>
+                <Typography variant='h6' className={classes.listTitle}>
+                  Follow Us
+                </Typography>
               </ListItem>
-            ))}
-          </List>
+
+              {socialLinks.map((item, i) => (
+                <ListItem key={i}>
+                  <Link
+                    target='_blank'
+                    rel='noreferrer'
+                    href={socialLinksLink[i]}
+                    className={classes.footerSocialLink}
+                  >
+                    {item}
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
         </Grid>
-        <Grid xs={12} container justify='center' alignItems='center'>
-          <Typography
-            variant='body2'
-            align='center'
-            className={classes.copyright}
-          >
-            {'Copyright © '}
-            <Link
-              color='inherit'
-              href='https://bitbucket.org/alkemy-dev/t42-project-client/src/master/'
+        <Grid item xs={12} className={classes.maxWidth}>
+          <Grid container justify='center' alignItems='center'>
+            <Typography
+              variant='body2'
+              align='center'
+              className={classes.copyright}
             >
-              Team 42 - ONG Proyect
-            </Link>{' '}
-            {new Date().getFullYear()}
-          </Typography>
+              {'Copyright © '}
+              <Link
+                color='inherit'
+                href='https://bitbucket.org/alkemy-dev/t42-project-client/src/master/'
+              >
+                Team 42 - ONG Proyect
+              </Link>{' '}
+              {new Date().getFullYear()}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </footer>

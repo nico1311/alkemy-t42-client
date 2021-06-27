@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import Footer from './layout/footer/Footer';
 
 const App = () => (
   <UserContextProvider>
@@ -23,6 +24,7 @@ const App = () => (
         </Typography>
       </Box>
     </Container>
+    <Footer />
   </UserContextProvider>
 );
 
