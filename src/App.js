@@ -1,14 +1,15 @@
-import { UserContextProvider } from 'context/UserContext';
+import React from 'react';
+import { UserContextProvider } from './context/UserContext';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Header from 'layout/header/Header';
+import Header from './layout/header/Header';
 
 const App = () => (
   <UserContextProvider>
-    <Container maxWidth='sm'>
-      <Header/>
+    <Header>
+      <Container maxWidth='sm'>
         <Box my={4}>
           <Typography variant='h4' component='h1' gutterBottom>
             Happy coding!
@@ -25,6 +26,7 @@ const App = () => (
           </Typography>
         </Box>
       </Container>
+    </Header>
   </UserContextProvider>
 );
 
