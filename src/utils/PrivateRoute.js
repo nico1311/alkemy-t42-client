@@ -6,6 +6,7 @@ import {Route, Redirect} from 'react-router-dom'
  * @param {String} redirectTo Route for redirection
  * @param {props} rest The rest of props
  * @returns a Route component
+ * 
  */
 
 export default function PrivateRoute({ component: Component, redirectTo ,...rest }) {
