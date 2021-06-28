@@ -17,6 +17,7 @@ const App = () => (
         <PrivateRoute exact path="/rutaprivada" component={PrivateRouteExample} redirectTo="/" />
       </Switch>
     </Suspense>
+
   </UserContextProvider>
 );
 
