@@ -1,5 +1,6 @@
 import {Route, Redirect} from 'react-router-dom'
 
+/**@module utils/PrivateRoute */
 /**
  *  Component that manages the access to a private route
  * @param {Component} component Component to render

@@ -2,7 +2,7 @@ import React, {Suspense, lazy} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import { UserContextProvider } from 'context/UserContext';
 import Loader from './components/utils/Loader/Loader'
-import PrivateRoute from 'components/utils/PrivateRoute';
+import PrivateRoute from 'components/utils/PrivateRoute/PrivateRoute';
 
 const WelcomeDevs = lazy(() => import('./view/welcomeDevs/WelcomeDevs'))
 const AboutUs = lazy(() => import('./view/aboutUs/AboutUs'))
