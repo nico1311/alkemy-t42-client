@@ -1,3 +1,6 @@
+/**
+ *  @module Footer
+ **/
 import React from 'react';
 import useFetch from '../../hooks/useFetch';
 import {
@@ -10,6 +13,9 @@ import {
   ListItem,
 } from '@material-ui/core';
 const theme = createMuiTheme();
+/**
+ * Component styles
+ */
 const useStyles = makeStyles({
   footer: {
     backgroundColor: '#400CCC',
@@ -22,6 +28,7 @@ const useStyles = makeStyles({
   footerSocialLink: {
     margin: theme.spacing(0.6, 0),
     color: 'white',
+    textTransform: 'capitalize',
   },
   listTitle: {
     margin: theme.spacing(0.6, 0),
@@ -33,12 +40,24 @@ const useStyles = makeStyles({
     margin: 'auto',
   },
   maxWidth: {
-    maxWidth: '1400px',
+    maxWidth: '1280px',
   },
 });
-
+/**
+ * @function Footer
+ * @returns a footer component layout
+ */
 export default function Footer() {
+  /**
+   *Names of social networks displayed in footer obtained in useFetch
+   *@type {Array<string>}
+   */
   let socialLinks = [];
+
+  /**
+   *Links of social networks profile displayed in footer obtained in useFetch
+   *@type {Array<string>}
+   */
   let socialLinksLink = [];
 
   const data = useFetch(
@@ -48,17 +67,25 @@ export default function Footer() {
     socialLinksLink.push(data.socialLinks[key]);
     socialLinks.push(key);
   }
+
+  /**
+   * object with styles options
+   * @type {object}
+   */
   const classes = useStyles();
-  const mock = {
-    linksWeb: ['Example', 'Example', 'Example'],
-  };
+  /**
+   * Page links displayed on footer
+   * The value is the "href" and the message displayed
+   * @type {Array<string>}
+   */
+  const footerWebLinks = ['news', 'testimonials', 'contact'];
 
   return (
     <footer className={classes.footer}>
       <Grid container className={classes.maxWidth}>
         <Grid item xs={12} sm={4} className={classes.marginAuto}>
           <Grid container justify='center' alignItems='center' align='center'>
-            <img src={data.image} alt='' width='120px' />
+            <img src={data.image} alt='ONG Logo in footer' width='120px' />
             <Typography variant='h5'>{data.name}</Typography>
           </Grid>
         </Grid>
@@ -68,10 +95,10 @@ export default function Footer() {
             <List>
               <ListItem>
                 <Typography variant='h6' className={classes.listTitle}>
-                  About Us
+                  Resources
                 </Typography>
               </ListItem>
-              {mock.linksWeb.map((item, i) => (
+              {footerWebLinks.map((item, i) => (
                 <ListItem key={i}>
                   <Link className={classes.footerSocialLink} href={`#${item}`}>
                     {item}
