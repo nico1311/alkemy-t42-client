@@ -3,7 +3,11 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+<<<<<<< HEAD
 import Footer from './layout/footer/Footer';
+=======
+import Loader from './layout/loader/Loader'
+>>>>>>> bd48a52ba452ef9aa8fce08cb70b7420aa2380e5
 
 const App = () => (
   <UserContextProvider>
@@ -22,6 +26,7 @@ const App = () => (
           </Link>{' '}
           {new Date().getFullYear()}
         </Typography>
+        <Loader />
       </Box>
     </Container>
     <Footer />
