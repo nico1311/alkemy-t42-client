@@ -3,6 +3,7 @@ import HashLoader from 'react-spinners/HashLoader'
 import Grid from '@material-ui/core/Grid'
 
 /**
+ * @module layout/loader
  * Component to show when something is loading
  * @component Loader
  * @param {string} color The color of the spinner
