@@ -26,8 +26,8 @@ const useStyles = makeStyles(() => ({
  * <AlertGenerator contentText="This is a alert success" severity="success" variant="filled" />
  * <AlertGenerator contentText="This is a alert success" severity="success" variant="outline" />
  * <AlertGenerator contentText="This is a alert success" severity="success" variant="outline" onClose={functionToCloseAlert} />
- * <Alert icon={false} severity="success" contentText="Success without icon" />
- * <Alert severity="success" color="info" contentText="Change color icon" />
+ * <AlertGenerator icon={false} severity="success" contentText="Success without icon" />
+ * <AlertGenerator severity="success" color="info" contentText="Change color icon" />
  */
 const AlertGenerator = ({
   severity = 'error',
