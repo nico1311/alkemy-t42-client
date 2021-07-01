@@ -1,13 +1,14 @@
 import FormContainer from '../FormContainer.js';
 import {
   FormControl,
-  Input,
+  TextField,
   FormLabel,
   makeStyles,
   Button,
 } from '@material-ui/core';
 import { useFormik } from 'formik';
 import validate from './validation';
+import submit from './submit';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -33,34 +34,36 @@ const FormContact = () => {
       message: ''
     },
     validate,
-    onSubmit: values => {
-
-    alert(JSON.stringify(values, null, 2));
-
+    onSubmit: async (values) => {
+      submit(values);
   },
   })
   return (
-    <FormContainer titleForm='Contacto'>
+    <FormContainer titleForm='Formulario de Contacto'>
       <form className={clases.form} onSubmit={formik.handleSubmit}>
         <FormControl className={clases.formControl}>
           <FormLabel required htmlFor='nameInput'>
             Nombre{' '}
           </FormLabel>
-          <Input id='name' type="text" onChange={formik.handleChange} defaultValue={formik.values.name}/>
-          {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+          <TextField id='name' type="text" onChange={formik.handleChange} defaultValue={formik.values.name}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+          />
         </FormControl>
         <FormControl className={clases.formControl}>
           <FormLabel required htmlFor='emailInput'>
             Email de Contacto
           </FormLabel>
-          <Input id='email' type="email" onChange={formik.handleChange} defaultValue={formik.values.email} />
-          {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+          <TextField id='email' type="email" onChange={formik.handleChange} defaultValue={formik.values.email}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          />
         </FormControl>
         <FormControl className={clases.formControl}>
           <FormLabel required htmlFor='messageInput'>
             Mensaje{' '}
           </FormLabel>
-          <Input
+          <TextField
             id='message'
             aria-describedby='my-helper-text'
             multiline
@@ -68,8 +71,9 @@ const FormContact = () => {
             type="text"
             onChange={formik.handleChange}
             defaultValue={formik.values.message}
+            error={formik.touched.message && Boolean(formik.errors.message)}
+            helperText={formik.touched.message && formik.errors.message}
           />
-          {formik.errors.message ? <div>{formik.errors.message}</div> : null}
         </FormControl>
         <Button variant='contained' className={clases.button} color='secondary' type='submit'>
           Enviar
