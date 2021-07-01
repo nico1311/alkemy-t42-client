@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { AppBar, Toolbar, Typography, makeStyles, Button, IconButton, Drawer, Link, MenuItem } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import LogoImage from './src/images/assets/logosomos'
+import LogoImage from '../../../src/images/assets/logosomos.png'
 
 const useStyles = makeStyles( () => ({
    header: {
@@ -145,9 +145,10 @@ export default function Header() {
 
 
    const ongLogo = (
-      <Typography variant="h4" component="h3" className={logo}>
+      /*<Typography variant="h4" component="h3" className={logo}>
          ONG
-      </Typography>
+      </Typography>*/
+      <Image src={LogoImage}/>
    )
 
    const getMenuButtons = () => {
