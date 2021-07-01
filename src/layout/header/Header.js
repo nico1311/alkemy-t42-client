@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { AppBar, Toolbar, Typography, makeStyles, Button, IconButton, Drawer, Link, MenuItem } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-
+import LogoImage from './src/images/assets/logosomos'
 
 const useStyles = makeStyles( () => ({
    header: {
-      backgroundColor: "#400CCC",
+      backgroundColor: "#9AC9FB",
       "@media (max-width: 900px)": {
          paddingLeft: 0,
       },
    },
    logo: {
-      fontFamily: "Work Sans, sans-serif",
+      /*fontFamily: "Work Sans, sans-serif",
       fontWeight: 600,
       color: "#fffefe",
-      textAlign: "left",
+      textAlign: "left",*/
+      backgroundImage: `url(${LogoImage})`
    },
    menuButton: {
       fontFamily: "Open Sans, sans-serif",
       fontWeight: 700,
       size: "18px",
-      marginLeft: "200px",
+      marginLeft: "100px",
       
    },
    toolbar: {
@@ -39,6 +40,10 @@ const headersData = [
    {
       label: "Testimonios",
       href: "/testimonios",
+   },
+   {
+      label: "Actividades",
+      href: "/actividades",
    },
    {
       label: "Registro",
