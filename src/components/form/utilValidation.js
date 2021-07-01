@@ -57,3 +57,8 @@ export const validationPassword = (password) => {
   else if (password.length < 6) return 'Must be 6 characters or more.';
   else if (password.length > 32) return 'Must be 32 characters or less.';
 };
+
+export const validationMesssage = (message) => {
+  if(!message) return 'Required';
+  else if(message.length < 30) return 'Must be 30 characters or more.';
+}
