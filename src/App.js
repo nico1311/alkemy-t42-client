@@ -1,16 +1,19 @@
-import { UserContextProvider } from 'context/UserContext';
+//import { UserContextProvider } from 'context/UserContext';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import {Box, Grid, Typography, Link} from '@material-ui/core';
+//import Loader from './layout/loader/Loader'
+import HomePage from './view/home/Home';
 
-const App = () => (
-  <UserContextProvider>
-    <Container maxWidth='sm'>
-      <Box my={4}>
-        <Typography variant='h4' component='h1' gutterBottom>
-          Happy coding!
-        </Typography>
+
+
+const App = () => {
+
+
+    return(
+    <Container>
+      <Box>
+      <HomePage />
+      <Grid>
         <Typography variant='body2' color='textSecondary' align='center'>
           {'Copyright © '}
           <Link
@@ -21,9 +24,11 @@ const App = () => (
           </Link>{' '}
           {new Date().getFullYear()}
         </Typography>
+        {/*<Loader /> */}
+        </Grid>
       </Box>
     </Container>
-  </UserContextProvider>
-);
+    )
+};
 
 export default App;
