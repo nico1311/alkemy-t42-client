@@ -1,8 +1,8 @@
-import Home from './../../component/Home/Home';
+import Home from '../../components/form/Home/Home';
 import { useEffect } from 'react';
 import { getNews, getMessage} from './../../redux/Home/actions/home';
 import { useDispatch } from 'react-redux';
-
+import { Container, Box } from '@material-ui/core';
 
 const HomePage = () => {
 
@@ -13,11 +13,15 @@ const HomePage = () => {
     dispatch(getNews);
 
     dispatch(getMessage);
-    
+
   }, [dispatch])
 
     return ( 
-        <Home/>
+        <Container >
+            <Box >
+                <Home/>
+            </Box>
+        </Container>
      );
 }
  
