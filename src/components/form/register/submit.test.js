@@ -5,7 +5,7 @@ import {
   fireEvent,
   waitFor,
 } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import FormRegister from './FormRegister';
 
 afterAll(cleanup);
@@ -13,7 +13,11 @@ afterAll(cleanup);
 describe('/component/form/register/submit.js - Result function is fine', () => {
   test('Click on button submit call function on props', async () => {
     const handleSubmit = jest.fn();
-    render(<FormRegister changeSubmit={handleSubmit} />);
+    render(
+      <MemoryRouter>
+        <FormRegister changeSubmit={handleSubmit} />
+      </MemoryRouter>,
+    );
     const inputFirstName = screen.getByRole('textbox', {
       name: 'First Name',
     });
