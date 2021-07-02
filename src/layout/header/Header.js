@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, makeStyles, Button, IconButton, Drawer, Li
 import MenuIcon from '@material-ui/icons/Menu'
 import LogoImage from '../../../src/images/assets/logosomos.png'
 
+
 const useStyles = makeStyles( () => ({
    header: {
       backgroundColor: "#9AC9FB",
@@ -145,10 +146,9 @@ export default function Header() {
 
 
    const ongLogo = (
-      /*<Typography variant="h4" component="h3" className={logo}>
+      <Typography variant="h4" component="h3" className={logo}>
          ONG
-      </Typography>*/
-      <Image src={LogoImage}/>
+      </Typography>      
    )
 
    const getMenuButtons = () => {
