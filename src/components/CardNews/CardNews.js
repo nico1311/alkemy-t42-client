@@ -1,28 +1,35 @@
 import { makeStyles,  Button, Typography, Card,  CardActions, CardContent } from '@material-ui/core';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme =>{
+  return{
   item: {
-    marginTop: 30,
-    marginBottom:50,
-    marginInline: 12, 
-    minWidth: 300,
+    marginTop: '15vh',
+    marginBottom:'5vh',
+    marginInline: '1vw', 
+    minWidth: '22vw',
     boxShadow: '3px 3px 5px 6px #ccc',
-    
+    [theme.breakpoints.down('md')]:{
+      minWidth: '90vw',
+      marginTop: '10vh',
+    },
+    [theme.breakpoints.down('lg')]:{
+      minWidth: '22vw',
+      marginTop: '10vh',
+    },
   },
   title: {
-    fontSize: 14,
+    fontSize: '1.5em',
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#094b87'
   },
   pos: {
-    marginBottom: 12,
-    margin: 10,
+    margin: '2vh',
     textAlign: 'center',
-    paddingRight: 10,
+    padding: '1vw',
   }
-});
+}});
 
 
 const CardNews = ({n}) => {
@@ -32,11 +39,10 @@ const CardNews = ({n}) => {
 
     return ( 
       
-      <Card xs={12} sm={6} md={6} lg={3} className={classes.item}>
-        {/*<CardMedia img=''/>*/}
+      <Card className={classes.item}>
         <CardContent>
           <Typography className={classes.title} >
-          {n.id} {n.title}
+          {n.id}  {n.title}
           </Typography>
           <Typography component="p" className={classes.pos}>
             I have good news for you <br />

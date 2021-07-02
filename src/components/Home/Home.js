@@ -1,20 +1,25 @@
-// import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 //import Slice from './../Slice/Slice'; //importa el componente slice q aun no esta hecho
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import CardNews from './../CardNews/CardNews';
 
 
-const useStyles = makeStyles({
-    pageTitle:{
-        margin: 50
-    },
-    welcomeMsg:{
-        fontFamily:'Open Sans',
-        fontSize: 50,
-        margin: 50,
+const useStyles = makeStyles(theme =>{
+    return{
+        pageTitle:{
+            margin: '5vh'
+        },
+        [theme.breakpoints.down('sm')]:{
+           fontSize: '3em',
+        },
+        welcomeMsg:{
+            fontSize: '5em',
+            margin:'5vh',
+        [theme.breakpoints.down('sm')]:{
+            fontSize: '2em',
+        }
     }
-});
+}});
 
 const Home = () => {
 
@@ -24,7 +29,7 @@ const Home = () => {
     const welcomeMessage = useSelector(state => state.home.welcomeMessage);
     
     return ( 
-        <>
+        <main>
         <Typography variant='h3' component='h1' color='primary' align='center' className={classes.pageTitle}>
             Welcome to this Home Page!<br/>
         </Typography>
@@ -34,15 +39,9 @@ const Home = () => {
         <Grid container spacing={10} justify='center' direction='row' alignItems="center" >
             {news.map((n) => <CardNews item key={n.id} n={n}/>) }
         </Grid>
-        </>
+        </main>
      );
 }
 
-// const mapStateToProps = (state) =>{
-//     return {
-//         state: state.homeReducer
-//     }
-// }
 
-export default Home
-// export default connect(mapStateToProps)(Home);
+export default Home;
