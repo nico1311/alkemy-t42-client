@@ -8,6 +8,7 @@ const WelcomeDevs = lazy(() => import('./view/welcomeDevs/WelcomeDevs'));
 const AboutUs = lazy(() => import('./view/aboutUs/AboutUs'));
 const SignUp = lazy(() => import('./view/signup/SignUp'));
 const SignIn = lazy(() => import('./view/signin/SignIn'));
+const Contact = lazy(() => import('./view/contact/Contact'));
 const PrivateRouteExample = lazy(() =>
   import('./view/privates/PrivateRouteExample'),
 );
@@ -18,6 +19,7 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={WelcomeDevs} />
         <Route exact path='/nosotros' component={AboutUs} />
+        <Route exact path='/contacto' component={Contact} />
         <Route exact path='/signup' component={SignUp} />
         <Route exact path='/signin' component={SignIn} />
         <PrivateRoute
