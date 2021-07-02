@@ -6,9 +6,16 @@ import {
   waitFor,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 import FormLogin from './FormLogin';
 
-beforeEach(() => render(<FormLogin />));
+beforeEach(() =>
+  render(
+    <MemoryRouter>
+      <FormLogin />
+    </MemoryRouter>,
+  ),
+);
 afterAll(cleanup);
 
 describe('/component/form/login/FormLogin.js - <FormLogin> - Form Login Renders', () => {
