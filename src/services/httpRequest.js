@@ -42,7 +42,7 @@ export const makePOST = async (APIURL, body) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-      body,
+      body: JSON.stringify(body),
     });
     return response.json();
   } catch (error) {
@@ -75,7 +75,7 @@ export const makeRequest = async (APIURL, verb, body = {}) => {
       method: verb,
       headers: { 'Content-Type': 'application/json' },
       Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-      body,
+      body: JSON.stringify(body),
     });
     return response.json();
   } catch (error) {
