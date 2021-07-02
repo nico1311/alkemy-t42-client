@@ -1,6 +1,6 @@
 /** @module Form/Register */
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { useFormik } from 'formik';
 import validation from './validation';
@@ -147,7 +147,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
         </Button>
         <Grid container justify='flex-end'>
           <Grid item>
-            <Link href={linkToSignIn} variant='body2'>
+            <Link to={linkToSignIn} component={RouterLink} variant='body2'>
               Already have an account? Sign in
             </Link>
           </Grid>
