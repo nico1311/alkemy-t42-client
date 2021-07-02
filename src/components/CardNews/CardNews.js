@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme =>{
     minWidth: '22vw',
     boxShadow: '3px 3px 5px 6px #ccc',
     [theme.breakpoints.down('md')]:{
-      minWidth: '90vw',
+      minWidth: '95vw',
       marginTop: '10vh',
     },
     [theme.breakpoints.down('lg')]:{
