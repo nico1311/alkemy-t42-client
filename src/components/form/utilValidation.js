@@ -58,7 +58,16 @@ export const validationPassword = (password) => {
   else if (password.length > 32) return 'Must be 32 characters or less.';
 };
 
-export const validationMesssage = (message) => {
+/**Function to validate message for forms
+ * @function validationMessage
+ * @param {String} message -A string to check.
+ * @example
+ * validationMessage("Your message should be larger than 30 characters.")
+ * validationMessage("Incorrect message.")
+ * @returns {String} Returns string to set in an object Error.
+ */
+
+export const validationMessage = (message) => {
   if(!message) return 'Required';
   else if(message.length < 30) return 'Must be 30 characters or more.';
 }

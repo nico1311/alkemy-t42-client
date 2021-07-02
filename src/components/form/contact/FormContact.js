@@ -1,3 +1,4 @@
+/**@module Form/Contact */
 import FormContainer from '../FormContainer.js';
 import {
   FormControl,
@@ -24,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
   }
 }));
+
+/**
+ * Component FormContact is a form for Contact section.
+ * @function FormContact
+ * @example
+ * <FormContact /> 
+ * import FormContact from 'components/forms/contact/FormContact.js'
+ */
 
 const FormContact = () => {
   const clases = useStyles();

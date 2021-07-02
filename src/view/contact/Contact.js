@@ -1,16 +1,20 @@
 import React from 'react';
-import Footer from './../../layout/footer/Footer';
 import {
   Container,
   Grid,
   Typography
 } from '@material-ui/core';
-import FormContact from './../../components/form/contact/FormContact';
+import FormContact from 'components/form/contact/FormContact';
 
+/**This is a view for '/contactos'. It contains two columns (left is for text and right is for a contact form)
+ * @function Contact 
+ * @example
+ * <Contact />
+ * import Contact from 'view/contact/Contact.js'
+ * */
 
 const Contact = () => {
   return (
-    <div>
       <Container maxWidth='lg'>
         <Grid container justify='center'>
           <Grid item xs={4}>
@@ -21,9 +25,6 @@ const Contact = () => {
           </Grid>
         </Grid>
       </Container>
-
-      <Footer></Footer>
-    </div>
   );
 };
 
