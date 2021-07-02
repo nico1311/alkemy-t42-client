@@ -1,5 +1,6 @@
 /** @module Form/Register */
 import { makePOST } from 'services/httpRequest';
+import { ENDPOINT_REGISTER } from 'services/settings';
 /**
  * Function submit default of component Form Register. If register is correct, redirect to "/", else we change state of funcion callback "setShowError" to true.
  * @function submit
@@ -19,7 +20,7 @@ const submit = async (
   setShowError,
   redirect,
 ) => {
-  const result = await makePOST('api/auth/register', {
+  const result = await makePOST(ENDPOINT_REGISTER, {
     firstName,
     lastName,
     email,

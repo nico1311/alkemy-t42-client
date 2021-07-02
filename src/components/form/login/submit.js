@@ -1,5 +1,6 @@
 /** @module Form/Login */
 import { makePOST } from 'services/httpRequest';
+import { ENDPOINT_LOGIN } from 'services/settings';
 /**
  * Function submit default of component Form Login. If login is correct, redirect to "/", else we change state of funcion callback "setShowError" to true.
  * @function submit
@@ -19,7 +20,7 @@ const submit = async (
   setShowError,
   redirect,
 ) => {
-  const result = await makePOST('api/auth/login', {
+  const result = await makePOST(ENDPOINT_LOGIN, {
     email,
     password,
   });
