@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  alert: {
+    marginTop: theme.spacing(3),
+  },
 }));
 /**
  * Component FormRegister is react component to render a basic form register.
@@ -50,6 +53,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
+      setErrorReturnForm(false);
       changeSubmit(values, setSubmitting, setErrorReturnForm, history.push);
     },
   });
@@ -127,11 +131,12 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
           </Grid>
         </Grid>
         {/* Error Alert if form return back a error */}
-        {errorReturnForm || (
+        {!errorReturnForm || (
           <AlertGenerator
             alertTitle='Error:'
-            contentText='This is a alert success'
+            contentText='Sorry we have a error. Contact with support, please.'
             variant='filled'
+            className={classes.alert}
           />
         )}
         {/* Button Submit */}
