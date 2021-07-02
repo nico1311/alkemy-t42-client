@@ -1,9 +1,90 @@
-import React, { useState, useEffect } from 'react'
-import { AppBar, Toolbar, Typography, makeStyles, Button, IconButton, Drawer, Link, MenuItem } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import React, { useState} from 'react'
+import { AppBar, Toolbar,Tabs, Tab, useMediaQuery,useTheme, makeStyles, Button } from '@material-ui/core'
 import LogoImage from '../../../src/images/assets/logosomos.png'
+import DrawerComponent from './drawer';
+
+const useStyles = makeStyles(theme => ({
+   offset: theme.mixins.toolbar,
+}))
+
+const NavBar = () => {
+   const classes = useStyles()
+
+   const [ value, setValue ] = useState(0)
+
+   const handleClick = (e, newValue) => {
+      setValue(newValue);
+   };
+
+   const theme = useTheme(); //Get a copy of our default theme in our component so that we can access the breakpoints and pass the useMediaQuery
+
+   const isMatch = useMediaQuery(theme.breakpoints.down('sm'));
+
+   return (
+      <>
+         <AppBar color='primary'>
+  
+            <Toolbar>
+               <img src={LogoImage} alt='ONG'></img>
+
+               {isMatch ? <DrawerComponent/>: ( 
+                  <>
+                     <Tabs onClick={handleClick} indicatorColor='secondary' value={value}>
+                        <Tab disableRipple label='nosotros'/>
+                                 
+                        <Tab disableRipple label='contacto'/>
+                                    
+                        <Tab disableRipple label='novedades'/>
+                                 
+                        <Tab disableRipple label='actividades'/>
+                     
+                        <Tab disableRipple label='testimonios'/>
+                     
+                     </Tabs>
+                     <Button variant='contained' color='secondary'>
+                        Registrase
+                     </Button>
+
+                     <Button variant='contained' color='secondary'>
+                        Iniciar sesión
+                     </Button>
+                  </>
+               )}               
+            </Toolbar>
+         </AppBar>
+         <div className={classes.offset}>
+
+         </div>
+      </>
+   );
+};
+
+export default NavBar;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const useStyles = makeStyles( (theme) => ({
    offset: theme.mixins.toolbar,
    header: {
@@ -13,10 +94,10 @@ const useStyles = makeStyles( (theme) => ({
       },
    },
    logo: {
-      /*fontFamily: "Work Sans, sans-serif",
+      fontFamily: "Work Sans, sans-serif",
       fontWeight: 600,
       color: "#fffefe",
-      textAlign: "left",*/
+      textAlign: "left",
       backgroundImage: `url(${LogoImage})`
    },
    menuButton: {
@@ -28,8 +109,7 @@ const useStyles = makeStyles( (theme) => ({
    },
    toolbar: {
       display: "flex",
-      justifyContent: "space-between",
-      
+      justifyContent: "space-between",    
     },
     
 }))
@@ -182,4 +262,4 @@ export default function Header() {
       </header>
    )
 }
-  
+*/  
