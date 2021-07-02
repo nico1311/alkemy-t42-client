@@ -5,6 +5,10 @@ import DrawerComponent from './drawer';
 
 const useStyles = makeStyles(theme => ({
    offset: theme.mixins.toolbar,
+   logo: {
+      width: '5%',
+      heigth: '5%',
+   },
 }))
 
 const NavBar = () => {
@@ -25,7 +29,7 @@ const NavBar = () => {
          <AppBar color='primary'>
   
             <Toolbar>
-               <img src={LogoImage} alt='ONG'></img>
+               <img src={LogoImage} className={classes.logo} alt='ONG'></img>
 
                {isMatch ? <DrawerComponent/>: ( 
                   <>
@@ -80,186 +84,3 @@ export default NavBar;
 
 
 
-
-
-
-
-/*
-const useStyles = makeStyles( (theme) => ({
-   offset: theme.mixins.toolbar,
-   header: {
-      backgroundColor: "#9AC9FB",
-      "@media (max-width: 900px)": {
-         paddingLeft: 0,
-      },
-   },
-   logo: {
-      fontFamily: "Work Sans, sans-serif",
-      fontWeight: 600,
-      color: "#fffefe",
-      textAlign: "left",
-      backgroundImage: `url(${LogoImage})`
-   },
-   menuButton: {
-      fontFamily: "Open Sans, sans-serif",
-      fontWeight: 700,
-      size: "18px",
-      marginLeft: "100px",
-      
-   },
-   toolbar: {
-      display: "flex",
-      justifyContent: "space-between",    
-    },
-    
-}))
-
-const headersData = [
-   {
-      label: "Novedades",
-      href: "/novedades",
-   },
-   {
-      label: "Testimonios",
-      href: "/testimonios",
-   },
-   {
-      label: "Actividades",
-      href: "/actividades",
-   },
-   {
-      label: "Registro",
-      href: "/registro",
-   },
-   {
-      label: "Log in",
-      href: "/log-in",
-   },
-]
-
-export default function Header() {
-   const classes = useStyles()
-   const { header, logo, menuButton } = useStyles()
-
-   const [state, setState] = useState({
-      mobileView: false,
-      menuOpen: false
-   })
-
-   const { mobileView, menuOpen } = state
-
-   useEffect(() => {
-      const setResponsiveness = () => {
-         if (window.innerWidth < 900){
-            setState((prevState) => ({ ...prevState, mobileView: true }))
-         }else{
-            setState((prevState) => ({ ...prevState, mobileView: false }))
-         }        
-      }
-
-      setResponsiveness();
-      window.addEventListener("resize", () => setResponsiveness())
-
-      return () => {
-         window.removeEventListener("resize", () => setResponsiveness())
-    }
-   }, [])
-
-   const displayDesktop = () => {
-      return (
-         <Toolbar className={window.toolbar}>
-            {ongLogo}
-            <div>{getMenuButtons()}</div>
-         </Toolbar>
-      )
-   }
-
-   const displayMobile = () => {
-
-      const handleMenuOpen = () =>
-         setState((prevState) => ({ ...prevState, menuOpen: true }))
-      const handleMenuClose = () =>
-         setState((prevState) => ({ ...prevState, menuOpen: false }))
-
-      return (
-        <Toolbar>
-            <IconButton
-               {...{
-                  edge: "start",
-                  color: "inherit",
-                  "aria-label": "menu",
-                  "aria-haspopup": "true",
-                  onClick: handleMenuOpen,
-               }}
-            >
-               <MenuIcon />
-            </IconButton>
-            <Drawer
-               {...{
-                  anchor: "left",
-                  open: menuOpen,
-                  onClose: handleMenuClose,
-               }}
-            >
-               <div className="drawaerContainer">{getDrawerChoices()}</div>
-            </Drawer>
-            
-            <div>{ongLogo}</div>
-         </Toolbar>
-      )
-    }
-
-    const getDrawerChoices = () => {
-      return headersData.map(({ label, href }) => {
-        return (
-         <Link
-            {...{
-              to: href,
-              color: "inherit",
-              style: { textDecoration: "none" },
-              key: label,
-            }}
-         >
-            <MenuItem>{label}</MenuItem>
-         </Link>
-        )
-      })
-    }
-
-
-   const ongLogo = (
-      <Typography variant="h4" component="h3" className={logo}>
-         ONG
-      </Typography>      
-   )
-
-   const getMenuButtons = () => {
-      return headersData.map(({ label, href }) => {
-        return (
-          <Button
-            {...{
-              key: label,
-              color: "inherit",
-              to: href,
-              className: menuButton
-            }}
-          >
-            {label}
-          </Button>
-        )
-      })
-    }
-
-
-   return (
-      <header>
-         <AppBar className={header}>
-            {mobileView ? displayMobile() : displayDesktop()}
-         </AppBar>
-         <div className={classes.offset}>
-
-         </div>
-      </header>
-   )
-}
-*/  
