@@ -4,7 +4,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import LogoImage from '../../../src/images/assets/logosomos.png'
 
 
-const useStyles = makeStyles( () => ({
+const useStyles = makeStyles( (theme) => ({
+   offset: theme.mixins.toolbar,
    header: {
       backgroundColor: "#9AC9FB",
       "@media (max-width: 900px)": {
@@ -57,6 +58,7 @@ const headersData = [
 ]
 
 export default function Header() {
+   const classes = useStyles()
    const { header, logo, menuButton } = useStyles()
 
    const [state, setState] = useState({
@@ -174,6 +176,9 @@ export default function Header() {
          <AppBar className={header}>
             {mobileView ? displayMobile() : displayDesktop()}
          </AppBar>
+         <div className={classes.offset}>
+
+         </div>
       </header>
    )
 }
