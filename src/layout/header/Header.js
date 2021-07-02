@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { AppBar, Toolbar,Tabs, Tab, useMediaQuery,useTheme, makeStyles, Button } from '@material-ui/core'
+import { AppBar, Toolbar,Tabs, Tab, useMediaQuery,useTheme, makeStyles, Button, Grid } from '@material-ui/core'
 import LogoImage from '../../../src/images/assets/logosomos.png'
 import DrawerComponent from './drawer';
 
@@ -9,6 +9,12 @@ const useStyles = makeStyles(theme => ({
       width: '5%',
       heigth: '5%',
    },
+   root: {
+      flexGrow: 1,
+   },
+   split: {
+      marginRight: '20px',
+   }
 }))
 
 const NavBar = () => {
@@ -33,25 +39,31 @@ const NavBar = () => {
 
                {isMatch ? <DrawerComponent/>: ( 
                   <>
-                     <Tabs onClick={handleClick} indicatorColor='secondary' value={value}>
-                        <Tab disableRipple label='nosotros'/>
-                                 
-                        <Tab disableRipple label='contacto'/>
-                                    
-                        <Tab disableRipple label='novedades'/>
-                                 
-                        <Tab disableRipple label='actividades'/>
-                     
-                        <Tab disableRipple label='testimonios'/>
-                     
-                     </Tabs>
-                     <Button variant='contained' color='secondary'>
-                        Registrase
-                     </Button>
+                     <Grid container>
+                        <Grid item className={classes.root}>
+                           <Tabs onClick={handleClick} indicatorColor='secondary' value={value} >
+                              <Tab disableRipple label='nosotros' />
+                                       
+                              <Tab disableRipple label='contacto'/>
+                                          
+                              <Tab disableRipple label='novedades'/>
+                                       
+                              <Tab disableRipple label='actividades'/>
+                           
+                              <Tab disableRipple label='testimonios'/>
+                           
+                           </Tabs>
+                        </Grid>
+                        <Grid item>
+                           <Button variant='contained' color='secondary' className={classes.split}>
+                              Registrase
+                           </Button>
 
-                     <Button variant='contained' color='secondary'>
-                        Iniciar sesión
-                     </Button>
+                           <Button variant='contained' color='secondary' className={classes.split}>
+                              Iniciar sesión
+                           </Button>
+                        </Grid>
+                     </Grid>
                   </>
                )}               
             </Toolbar>
