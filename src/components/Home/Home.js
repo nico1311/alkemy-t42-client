@@ -9,6 +9,7 @@ import CardNews from './../CardNews/CardNews';
 const useStyles = makeStyles(theme =>{
     return{
         pageTitle:{
+            margin: '4vh',
         [theme.breakpoints.down('sm')]:{
            fontSize: '3em',
         }},
