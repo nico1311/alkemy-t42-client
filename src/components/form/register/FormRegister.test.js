@@ -6,9 +6,16 @@ import {
   waitFor,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 import FormRegister from './FormRegister';
 
-beforeEach(() => render(<FormRegister />));
+beforeEach(() =>
+  render(
+    <MemoryRouter>
+      <FormRegister />
+    </MemoryRouter>,
+  ),
+);
 afterAll(cleanup);
 
 describe('/component/form/register/FormRegister.js - <FormRegister> - Form Register Renders', () => {

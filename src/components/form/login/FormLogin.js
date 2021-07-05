@@ -1,4 +1,7 @@
 /** @module Form/Login */
+import { useState } from 'react';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
+import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { useFormik } from 'formik';
 import validation from './validation';
 import submit from './submit';
@@ -18,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  alert: {
+    marginTop: theme.spacing(3),
+  },
 }));
 /**
  * Component FormLogin is react component to render a basic form login.
- * @fuction FormLogin
+ * @function FormLogin
  * @param {String} [props.linkToSignUp="#"] - A string like a URL of redirect to SignUp.
  * @param {Function} [props.changeSubmit=submit] - A custom function to change default function onSubmit.
  * @example
@@ -32,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
  * <FormLogin changeSubmit={myCustomSubmit} />
  */
 const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
+  // State to handler alert error show/hide.
+  const [errorReturnForm, setErrorReturnForm] = useState(false);
+  // React Router function to redirect user if register is correct.
+  const history = useHistory();
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -40,7 +50,8 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting);
+      setErrorReturnForm(false);
+      changeSubmit(values, setSubmitting, setErrorReturnForm, history.push);
     },
   });
   return (
@@ -81,6 +92,15 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
             />
           </Grid>
         </Grid>
+        {/* Error Alert if form return back a error */}
+        {!errorReturnForm || (
+          <AlertGenerator
+            alertTitle='Error:'
+            contentText='Sorry we have a error. Contact with support, please.'
+            variant='filled'
+            className={classes.alert}
+          />
+        )}
         {/* Button Submit */}
         <Button
           disabled={formik.isSubmitting}
@@ -94,7 +114,7 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
         </Button>
         <Grid container justify='flex-end'>
           <Grid item>
-            <Link href={linkToSignUp} variant='body2'>
+            <Link to={linkToSignUp} component={RouterLink} variant='body2'>
               Don't have an account? Sign Up
             </Link>
           </Grid>
