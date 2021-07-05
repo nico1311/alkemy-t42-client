@@ -9,6 +9,6 @@ import FormRegister from 'components/form/register/FormRegister';
  * // With a Router.
  * <Route exact path="/signup" component={SignUpPage} />
  */
-const SignUpPage = () => <FormRegister linkToSignIn='/signin' />;
+const SignUpPage = () => <FormRegister linkToSignIn='/ingresar' />;
 
 export default SignUpPage;

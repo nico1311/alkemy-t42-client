@@ -9,9 +9,9 @@
  * @returns {String} Returns string to set in an object Error.
  */
 export const validationFirstName = (firstName) => {
-  if (!firstName) return 'Required';
-  else if (firstName.length > 18) return 'Must be 18 characters or less.';
-  else if (firstName.length < 2) return 'Must be 2 characters or more.';
+  if (!firstName) return 'Requerido';
+  else if (firstName.length > 18) return 'Como máximo 18 caracteres.';
+  else if (firstName.length < 2) return 'Debe contener 2 caracteres o más.';
 };
 /**
  * Function to validate last name for forms.
@@ -23,9 +23,9 @@ export const validationFirstName = (firstName) => {
  * @returns {String} Returns string to set in an object Error.
  */
 export const validationLastName = (lastName) => {
-  if (!lastName) return 'Required';
-  else if (lastName.length > 18) return 'Must be 18 characters or less.';
-  else if (lastName.length < 2) return 'Must be 2 characters or more.';
+  if (!lastName) return 'Requerido';
+  else if (lastName.length > 18) return 'Como máximo 18 caracteres.';
+  else if (lastName.length < 2) return 'Debe contener 2 caracteres o más.';
 };
 /**
  * Function to validate email for forms.
@@ -37,11 +37,11 @@ export const validationLastName = (lastName) => {
  * @returns {String} Returns string to set in an object Error.
  */
 export const validationEmail = (email) => {
-  if (!email) return 'Required';
+  if (!email) return 'Requerido';
   else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))
     return 'Invalid email address.';
-  else if (email.length > 64) return 'Must be 64 characters or less.';
-  else if (email.length < 2) return 'Must be 2 characters or more.';
+  else if (email.length > 64) return 'Debe contener mas de 64 caracteres.';
+  else if (email.length < 2) return 'Debe contener 2 caracteres o más.';
 };
 /**
  * Function to validate password for forms.
@@ -53,9 +53,10 @@ export const validationEmail = (email) => {
  * @returns {String} Returns string to set in an object Error.
  */
 export const validationPassword = (password) => {
-  if (!password) return 'Required';
-  else if (password.length < 6) return 'Must be 6 characters or more.';
-  else if (password.length > 32) return 'Must be 32 characters or less.';
+  if (!password) return 'Requerido';
+  else if (password.length < 6) return 'Debe contener 6 caracteres o más.';
+  else if (password.length > 32)
+    return 'Debe contener un máximo de 32 caracteres.';
 };
 
 /**Function to validate message for forms
@@ -68,6 +69,6 @@ export const validationPassword = (password) => {
  */
 
 export const validationMessage = (message) => {
-  if(!message) return 'Required';
-  else if(message.length < 30) return 'Must be 30 characters or more.';
-}
+  if (!message) return 'Requerido';
+  else if (message.length < 30) return 'Debe contener 30 caracteres o más.';
+};

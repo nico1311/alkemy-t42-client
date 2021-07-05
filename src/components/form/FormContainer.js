@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    margin: '2rem',
   },
 }));
 /**
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
  * <FormContainer titleForm='Sign UP'>
  *    Children component or tags.
  * </FormContainer>
- * <FormContainer titleForm='Sign IN'>
+ * <FormContainer titleForm='Sign IN'></FormContainer>
  *    <FormLogin />
  * </FormContainer>
  */

@@ -12,7 +12,7 @@ import { BASE_URL } from './settings';
  */
 export const makeGET = async (APIURL) => {
   try {
-    const response = await fetch(`${BASE_URL}/${APIURL}`, {
+    const response = await fetch(`${BASE_URL}${APIURL}`, {
       Authorization: `bearer ${localStorage.getItem('token') || ''}`,
     });
     return response.json();
@@ -38,7 +38,7 @@ export const makeGET = async (APIURL) => {
  */
 export const makePOST = async (APIURL, body) => {
   try {
-    const response = await fetch(`${BASE_URL}/${APIURL}`, {
+    const response = await fetch(`${BASE_URL}${APIURL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       Authorization: `bearer ${localStorage.getItem('token') || ''}`,
@@ -71,7 +71,7 @@ export const makePOST = async (APIURL, body) => {
  */
 export const makeRequest = async (APIURL, verb, body = {}) => {
   try {
-    const response = await fetch(`${BASE_URL}/${APIURL}`, {
+    const response = await fetch(`${BASE_URL}${APIURL}`, {
       method: verb,
       headers: { 'Content-Type': 'application/json' },
       Authorization: `bearer ${localStorage.getItem('token') || ''}`,

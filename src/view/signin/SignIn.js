@@ -9,6 +9,6 @@ import FormLogin from 'components/form/login/FormLogin';
  * // With a Router.
  * <Route exact path="/signin" component={SignInPage} />
  */
-const SignInPage = () => <FormLogin linkToSignUp='/signup' />;
+const SignInPage = () => <FormLogin linkToSignUp='/registrar' />;
 
 export default SignInPage;

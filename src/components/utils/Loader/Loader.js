@@ -1,6 +1,6 @@
-import React from 'react'
-import HashLoader from 'react-spinners/HashLoader'
-import Grid from '@material-ui/core/Grid'
+import React from 'react';
+import HashLoader from 'react-spinners/HashLoader';
+import Grid from '@material-ui/core/Grid';
 
 /**
  * @module layout/loader
@@ -13,18 +13,18 @@ import Grid from '@material-ui/core/Grid'
  * @example 
  *  <Loader color={#000} size={150} speed={1} />
  */
-const Loader = ({color="#4A90E2", size=250, speed=1}) => {
-    return (
-        <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            style={{minHeight: "100vh", position:"fixed", top:0, left:0}}
-        >
-            <HashLoader color={color} size={size} speedMultiplier={speed} />
-        </Grid>
-    )
-}
+const Loader = ({ color = '#4A90E2', size = 250, speed = 1 }) => {
+  return (
+    <Grid
+      container
+      direction='column'
+      justify='center'
+      alignItems='center'
+      style={{ minHeight: '100vh', position: 'fixed', top: 0, left: 0 }}
+    >
+      <HashLoader color={color} size={size} speedMultiplier={speed} />
+    </Grid>
+  );
+};
 
-export default Loader
+export default Loader;

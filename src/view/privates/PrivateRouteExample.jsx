@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const PrivateRouteExample = () => {
-    return (
-        <div>
-            Ruta privada
-        </div>
-    )
-}
+  return <div>Ruta privada</div>;
+};
 
-export default PrivateRouteExample
+export default PrivateRouteExample;
