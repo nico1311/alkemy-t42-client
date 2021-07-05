@@ -21,6 +21,9 @@ const useStyles = makeStyles(() => ({
     },
     iconos:{
         color: 'white'
+    },
+    margin:{ 
+        marginBottom: '5vh',
     }
 }));
 
@@ -52,9 +55,10 @@ function MyProfile(props) {
                     <CardProfile icono={<MailIcon className={classes.iconos}/>} titulo="Email" texto="leandro.garassino@gmail.com" color="rgba(248,80,50,1)" font="white"/>
                 </Grid>
                 <Grid container className={classes.root}>
+                    <Grid className={classes.margin}>
                     <Buttons icono={<EditIcon className={classes.iconos}/>} texto="Edit" color="primary" />
                     <Buttons onClick={useDelete} icono={<DeleteIcon className={classes.iconos}/>} texto="Delete" color="secondary"/>
-                    
+                    </Grid>
                 </Grid>
             </Grid>
     )

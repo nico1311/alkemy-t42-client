@@ -3,8 +3,10 @@ import { Switch, Route } from 'react-router-dom';
 import Loader from './components/utils/Loader/Loader';
 import PrivateRoute from 'components/utils/PrivateRoute/PrivateRoute';
 import Header from 'layout/header/Header';
+import Footer from 'layout/footer/Footer'
 import { ThemeProvider } from '@material-ui/core';
 import theme from 'layout/header/theme'
+import MyProfile from 'view/myProfile/MyProfile';
 
 
 const HomePage = lazy(() => import('./view/home/Home'));
@@ -24,6 +26,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path='/nosotros' component={AboutUs} />
+          <Route exact path='/perfil' component={MyProfile} />
           <Route exact path='/contacto' component={Contact} />
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/signin' component={SignIn} />
@@ -34,6 +37,7 @@ const App = () => (
             redirectTo='/'
           />
         </Switch>
+        <Footer />
     </Suspense>
 );
 
