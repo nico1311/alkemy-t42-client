@@ -1,4 +1,7 @@
 /** @module Form/Register */
+import { useState } from 'react';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
+import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { useFormik } from 'formik';
 import validation from './validation';
 import submit from './submit';
@@ -7,21 +10,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-// Styles for this components.
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    height: '100%',
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import useStyles from './styles/style';
 /**
  * Component FormRegister is react component to render a basic form register.
- * @fuction FormRegister
+ * @function FormRegister
  * @param {String} [props.linkToSignIn="#"] - A string like a URL of redirect to SignIn
  * @param {Function} [props.changeSubmit=submit] - A custom function to change default function onSubmit.
  * @example
@@ -33,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
  * <FormRegister changeSubmit={myCustomSubmit} />
  */
 const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
+  // State to handler alert error show/hide.
+  const [errorReturnForm, setErrorReturnForm] = useState(false);
+  // React Router function to redirect user if register is correct.
+  const history = useHistory();
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -43,11 +39,12 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting);
+      setErrorReturnForm(false);
+      changeSubmit(values, setSubmitting, setErrorReturnForm, history.push);
     },
   });
   return (
-    <FormContainer titleForm='Sign UP'>
+    <FormContainer titleForm='Crear una cuenta'>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           {/* Input FirstName */}
@@ -59,7 +56,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
               required
               fullWidth
               id='firstName'
-              label='First Name'
+              label='Nombre'
               autoFocus
               value={formik.values.firstName}
               onChange={formik.handleChange}
@@ -76,7 +73,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
               required
               fullWidth
               id='lastName'
-              label='Last Name'
+              label='Apellido'
               name='lastName'
               autoComplete='lname'
               value={formik.values.lastName}
@@ -92,7 +89,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
               required
               fullWidth
               id='email'
-              label='Email Address'
+              label='Correo electrónico'
               name='email'
               autoComplete='email'
               value={formik.values.email}
@@ -108,7 +105,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
               required
               fullWidth
               name='password'
-              label='Password'
+              label='Contraseña'
               type='password'
               id='password'
               autoComplete='current-password'
@@ -119,6 +116,15 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
             />
           </Grid>
         </Grid>
+        {/* Error Alert if form return back a error */}
+        {!errorReturnForm || (
+          <AlertGenerator
+            alertTitle='Error:'
+            contentText='Sorry we have a error. Contact with support, please.'
+            variant='filled'
+            className={classes.alert}
+          />
+        )}
         {/* Button Submit */}
         <Button
           disabled={formik.isSubmitting}
@@ -128,12 +134,17 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
           color='primary'
           className={classes.submit}
         >
-          {formik.isSubmitting ? 'Loading...' : 'Sign Up'}
+          {formik.isSubmitting ? 'Cargando...' : 'Crear cuenta'}
         </Button>
         <Grid container justify='flex-end'>
           <Grid item>
-            <Link href={linkToSignIn} variant='body2'>
-              Already have an account? Sign in
+            <Link
+              to={linkToSignIn}
+              component={RouterLink}
+              variant='body2'
+              color='inherit'
+            >
+              ¿Ya tiene una cuenta?. Ingrese.
             </Link>
           </Grid>
         </Grid>
@@ -143,3 +154,4 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
 };
 
 export default FormRegister;
+
