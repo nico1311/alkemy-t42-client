@@ -1,6 +1,7 @@
 /** @module Form/Register */
 import { makePOST } from 'services/httpRequest';
 import { ENDPOINT_REGISTER } from 'services/settings';
+import { setToken } from 'services/tokenHandler'
 /**
  * Function submit default of component Form Register. If register is correct, redirect to "/", else we change state of funcion callback "setShowError" to true.
  * @function submit
@@ -26,7 +27,11 @@ const submit = async (
     email,
     password,
   });
-  if (result.user) redirect('/');
+  if (result.user) {
+    // Save token in local storage
+    setToken(result.token) // Esto deberia ir en un servicio que tambien almacene el usuario en el storage
+    redirect('/');
+  } 
   else if (!result.ok) setShowError(true);
   setSubmit(false);
 };
