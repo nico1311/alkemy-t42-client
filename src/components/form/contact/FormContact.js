@@ -16,7 +16,7 @@ import useStyles from './style';
  */
 const FormContact = ({ changeSubmit = submit }) => {
   // State to handler alert error show/hide.
-  const [msjTypeReturnForm, setMsjTypeReturnForm] = useState(false);
+  const [typeMSJ, setTypeMSJ] = useState();
   const clases = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -26,8 +26,8 @@ const FormContact = ({ changeSubmit = submit }) => {
     },
     validate,
     onSubmit: (values, { setSubmitting }) => {
-      setMsjTypeReturnForm(false);
-      changeSubmit(values, setSubmitting, setMsjTypeReturnForm);
+      setTypeMSJ();
+      changeSubmit(values, setSubmitting, setTypeMSJ);
     },
   });
   return (
@@ -85,18 +85,19 @@ const FormContact = ({ changeSubmit = submit }) => {
           Enviar
         </Button>
         {/* Alert if is success or error */}
-        {msjTypeReturnForm === 'error' && (
-          <AlertGenerator
-            alertTitle='Error:'
-            contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
-            variant='filled'
-            className={clases.alert}
-          />
-        )}
-        {msjTypeReturnForm === 'sucess' && (
+        {typeMSJ === 'success' && (
           <AlertGenerator
             alertTitle='Success:'
             contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
+            variant='filled'
+            severity='success'
+            className={clases.alert}
+          />
+        )}
+        {typeMSJ === 'error' && (
+          <AlertGenerator
+            alertTitle='Error:'
+            contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
             variant='filled'
             className={clases.alert}
           />
