@@ -1,49 +1,20 @@
-const mockMakeGET = async (URL) => {
-  try {
-    const response = await fetch(URL, {
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-    });
-    return response.json();
-  } catch (error) {
-    return error;
-  }
-};
-const mockMakePOST = async (URL, body) => {
-  try {
-    const response = await fetch(URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-      body: JSON.stringify(body),
-    });
-    return response.json();
-  } catch (error) {
-    return error;
-  }
-};
-const mockMakeRequest = async (URL, verb, body = {}) => {
-  try {
-    const response = await fetch(URL, {
-      method: verb,
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-      body: JSON.stringify(body),
-    });
-    return response.json();
-  } catch (error) {
-    return error;
-  }
-};
+import {
+  makeGET,
+  makePOST,
+  makePUT,
+  makePATCH,
+  makeDELETE,
+} from 'services/httpRequest';
 
 describe('/services/httpRequest.js - Function work', () => {
   test('Does function makeGet working', async () => {
-    const result = await mockMakeGET(
+    const result = await makeGET(
       'https://jsonplaceholder.typicode.com/todos/1',
     );
     expect(result).toHaveProperty('id', 1);
   });
   test('Does function makePOST working', async () => {
-    const result = await mockMakePOST(
+    const result = await makePOST(
       'https://jsonplaceholder.typicode.com/posts',
       {
         title: 'foo',
@@ -53,10 +24,9 @@ describe('/services/httpRequest.js - Function work', () => {
     );
     expect(result).toHaveProperty('userId', 1);
   });
-  test('Does function makeRequest with request PUT working', async () => {
-    const result = await mockMakeRequest(
+  test('Does function makePUT working', async () => {
+    const result = await makePUT(
       'https://jsonplaceholder.typicode.com/posts/1',
-      'PUT',
       {
         id: 1,
         title: 'foo',
@@ -66,20 +36,18 @@ describe('/services/httpRequest.js - Function work', () => {
     );
     expect(result).toHaveProperty('userId', 1);
   });
-  test('Does function makeRequest with request PATCH working', async () => {
-    const result = await mockMakeRequest(
+  test('Does function makePATCH working', async () => {
+    const result = await makePATCH(
       'https://jsonplaceholder.typicode.com/posts/1',
-      'PATCH',
       {
         title: 'foo',
       },
     );
     expect(result).toHaveProperty('title', 'foo');
   });
-  test('Does function makeRequest with request DELETE working', async () => {
-    const result = await mockMakeRequest(
+  test('Does function makeDELETE working', async () => {
+    const result = await makeDELETE(
       'https://jsonplaceholder.typicode.com/posts/1',
-      'DELETE',
     );
     expect(result).toStrictEqual({});
   });
