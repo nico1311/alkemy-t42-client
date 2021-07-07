@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
   },
   alert: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(6),
+    padding: theme.spacing(3),
   },
 }));
 
