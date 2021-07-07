@@ -1,20 +1,22 @@
 /**@module Form/Contact */
+import { useState } from 'react';
+import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import FormContainer from '../FormContainer.js';
 import { FormControl, TextField, FormLabel, Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import validate from './validation';
 import submit from './submit';
 import useStyles from './style';
-
 /**
  * Component FormContact is a form for Contact section.
  * @function FormContact
  * @example
- * <FormContact />
  * import FormContact from 'components/forms/contact/FormContact.js'
+ * <FormContact />
  */
-
-const FormContact = () => {
+const FormContact = ({ changeSubmit = submit }) => {
+  // State to handler alert error show/hide.
+  const [msjTypeReturnForm, setMsjTypeReturnForm] = useState(false);
   const clases = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -23,8 +25,9 @@ const FormContact = () => {
       message: '',
     },
     validate,
-    onSubmit: async (values) => {
-      submit(values);
+    onSubmit: (values, { setSubmitting }) => {
+      setMsjTypeReturnForm(false);
+      changeSubmit(values, setSubmitting, setMsjTypeReturnForm);
     },
   });
   return (
@@ -32,7 +35,7 @@ const FormContact = () => {
       <form className={clases.form} onSubmit={formik.handleSubmit}>
         <FormControl className={clases.formControl}>
           <FormLabel required htmlFor='nameInput'>
-            Nombre{' '}
+            Nombre
           </FormLabel>
           <TextField
             id='name'
@@ -58,7 +61,7 @@ const FormContact = () => {
         </FormControl>
         <FormControl className={clases.formControl}>
           <FormLabel required htmlFor='messageInput'>
-            Mensaje{' '}
+            Mensaje
           </FormLabel>
           <TextField
             id='message'
@@ -73,6 +76,7 @@ const FormContact = () => {
           />
         </FormControl>
         <Button
+          disabled={formik.isSubmitting}
           variant='contained'
           className={clases.button}
           color='secondary'
@@ -80,6 +84,23 @@ const FormContact = () => {
         >
           Enviar
         </Button>
+        {/* Alert if is success or error */}
+        {msjTypeReturnForm === 'error' && (
+          <AlertGenerator
+            alertTitle='Error:'
+            contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
+            variant='filled'
+            className={clases.alert}
+          />
+        )}
+        {msjTypeReturnForm === 'sucess' && (
+          <AlertGenerator
+            alertTitle='Success:'
+            contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
+            variant='filled'
+            className={clases.alert}
+          />
+        )}
       </form>
     </FormContainer>
   );
