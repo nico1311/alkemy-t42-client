@@ -29,6 +29,8 @@ const App = () => (
           <Route exact path='/contacto' component={Contact} />
           <Route exact path='/registrar' component={SignUp} />
           <Route exact path='/ingresar' component={SignIn} />
+          <Route exact path='/perfil' component={MyProfile} />
+          <Route exact path='/perfil/eliminar' component={DeleteProfile} />
           <PrivateRoute
             exact
             path='/rutaprivada'
