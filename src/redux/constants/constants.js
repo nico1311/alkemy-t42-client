@@ -4,7 +4,6 @@ export const actionType = {
 };
 
 export const actionUser = {
-  USER_GET: 'USER_GET',
   USER_LOGIN: 'USER_LOGIN',
   USER_LOGOUT: 'USER_LOGOUT',
 };
