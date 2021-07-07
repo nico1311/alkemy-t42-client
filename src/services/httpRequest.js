@@ -1,5 +1,11 @@
 /** @module services/http */
 /**
+ * Constant with BASE URL to make requests.
+ * @constant
+ * @readonly
+ */
+const TOKENJWT = localStorage.getItem('token') || '';
+/**
  * Function to make a generic request GET.
  * @async
  * @function makeGET
@@ -12,7 +18,10 @@
  */
 export const makeGET = async (APIURL) => {
   try {
-    const res = await fetch(APIURL);
+    const res = await fetch(APIURL, {
+      headers: { 'Content-Type': 'application/json' },
+      Authorization: TOKENJWT,
+    });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
       error.info = await res.json();
@@ -45,7 +54,7 @@ export const makePOST = async (APIURL, body) => {
     const res = await fetch(APIURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: localStorage.getItem('token') || '',
+      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -79,7 +88,7 @@ export const makePUT = async (APIURL, body) => {
     const res = await fetch(APIURL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: localStorage.getItem('token') || '',
+      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -108,7 +117,7 @@ export const makePATCH = async (APIURL, body) => {
     const res = await fetch(APIURL, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: localStorage.getItem('token') || '',
+      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -137,7 +146,7 @@ export const makeDELETE = async (APIURL, body) => {
     const res = await fetch(APIURL, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: localStorage.getItem('token') || '',
+      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {
