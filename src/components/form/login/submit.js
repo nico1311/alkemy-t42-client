@@ -24,8 +24,8 @@ const submit = async (
     email,
     password,
   });
-  if (!result.ok) setShowError(true);
-  else redirect('/');
+  if (result.token) redirect('/');
+  else if (!result.ok) setShowError(true);
   setSubmit(false);
 };
 

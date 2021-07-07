@@ -64,6 +64,7 @@ const Slider = () => {
             }
             alt={img.text}
             name={i}
+            key={i}
           ></img>
         );
       })}
@@ -82,6 +83,7 @@ const Slider = () => {
               checked={checked === i}
               name='radio-button'
               onChange={handleChange}
+              key={i}
             ></Radio>
           );
         })}

@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
     //Class added to a image hidden
     position: 'absolute',
     left: '0',
-    height: '100%',
+    width: '100%',
     opacity: '0',
     transition: 'opacity 0.5s',
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      height: '100%',
       objectFit: 'cover',
     },
   },

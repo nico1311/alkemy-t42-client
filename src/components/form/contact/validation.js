@@ -1,4 +1,8 @@
-import {validationEmail, validationFirstName, validationMessage} from './../utilValidation';
+import {
+  validationEmail,
+  validationFirstName,
+  validationMessage,
+} from './../utilValidation';
 
 /**Validation function for Contact Form
  * @function validate
@@ -7,19 +11,19 @@ import {validationEmail, validationFirstName, validationMessage} from './../util
  * validate(values)
  */
 
-const validate = ({email, name, message}) => {
-    const errors = {};
+const validate = ({ email, name, message }) => {
+  const errors = {};
 
-    const isValidEmail = validationEmail(email);
-    if(isValidEmail) errors.email = isValidEmail;
+  const isValidEmail = validationEmail(email);
+  if (isValidEmail) errors.email = isValidEmail;
 
-    const isValidName = validationFirstName(name);
-    if(isValidName) errors.name = isValidName;
+  const isValidName = validationFirstName(name);
+  if (isValidName) errors.name = isValidName;
 
-    const isValidMessage = validationMessage(message);
-    if(isValidMessage) errors.message = isValidMessage;
+  const isValidMessage = validationMessage(message);
+  if (isValidMessage) errors.message = isValidMessage;
 
-    return errors
-}
+  return errors;
+};
 
 export default validate;

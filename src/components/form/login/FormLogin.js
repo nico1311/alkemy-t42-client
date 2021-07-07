@@ -10,21 +10,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-// Styles for this components.
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    height: '100%',
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  alert: {
-    marginTop: theme.spacing(3),
-  },
-}));
+import useStyles from './styles/style';
+
 /**
  * Component FormLogin is react component to render a basic form login.
  * @function FormLogin
@@ -55,7 +42,7 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
     },
   });
   return (
-    <FormContainer titleForm='Sign IN'>
+    <FormContainer titleForm='Ingrese a la página'>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           {/* Input Email */}
@@ -65,7 +52,7 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
               required
               fullWidth
               id='email'
-              label='Email Address'
+              label='Correo electrónico'
               name='email'
               autoComplete='email'
               value={formik.values.email}
@@ -81,7 +68,7 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
               required
               fullWidth
               name='password'
-              label='Password'
+              label='Contraseña'
               type='password'
               id='password'
               autoComplete='current-password'
@@ -110,12 +97,17 @@ const FormLogin = ({ linkToSignUp = '#', changeSubmit = submit }) => {
           color='primary'
           className={classes.submit}
         >
-          {formik.isSubmitting ? 'Loading...' : 'Sign In'}
+          {formik.isSubmitting ? 'Cargando...' : 'Ingresar'}
         </Button>
         <Grid container justify='flex-end'>
           <Grid item>
-            <Link to={linkToSignUp} component={RouterLink} variant='body2'>
-              Don't have an account? Sign Up
+            <Link
+              to={linkToSignUp}
+              component={RouterLink}
+              variant='body2'
+              color='inherit'
+            >
+              ¿No tiene una cuenta?. Regístrese.
             </Link>
           </Grid>
         </Grid>

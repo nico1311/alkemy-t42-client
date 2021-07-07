@@ -21,13 +21,13 @@ const submit = async (
   redirect,
 ) => {
   const result = await makePOST(ENDPOINT_REGISTER, {
-    firstName,
-    lastName,
+    first_name: firstName,
+    last_name: lastName,
     email,
     password,
   });
-  if (!result.ok) setShowError(true);
-  else redirect('/');
+  if (result.user) redirect('/');
+  else if (!result.ok) setShowError(true);
   setSubmit(false);
 };
 
