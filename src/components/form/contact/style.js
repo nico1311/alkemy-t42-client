@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     float: 'right',
   },
+  alert: {
+    marginTop: theme.spacing(3),
+  },
 }));
 
 export default useStyles;
