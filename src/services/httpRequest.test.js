@@ -7,7 +7,7 @@ import {
 } from 'services/httpRequest';
 
 describe('/services/httpRequest.js - Function work', () => {
-  test('Does function makeGet working', async () => {
+  test('Does function makeGET working', async () => {
     const result = await makeGET(
       'https://jsonplaceholder.typicode.com/todos/1',
     );
