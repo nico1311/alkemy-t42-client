@@ -4,23 +4,22 @@
  * @constant
  * @readonly
  */
-export const BASE_URL = 'http://localhost:4000/';
+const BASE_URL = 'http://localhost:4000/';
 /**
  * Constant with ENDPOINT to register.
  * @constant
  * @readonly
  */
-export const ENDPOINT_REGISTER = 'api/auth/register';
+export const ENDPOINT_REGISTER = `${BASE_URL}api/auth/register`;
 /**
  * Constant with ENDPOINT to login.
  * @constant
  * @readonly
  */
-export const ENDPOINT_LOGIN = 'api/auth/login';
+export const ENDPOINT_LOGIN = `${BASE_URL}api/auth/login`;
 /**
  * Constant with ENDPOINT to organizations.
  * @constant
  * @readonly
  */
-export const ENDPOINT_ORGANIZATION = 'http://localhost:4000/api/organizations/1/public';
-  
+export const ENDPOINT_ORGANIZATION = `${BASE_URL}api/organizations/1/public`;
