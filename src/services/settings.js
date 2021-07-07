@@ -24,11 +24,11 @@ export const ENDPOINT_LOGIN = 'api/auth/login';
  */
 export const ENDPOINT_ORGANIZATION = 'http://localhost:4000/api/organizations/1/public';
 /**
- * Constant with ENDPOINT to users/:id.
+ * Constant with ENDPOINT to users.
  * @constant
  * @readonly
  */
- export const ENDPOINT_USER = 'http://localhost:4000/api/users/:id';
+ export const ENDPOINT_USER = 'http://localhost:4000/api/users';
 
 
   

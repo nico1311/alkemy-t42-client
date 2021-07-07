@@ -5,9 +5,10 @@ import { makeRequest } from 'services/httpRequest';
 import { ENDPOINT_USER } from 'services/settings';
 import {Link} from 'react-router-dom';
 
-const handleClickDelete = async (id) => {
+const id = 1;
+const handleClickDelete = async () => {
     try {
-    const result = await makeRequest(`${ENDPOINT_USER}${id}`, "DELETE");    
+    const result = await makeRequest(`${ENDPOINT_USER}/${id}`, "DELETE");    
     } catch (error) {
      console.log(error)   
     }
