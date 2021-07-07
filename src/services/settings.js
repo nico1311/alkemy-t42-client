@@ -4,7 +4,7 @@
  * @constant
  * @readonly
  */
-export const BASE_URL = 'http://localhost:3001/';
+export const BASE_URL = 'http://localhost:4000';
 /**
  * Constant with ENDPOINT to register.
  * @constant
@@ -17,3 +17,10 @@ export const ENDPOINT_REGISTER = 'api/auth/register';
  * @readonly
  */
 export const ENDPOINT_LOGIN = 'api/auth/login';
+/**
+ * Constant with ENDPOINT to users/:id.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_USER = 'api/users/:id';
+

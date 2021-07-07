@@ -8,7 +8,7 @@ function CardProfile(props) {
     const useStyles = makeStyles((theme) => ({
         root: {
             textAlign: 'center',
-            height: '22vh',
+            height: '18vh',
             margin: '3vh',
             marginTop: theme.spacing(5),
             backgroundColor: props.color
