@@ -1,5 +1,4 @@
 /** @module services/http */
-import { BASE_URL } from './settings';
 /**
  * Function to make a generic request GET.
  * @async
@@ -7,15 +6,20 @@ import { BASE_URL } from './settings';
  * @param {String} APIURL - An endpoint for this request.
  * @example
  * import { makeGET } from "services/httpRequest";
- * const result = await makeGET("api/allcontacts");
+ * import { ENDPOINT_ALLCONTACTS } from "services/settings";
+ * const result = await makeGET(ENDPOINT_ALLCONTACTS);
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makeGET = async (APIURL) => {
   try {
-    const response = await fetch(`${BASE_URL}${APIURL}`, {
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
-    });
-    return response.json();
+    const res = await fetch(APIURL);
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
   } catch (error) {
     return error;
   }
@@ -33,51 +37,116 @@ export const makeGET = async (APIURL) => {
  *  mail: "scarsson@gmail.com",
  *  password: "blackwidow"
  * }
- * const result = await makePOST("api/register", myBodyRequest);
+ * const result = await makePOST("http://localhost:4000/api/auth/register", myBodyRequest);
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makePOST = async (APIURL, body) => {
   try {
-    const response = await fetch(`${BASE_URL}${APIURL}`, {
+    const res = await fetch(APIURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
+      Authorization: localStorage.getItem('token') || '',
       body: JSON.stringify(body),
     });
-    return response.json();
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
   } catch (error) {
     return error;
   }
 };
 /**
- * Function to make a generic request with verb select for dev.
- * @function makeRequest
+ * Function to make a generic request PUT.
+ * @function makePUT
  * @param {String} APIURL - An endpoint for this request.
- * @param {String} verb - An string a representation of http request options are "GET", "POST", "PUT", "PATCH", "DELETE", etc
  * @param {Object} body - An object with the body of request.
  * @example
- * import { makeRequest } from 'services/httpRequest';
+ * import { makePUT } from 'services/httpRequest';
  * const myBodyRequest = {
- *  firstName: "Scarlett",
- *  lastName: "Johansson",
- *  mail: "scarsson@gmail.com",
+ *  firstName: "Black",
+ *  lastName: "Widow",
  *  password: "blackwidow"
  * }
- * const result = await makeRequest("api/register", "POST", myBodyRequest);
- * @example
- * import { makeRequest} from "services/httpRequest";
- * const result = await makeRequest("api/allcontacts", "GET");
+ * const result = await makePUT("http://localhost:4000/api/auth/updatereg", myBodyRequest);
  * @returns {Object} Returns a result of promise with fetch.
  */
-export const makeRequest = async (APIURL, verb, body = {}) => {
+export const makePUT = async (APIURL, body) => {
   try {
-    const response = await fetch(`${BASE_URL}${APIURL}`, {
-      method: verb,
+    const res = await fetch(APIURL, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      Authorization: `bearer ${localStorage.getItem('token') || ''}`,
+      Authorization: localStorage.getItem('token') || '',
       body: JSON.stringify(body),
     });
-    return response.json();
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
+  } catch (error) {
+    return error;
+  }
+};
+/**
+ * Function to make a generic request PATCH.
+ * @function makePATCH
+ * @param {String} APIURL - An endpoint for this request.
+ * @param {Object} body - An object with the body of request.
+ * @example
+ * import { makePATCH } from 'services/httpRequest';
+ * const result = await makePATCH("http://localhost:4000/api/auth/patchreg", {password: "blackwidow"});
+ * @returns {Object} Returns a result of promise with fetch.
+ */
+export const makePATCH = async (APIURL, body) => {
+  try {
+    const res = await fetch(APIURL, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      Authorization: localStorage.getItem('token') || '',
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
+  } catch (error) {
+    return error;
+  }
+};
+/**
+ * Function to make a generic request DELETE.
+ * @function makeDELETE
+ * @param {String} APIURL - An endpoint for this request.
+ * @param {Object} body - An object with the body of request.
+ * @example
+ * import { makeDELETE } from 'services/httpRequest';
+ * const result = await makeDELETE("http://localhost:4000/api/deleteuser");
+ * @returns {Object} Returns a result of promise with fetch.
+ */
+export const makeDELETE = async (APIURL, body) => {
+  try {
+    const res = await fetch(APIURL, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      Authorization: localStorage.getItem('token') || '',
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    return res.json();
   } catch (error) {
     return error;
   }
