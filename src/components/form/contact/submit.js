@@ -19,7 +19,7 @@ const submit = async ({ name, email, message }, setSubmit, setTypeMSJ) => {
     email,
     message,
   });
-  if (result.message) setTypeMSJ('success');
+  if (result.email) setTypeMSJ('success');
   else if (!result.ok) setTypeMSJ('error');
   setSubmit(false);
 };
