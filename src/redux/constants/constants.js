@@ -1,4 +1,4 @@
-export const actionType = {
+export const actionHome = {
   GET_WELCOME_TEXT: 'GET_WELCOME_TEXT',
   GET_NEWS: 'GET_NEWS',
 };
