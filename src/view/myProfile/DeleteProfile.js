@@ -25,7 +25,7 @@ const DeleteProfile = (redirect) => {
             <Grid item className={classes.background}>
                 <Typography variant={'h4'}>¿Está seguro que quiere eliminar su cuenta?</Typography>
                 <Grid container className={classes.root}>
-                <Link to='/perfil'><Button className={classes.button} variant="contained" startIcon={<EditIcon className={classes.iconos}/>} color="primary"> Edit </Button></Link>
+                <Link to='/perfil'><Button className={classes.button} variant="contained" startIcon={<EditIcon className={classes.iconos}/>} color="primary"> Cancel </Button></Link>
                 <Button className={classes.button} variant="contained" onClick={handleClickDelete} startIcon={<DeleteIcon className={classes.iconos}/>} color="secondary"> Delete </Button>
                 </Grid>
             </Grid>
