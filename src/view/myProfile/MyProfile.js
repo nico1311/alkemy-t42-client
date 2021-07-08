@@ -5,7 +5,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import FaceIcon from '@material-ui/icons/Face';
 import CardProfile from 'components/Profile/CardProfile';
-import Buttons from 'components/Profile/Button';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import useStyles from './style';
@@ -33,8 +33,8 @@ function MyProfile(props) {
                     <CardProfile icono={<MailIcon className={classes.iconos}/>} titulo="Email" texto="leandro.garassino@gmail.com" />
                 </Grid>
                 <Grid container className={classes.root}>
-                    <Link to='#'><Buttons icono={<EditIcon className={classes.iconos}/>} texto="Edit" color="primary" /></Link>
-                    <Buttons onClick={useDelete} icono={<DeleteIcon className={classes.iconos}/>} texto="Delete" color="secondary"/>
+                    <Link to='#'><Button className={classes.button} variant="contained" startIcon={<EditIcon className={classes.iconos}/>} color="primary"> Edit </Button></Link>
+                    <Button className={classes.button} variant="contained" onClick={useDelete} startIcon={<DeleteIcon className={classes.iconos}/>} color="secondary"> Delete </Button>
                 </Grid>
             </Grid>
     )

@@ -16,10 +16,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: '1.5em',
         color: "white"
-    },
-    button: {
-        margin: theme.spacing(2, 2, 0),
-        width: theme.spacing(30),
     }
 }));
 

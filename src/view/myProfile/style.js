@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#e3f2fd',
         padding: '2vh',
         boxShadow: '15px 15px 10px -10px rgba(0,0,0,0.3)'
+    },
+    button: {
+        margin: theme.spacing(2, 2, 0),
+        width: theme.spacing(30),
     }
 }));
 
