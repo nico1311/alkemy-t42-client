@@ -67,8 +67,36 @@ export const validationPassword = (password) => {
  * validationMessage("Incorrect message.")
  * @returns {String} Returns string to set in an object Error.
  */
-
 export const validationMessage = (message) => {
   if (!message) return 'Requerido';
   else if (message.length < 30) return 'Debe contener 30 caracteres o más.';
+};
+/**
+ * Function to validate title for forms.
+ * @fuction validationTitle
+ * @param {String} title - A string to check.
+ * @example
+ * validationFirstName("My News");
+ * validationFirstName("N");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationTitle = (title) => {
+  if (!title) return 'Requerido';
+  else if (title.length > 18) return 'Como máximo 18 caracteres.';
+  else if (title.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+export const validationImage = (image) => {
+  if (!image) return 'Requerido';
+  else if (image.length > 18) return 'Como máximo 18 caracteres.';
+  else if (image.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+export const validationCategory = (category) => {
+  if (!category) return 'Requerido';
+  else if (category.length > 18) return 'Como máximo 18 caracteres.';
+  else if (category.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+export const validationContain = (contain) => {
+  if (!contain) return 'Requerido';
+  else if (contain.length > 18) return 'Como máximo 18 caracteres.';
+  else if (contain.length < 2) return 'Debe contener 2 caracteres o más.';
 };
