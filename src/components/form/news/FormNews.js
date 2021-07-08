@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import listCategories from './categories';
 import useStyles from './style';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import InlineEditor from '@ckeditor/ckeditor5-build-inline';
 /**
  * Component FormNews is react component to render a basic form news and edit.
  * @function FormNews
@@ -120,10 +120,10 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
             </FormHelperText>
           </Grid>
           {/* Input contain in CKEDITOR */}
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ border: '1px solid #000' }}>
             <CKEditor
               id='contain'
-              editor={ClassicEditor}
+              editor={InlineEditor}
               data='¡Escribe el contenido, Aquí!'
               value={formik.values.contain}
               onChange={(event, editor) => {
