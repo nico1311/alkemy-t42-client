@@ -30,13 +30,10 @@ const submit = async (
   if (result.user) {
     // Save token in local storage
     setToken(result.token) // Esto deberia ir en un servicio que tambien almacene el usuario en el storage
-    setSubmit(false);
     redirect('/');
   } 
-  else if (!result.ok){
-    setShowError(true);
-    setSubmit(false);
-  } 
+  else if (!result.ok) setShowError(true);
+  setSubmit(false);
 };
 
 export default submit;
