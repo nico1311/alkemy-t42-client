@@ -1,4 +1,5 @@
 /** @module Form */
+import listCategories from './news/categories';
 /**
  * Function to validate first name for forms.
  * @fuction validationFirstName
@@ -67,8 +68,65 @@ export const validationPassword = (password) => {
  * validationMessage("Incorrect message.")
  * @returns {String} Returns string to set in an object Error.
  */
-
 export const validationMessage = (message) => {
   if (!message) return 'Requerido';
   else if (message.length < 30) return 'Debe contener 30 caracteres o más.';
+};
+/**
+ * Function to validate title for forms.
+ * @fuction validationTitle
+ * @param {String} title - A string to check.
+ * @example
+ * validationFirstName("My News");
+ * validationFirstName("N");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationTitle = (title) => {
+  if (!title) return 'Requerido';
+  else if (title.length > 18) return 'Como máximo 18 caracteres.';
+  else if (title.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+/**
+ * Function to validate images for forms.
+ * @fuction validationImage
+ * @param {Object} image - An object with data of Image to check.
+ * @example
+ * validationImage(myImage);
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationImage = (image) => {
+  if (!image) return 'Requerido';
+  else if (!image.name) return 'Requerido';
+  else if (!/\.(gif|jpe?g|png|webp|bmp)$/i.test(image.name))
+    return 'El archivo debe ser una imagen y su extensión debe ser un .git, .jpg, .png, .webp, .bmp.';
+  else if (image.size > 2 * 1024 * 1024)
+    return 'El tamaño del archivo es demasiado grande. No debe superar los 2 mb.';
+};
+/**
+ * Function to validate categories for forms.
+ * @fuction validationCategory
+ * @param {string} category - A string to compare with a contain in array.
+ * @example
+ * validationCategory("News");
+ * validationCategory("Ne");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationCategory = (category) => {
+  if (!category) return 'Requerido';
+  else if (!listCategories.includes(category))
+    return 'El valor de categorías, no es correcto.';
+};
+/**
+ * Function to validate contain for forms.
+ * @fuction validationContaint
+ * @param {String} contain - A string to check.
+ * @example
+ * validationContain("Brendam and your contain to add a news.");
+ * validationContaint("B");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationContain = (contain) => {
+  if (!contain) return 'Requerido';
+  else if (contain.length > 100240) return 'Como máximo 100240 caracteres.';
+  else if (contain.length < 24) return 'Debe contener 24 caracteres o más.';
 };
