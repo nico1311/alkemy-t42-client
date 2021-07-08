@@ -1,4 +1,5 @@
 /** @module Form */
+import listCategories from './news/categories';
 /**
  * Function to validate first name for forms.
  * @fuction validationFirstName
@@ -88,9 +89,9 @@ export const validationTitle = (title) => {
 /**
  * Function to validate images for forms.
  * @fuction validationImage
- * @param {Object} Image - An object with data of Image to check.
+ * @param {Object} image - An object with data of Image to check.
  * @example
- * validationFirstName(myImage);
+ * validationImage(myImage);
  * @returns {String} Returns string to set in an object Error.
  */
 export const validationImage = (image) => {
@@ -101,10 +102,19 @@ export const validationImage = (image) => {
   else if (image.size > 2 * 1024 * 1024)
     return 'El tamaño del archivo es demasiado grande. No debe superar los 2 mb.';
 };
+/**
+ * Function to validate categories for forms.
+ * @fuction validationCategory
+ * @param {string} category - A string to compare with a contain in array.
+ * @example
+ * validationCategory("News");
+ * validationCategory("Ne");
+ * @returns {String} Returns string to set in an object Error.
+ */
 export const validationCategory = (category) => {
   if (!category) return 'Requerido';
-  else if (category.length > 18) return 'Como máximo 18 caracteres.';
-  else if (category.length < 2) return 'Debe contener 2 caracteres o más.';
+  else if (!listCategories.includes(category))
+    return 'El valor de categorías, no es correcto.';
 };
 export const validationContain = (contain) => {
   if (!contain) return 'Requerido';
