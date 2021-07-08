@@ -1,4 +1,4 @@
-import { actionType } from 'redux/constants/constants';
+import { actionHome } from 'redux/constants/constants';
 
 const initialState = {
   welcomeMessage: { message: 'Es mejor, cuando Somos Mas' },
@@ -13,12 +13,12 @@ const initialState = {
 
 export default function homeReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case actionType.GET_WELCOME_TEXT:
+    case actionHome.GET_WELCOME_TEXT:
       return {
         ...state,
         welcomeMessage: payload,
       };
-    case actionType.GET_NEWS:
+    case actionHome.GET_NEWS:
       return {
         ...state,
         homeNews: payload,
@@ -27,4 +27,3 @@ export default function homeReducer(state = initialState, { type, payload }) {
       return state;
   }
 }
-
