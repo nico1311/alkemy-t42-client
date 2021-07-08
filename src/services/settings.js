@@ -28,7 +28,7 @@ export const ENDPOINT_ORGANIZATION = 'http://localhost:4000/api/organizations/1/
  * @constant
  * @readonly
  */
- export const ENDPOINT_USER = 'http://localhost:4000/api/users';
+ export const ENDPOINT_USER = 'api/users';
 
 
   
