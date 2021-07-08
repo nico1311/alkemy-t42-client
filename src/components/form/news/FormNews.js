@@ -7,8 +7,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
+import listCategories from './categories';
 import useStyles from './style';
 /**
  * Component FormNews is react component to render a basic form news and edit.
@@ -27,6 +30,7 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
     initialValues: {
       title: '',
       image: '',
+      category: '',
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
@@ -39,6 +43,9 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
         <Grid container spacing={2}>
           {/* Input title */}
           <Grid item xs={12}>
+            <FormLabel required htmlFor='title'>
+              Título:
+            </FormLabel>
             <TextField
               autoComplete='ftitle'
               name='title'
@@ -46,13 +53,36 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
               required
               fullWidth
               id='title'
-              label='Título'
               autoFocus
               value={formik.values.title}
               onChange={formik.handleChange}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
             />
+          </Grid>
+          {/* Input category */}
+          <Grid item xs={12}>
+            <FormLabel required htmlFor='category'>
+              Categorías:
+            </FormLabel>
+            <Select
+              required
+              className={classes.select}
+              id='category'
+              name='category'
+              variant='outlined'
+              value={formik.values.category}
+              onChange={formik.handleChange}
+            >
+              {listCategories.map((elem, index) => (
+                <MenuItem key={index} value={elem}>
+                  {elem}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText style={{ color: 'red' }}>
+              {formik.touched.category && formik.errors.category}
+            </FormHelperText>
           </Grid>
           {/* Input file image */}
           <Grid item xs={12}>
