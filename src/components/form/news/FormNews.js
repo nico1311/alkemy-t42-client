@@ -21,23 +21,29 @@ import InlineEditor from '@ckeditor/ckeditor5-build-inline';
  * @param {Object} prevNews - An object with attributes of previous news to edit.
  * @param {Function} [props.changeSubmit=submit] - A custom function to change default function onSubmit.
  * @example
+ * // Example for News.
  * import FormNews from "components/form/News/FormNews.js"
  * <FormNews />
  * <FormNews changeSubmit={myCustomSubmit} />
+ * @example
+ * // Example for Edit.
+ * import FormEdit from "components/form/News/FormNews.js"
+ * const myNewsToEdit = {id, title, image, category, contain};
+ * <FormEdit prevNews={myNewsToEdit} />
  */
-const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
+const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
   // React Router function to redirect user if register is correct.
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
-      title: '',
-      image: '',
-      category: '',
-      contain: '',
+      title: prevNews ? prevNews.title : '',
+      image: prevNews ? prevNews.image : '',
+      category: prevNews ? prevNews.category : '',
+      contain: prevNews ? prevNews.contain : '',
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting);
+      changeSubmit(values, setSubmitting, prevNews.id);
     },
   });
   return (
@@ -124,7 +130,9 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
             <CKEditor
               id='contain'
               editor={InlineEditor}
-              data='¡Escribe el contenido, Aquí!'
+              data={
+                prevNews ? prevNews.contain : '¡Escribe el contenido, Aquí!'
+              }
               value={formik.values.contain}
               onChange={(event, editor) => {
                 formik.setFieldValue('contain', editor.getData());

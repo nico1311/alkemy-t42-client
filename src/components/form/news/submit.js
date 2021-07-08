@@ -1,6 +1,6 @@
 /** @module Form/News */
 
-const submit = async (values, setSubmit) => {
+const submit = async (values, setSubmit, id = false) => {
   setTimeout(() => {
     console.log(values);
     setSubmit(false);
