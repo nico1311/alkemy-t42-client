@@ -23,3 +23,9 @@ export const ENDPOINT_LOGIN = `${BASE_URL}api/auth/login`;
  * @readonly
  */
 export const ENDPOINT_ORGANIZATION = `${BASE_URL}api/organizations/1/public`;
+/**
+ * Constant with ENDPOINT to users.
+ * @constant
+ * @readonly
+ */
+ export const ENDPOINT_USER = `${BASE_URL}api/users`;

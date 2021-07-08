@@ -1,7 +1,7 @@
 import {Grid, Typography} from '@material-ui/core'
 import Buttons from 'components/Profile/Button'
 import useStyles from './style';
-import { makeRequest } from 'services/httpRequest';
+import { makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_USER } from 'services/settings';
 import {Link} from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const DeleteProfile = (redirect) => {
     const id = 1;
     const handleClickDelete = async () => {
     try {
-    const result = await makeRequest(`${ENDPOINT_USER}/${id}`, "DELETE");
+    const result = await makeDELETE(`${ENDPOINT_USER}/${id}`);
     if (result.status === 200) redirect('/');    
     } catch (error) {
      console.log(error)   
