@@ -12,6 +12,8 @@ const AboutUs = lazy(() => import('./view/aboutUs/AboutUs'));
 const SignUp = lazy(() => import('./view/signup/SignUp'));
 const SignIn = lazy(() => import('./view/signin/SignIn'));
 const Contact = lazy(() => import('./view/contact/Contact'));
+const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
+const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const PrivateRouteExample = lazy(() =>
   import('./view/privates/PrivateRouteExample'),
 );
@@ -27,6 +29,8 @@ const App = () => (
           <Route exact path='/contacto' component={Contact} />
           <Route exact path='/registrar' component={SignUp} />
           <Route exact path='/ingresar' component={SignIn} />
+          <Route exact path='/perfil' component={MyProfile} />
+          <Route exact path='/perfil/eliminar' component={DeleteProfile} />
           <PrivateRoute
             exact
             path='/rutaprivada'
