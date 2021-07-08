@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  select: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;
