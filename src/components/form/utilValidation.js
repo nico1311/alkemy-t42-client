@@ -85,10 +85,21 @@ export const validationTitle = (title) => {
   else if (title.length > 18) return 'Como máximo 18 caracteres.';
   else if (title.length < 2) return 'Debe contener 2 caracteres o más.';
 };
+/**
+ * Function to validate images for forms.
+ * @fuction validationImage
+ * @param {Object} Image - An object with data of Image to check.
+ * @example
+ * validationFirstName(myImage);
+ * @returns {String} Returns string to set in an object Error.
+ */
 export const validationImage = (image) => {
   if (!image) return 'Requerido';
-  else if (image.length > 18) return 'Como máximo 18 caracteres.';
-  else if (image.length < 2) return 'Debe contener 2 caracteres o más.';
+  else if (!image.name) return 'Requerido';
+  else if (!/\.(gif|jpe?g|png|webp|bmp)$/i.test(image.name))
+    return 'El archivo debe ser una imagen y su extensión debe ser un .git, .jpg, .png, .webp, .bmp.';
+  else if (image.size > 2 * 1024 * 1024)
+    return 'El tamaño del archivo es demasiado grande. No debe superar los 2 mb.';
 };
 export const validationCategory = (category) => {
   if (!category) return 'Requerido';
