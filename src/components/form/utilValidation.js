@@ -116,8 +116,17 @@ export const validationCategory = (category) => {
   else if (!listCategories.includes(category))
     return 'El valor de categorías, no es correcto.';
 };
+/**
+ * Function to validate contain for forms.
+ * @fuction validationContaint
+ * @param {String} contain - A string to check.
+ * @example
+ * validationContain("Brendam and your contain to add a news.");
+ * validationContaint("B");
+ * @returns {String} Returns string to set in an object Error.
+ */
 export const validationContain = (contain) => {
   if (!contain) return 'Requerido';
-  else if (contain.length > 18) return 'Como máximo 18 caracteres.';
-  else if (contain.length < 2) return 'Debe contener 2 caracteres o más.';
+  else if (contain.length > 100240) return 'Como máximo 100240 caracteres.';
+  else if (contain.length < 24) return 'Debe contener 24 caracteres o más.';
 };

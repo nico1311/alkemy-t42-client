@@ -27,6 +27,10 @@ const validation = ({ title, image, category, contain }) => {
   // Check Category.
   const isValidCategory = validationCategory(category);
   if (isValidCategory) errors.category = isValidCategory;
+  // Check Containt.
+  const isValidContain = validationContain(contain);
+  if (isValidContain) errors.contain = isValidContain;
+
   return errors;
 };
 
