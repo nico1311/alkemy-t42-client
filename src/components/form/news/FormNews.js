@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import listCategories from './categories';
 import useStyles from './style';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import InlineEditor from '@ckeditor/ckeditor5-build-inline';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 /**
  * Component FormNews is react component to render a basic form news and edit.
  * @function FormNews
@@ -43,7 +43,7 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting, prevNews.id);
+      changeSubmit(values, setSubmitting, prevNews?.id);
     },
   });
   return (
@@ -126,10 +126,10 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
             </FormHelperText>
           </Grid>
           {/* Input contain in CKEDITOR */}
-          <Grid item xs={12} style={{ border: '1px solid #000' }}>
+          <Grid item xs={12}>
             <CKEditor
               id='contain'
-              editor={InlineEditor}
+              editor={ClassicEditor}
               data={
                 prevNews ? prevNews.contain : '¡Escribe el contenido, Aquí!'
               }
