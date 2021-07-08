@@ -74,11 +74,9 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
                 style={{ display: 'none' }}
                 accept='image/*'
                 fullWidth
-                required
                 onChange={(event) => {
                   formik.setFieldValue('image', event.currentTarget.files[0]);
                 }}
-                error={formik.touched.image && Boolean(formik.errors.image)}
               />
             </Button>
           </Grid>
