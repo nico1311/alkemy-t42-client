@@ -24,13 +24,6 @@ const validation = ({ title, image, category, contain }) => {
   // Check Image.
   const isValidImage = validationImage(image);
   if (isValidImage) errors.image = isValidImage;
-  // Check Category.
-  const isValidCategory = validationCategory(category);
-  if (isValidCategory) errors.category = isValidCategory;
-  // Check contain.
-  const isValidContain = validationContain(contain);
-  if (isValidContain) errors.contain = isValidContain;
-
   return errors;
 };
 
