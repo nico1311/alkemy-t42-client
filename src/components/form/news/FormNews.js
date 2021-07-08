@@ -13,6 +13,8 @@ import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import listCategories from './categories';
 import useStyles from './style';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 /**
  * Component FormNews is react component to render a basic form news and edit.
  * @function FormNews
@@ -31,6 +33,7 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
       title: '',
       image: '',
       category: '',
+      contain: '',
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
@@ -114,6 +117,21 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
             </Grid>
             <FormHelperText style={{ color: 'red' }}>
               {formik.touched.image && formik.errors.image}
+            </FormHelperText>
+          </Grid>
+          {/* Input contain in CKEDITOR */}
+          <Grid item xs={12}>
+            <CKEditor
+              id='contain'
+              editor={ClassicEditor}
+              data='¡Escribe el contenido, Aquí!'
+              value={formik.values.contain}
+              onChange={(event, editor) => {
+                formik.setFieldValue('contain', editor.getData());
+              }}
+            />
+            <FormHelperText style={{ color: 'red' }}>
+              {formik.touched.contain && formik.errors.contain}
             </FormHelperText>
           </Grid>
           {/* Button Submit */}
