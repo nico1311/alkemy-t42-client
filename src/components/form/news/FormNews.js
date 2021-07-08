@@ -6,6 +6,7 @@ import FormContainer from '../FormContainer.js';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './style';
@@ -54,31 +55,36 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
             />
           </Grid>
           {/* Input file image */}
-          <Grid
-            item
-            xs={12}
-            container
-            direction='row'
-            justify='space-between'
-            alignItems='center'
-          >
-            <FormLabel required htmlFor='image'>
-              Archivo de Imagen:
-            </FormLabel>
-            <Button color='primary' variant='contained' component='label'>
-              Subir Archivo
-              <Input
-                id='image'
-                name='image'
-                type='file'
-                style={{ display: 'none' }}
-                accept='image/*'
-                fullWidth
-                onChange={(event) => {
-                  formik.setFieldValue('image', event.currentTarget.files[0]);
-                }}
-              />
-            </Button>
+          <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              container
+              direction='row'
+              justify='space-between'
+              alignItems='center'
+            >
+              <FormLabel required htmlFor='image'>
+                Archivo de Imagen:
+              </FormLabel>
+              <Button color='primary' variant='contained' component='label'>
+                Subir Archivo
+                <Input
+                  id='image'
+                  name='image'
+                  type='file'
+                  style={{ display: 'none' }}
+                  accept='image/*'
+                  fullWidth
+                  onChange={(event) => {
+                    formik.setFieldValue('image', event.currentTarget.files[0]);
+                  }}
+                />
+              </Button>
+            </Grid>
+            <FormHelperText style={{ color: 'red' }}>
+              {formik.touched.image && formik.errors.image}
+            </FormHelperText>
           </Grid>
           {/* Button Submit */}
           <Button
