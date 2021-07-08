@@ -5,6 +5,8 @@ import submit from './submit';
 import FormContainer from '../FormContainer.js';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel';
+import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './style';
 /**
@@ -24,8 +26,6 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
     initialValues: {
       title: '',
       image: '',
-      category: '',
-      content: '',
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
@@ -52,6 +52,35 @@ const FormNews = ({ prevNews = {}, changeSubmit = submit }) => {
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
             />
+          </Grid>
+          {/* Input file image */}
+          <Grid
+            item
+            xs={12}
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+          >
+            <FormLabel required htmlFor='image'>
+              Archivo de Imagen:
+            </FormLabel>
+            <Button color='primary' variant='contained' component='label'>
+              Subir Archivo
+              <Input
+                id='image'
+                name='image'
+                type='file'
+                style={{ display: 'none' }}
+                accept='image/*'
+                fullWidth
+                required
+                onChange={(event) => {
+                  formik.setFieldValue('image', event.currentTarget.files[0]);
+                }}
+                error={formik.touched.image && Boolean(formik.errors.image)}
+              />
+            </Button>
           </Grid>
           {/* Button Submit */}
           <Button
