@@ -9,9 +9,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
-
 import DrawerList from 'components/backoffice/drawer';
-
+import UsersView from '../backoffice/Users/Users';
+import { AnimatePresence, motion } from 'framer-motion';
+import DrawerList from 'components/backoffice/drawer';
+import {
+  initial,
+  animate,
+  exit,
+} from 'components/utils/transitionEffect/transitionPropertys';
 const News = lazy(() => import('view/news/NewsBackoffice'));
 
 function BackOfficeView(props) {
@@ -79,26 +85,33 @@ function BackOfficeView(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Switch>
-          <Route
-            path={`${path}/users`}
-            component={() => <Test texto='users' />}
-          />
-          <Route path={`${path}/news`} component={News} />
-          <Route
-            path={`${path}/organization`}
-            component={() => <Test texto='organization' />}
-          />
-          <Route
-            path={`${path}/activities`}
-            component={() => <Test texto='activities' />}
-          />
-          <Route
-            path={`${path}/testimonials`}
-            component={() => <Test texto='testimonials' />}
-          />
-          <Route path={`${path}`} component={() => <Test texto='Welcome' />} />
-        </Switch>
+        <AnimatePresence exitBeforeEnter>
+          <motion.div initial={initial} animate={animate} exit={exit}>
+            <Switch>
+              <Route
+                path={`${path}/users`}
+                component={() => <Test texto='users' />}
+              />
+              <Route path={`${path}/news`} component={News} />
+              <Route
+                path={`${path}/organization`}
+                component={() => <Test texto='organization' />}
+              />
+              <Route
+                path={`${path}/activities`}
+                component={() => <Test texto='activities' />}
+              />
+              <Route
+                path={`${path}/testimonials`}
+                component={() => <Test texto='testimonials' />}
+              />
+              <Route
+                path={`${path}`}
+                component={() => <Test texto='Welcome' />}
+              />
+            </Switch>
+          </motion.div>
+        </AnimatePresence>
       </main>
     </div>
   );
