@@ -1,8 +1,14 @@
-import React, {lazy} from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Header from 'layout/header/Header';
 import Footer from 'layout/footer/Footer';
 import { Grid } from '@material-ui/core';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  initial,
+  animate,
+  exit,
+} from 'components/utils/transitionEffect/transitionPropertys';
 
 const HomePage = lazy(() => import('view/home/Home'));
 const AboutUs = lazy(() => import('view/aboutUs/AboutUs'));
@@ -14,7 +20,8 @@ const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 
 const MainView = () => {
     return (
-        <div>
+        <AnimatePresence exitBeforeEnter>
+        <motion.div initial={initial} animate={animate} exit={exit}>
             <Header />
             <Grid container>
                 <Switch>
@@ -28,8 +35,10 @@ const MainView = () => {
                 </Switch>
             </Grid>
             <Footer />
-        </div>
+            </motion.div>
+      </AnimatePresence>
     )
 }
 
-export default MainView
+
+export default MainView;
