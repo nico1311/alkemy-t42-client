@@ -5,17 +5,20 @@ import New from 'components/new/New';
 import { Grid } from '@material-ui/core';
 
 const NewsBackoffice = () => {
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState(['']);
   useEffect(() => {
     obtainNews();
     return () => {};
   }, []);
   const obtainNews = async () => {
-    const result = await makeGET(ENDPOINT_NEWS);
-
-    setNews(result.news);
+    try {
+      const result = await makeGET(ENDPOINT_NEWS);
+      setNews(result.news);
+    } catch {
+      console.error('Error between obtain news');
+    }
   };
-  if (news === []) {
+  if (news.length === 0) {
     return null;
   }
   return (

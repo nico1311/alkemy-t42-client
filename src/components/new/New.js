@@ -11,7 +11,7 @@ import {
 const New = (props) => {
   const classes = useStyles();
   const { createdAt, name, image } = props.props;
-  const date = createdAt.slice(0, 10);
+
   return (
     <Grid item xs={12} md={5} lg={3} xl={2} className={classes.new}>
       <Card className={classes.root}>
@@ -26,7 +26,9 @@ const New = (props) => {
           <Typography gutterBottom variant='h5' component='h2'>
             {name}
           </Typography>
-          <Typography variant='body2'>{date}</Typography>
+          <Typography variant='body2'>
+            {createdAt ? createdAt.slice(0, 10) : ''}
+          </Typography>
         </CardContent>
       </Card>
     </Grid>
