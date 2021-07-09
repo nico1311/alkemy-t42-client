@@ -1,10 +1,13 @@
+import { getToken } from './tokenHandler'
 /** @module services/http */
 /**
  * Constant with BASE URL to make requests.
  * @constant
  * @readonly
  */
-const TOKENJWT = localStorage.getItem('token') || '';
+//const TOKENJWT = localStorage.getItem('SomosMasONG') || '';
+
+const TOKENJWT = getToken();
 /**
  * Function to make a generic request GET.
  * @async
@@ -19,8 +22,8 @@ const TOKENJWT = localStorage.getItem('token') || '';
 export const makeGET = async (APIURL) => {
   try {
     const res = await fetch(APIURL, {
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: TOKENJWT,
+      headers: { 'Content-Type': 'application/json', 'Authorization': TOKENJWT},
+      /*Authorization: TOKENJWT,*/
     });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');

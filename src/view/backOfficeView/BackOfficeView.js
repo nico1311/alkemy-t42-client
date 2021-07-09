@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import useStyles from './styles'
 import AppBar from '@material-ui/core/AppBar';
@@ -9,8 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
-
 import DrawerList from 'components/backoffice/drawer'
+
+const ListContacts = lazy(() => import('./ListaContactos'));
 
 function BackOfficeView(props) {
     const { window } = props;
@@ -82,6 +83,7 @@ function BackOfficeView(props) {
                     <Route path={`${path}/organization`} component={() => <Test texto='organization' />} />
                     <Route path={`${path}/activities`} component={() => <Test texto='activities' />} />
                     <Route path={`${path}/testimonials`} component={() => <Test texto='testimonials' />} />
+                    <Route path={`${path}/lista-contactos`} component={ListContacts} />
                     <Route path={`${path}`} component={() => <Test texto='Welcome' />} />
                 </Switch>
             </main>

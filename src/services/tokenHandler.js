@@ -25,7 +25,7 @@
   * const token = getToken() 
   */
  export function getToken(){
-     return localStorage.getItem(TOKEN_KEY)
+     return localStorage.getItem(TOKEN_KEY) || '';
  }
  /**
   * Function for delete the token in local storage
