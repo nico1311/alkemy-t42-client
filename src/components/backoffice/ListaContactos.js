@@ -49,6 +49,7 @@ export default function ListOfContacts() {
               <TableRow>
                 <TableCell align="center">Nombre</TableCell>
                 <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Mensaje</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -56,6 +57,7 @@ export default function ListOfContacts() {
                 <TableRow key={res.id}>
                   <TableCell align="center">{res.name}</TableCell>
                   <TableCell align="center">{res.email}</TableCell>
+                  <TableCell align="center">{res.message}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
