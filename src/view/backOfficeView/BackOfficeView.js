@@ -128,7 +128,3 @@ function Test(props) {
 
 export default BackOfficeView;
 
-
-
-//const ListContacts = lazy(() => import('./ListaContactos'));
-//<Route path={`${path}/lista-contactos`} component={ListContacts} />
