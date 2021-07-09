@@ -9,6 +9,8 @@ const AboutUs = lazy(() => import('view/aboutUs/AboutUs'));
 const SignUp = lazy(() => import('view/signup/SignUp'));
 const SignIn = lazy(() => import('view/signin/SignIn'));
 const Contact = lazy(() => import('view/contact/Contact'));
+const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
+const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 
 const MainView = () => {
     return (
@@ -16,6 +18,8 @@ const MainView = () => {
             <Header />
             <Grid container>
                 <Switch>
+                    <Route path='/perfil/eliminar' component={DeleteProfile} />
+                    <Route path='/perfil' component={MyProfile} />
                     <Route path='/nosotros' component={AboutUs} />
                     <Route path='/contacto' component={Contact} />
                     <Route path='/registrar' component={SignUp} />
