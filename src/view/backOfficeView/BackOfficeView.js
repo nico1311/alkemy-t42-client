@@ -10,7 +10,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
 
-import DrawerList from 'components/backoffice/drawer'
+import DrawerList from 'components/backoffice/drawer';
+
+import UsersView from '../backoffice/Users/Users';
 
 function BackOfficeView(props) {
     const { window } = props;
@@ -77,7 +79,7 @@ function BackOfficeView(props) {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                    <Route path={`${path}/users`} component={() => <Test texto='users' />} />
+                    <Route path={`${path}/users`} component={UsersView} />
                     <Route path={`${path}/news`} component={() => <Test texto='news' />} />
                     <Route path={`${path}/organization`} component={() => <Test texto='organization' />} />
                     <Route path={`${path}/activities`} component={() => <Test texto='activities' />} />
