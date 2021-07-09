@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_NEWS } from 'services/settings';
+import useStyles from './style';
 import New from 'components/new/New';
 
 const NewsBackoffice = () => {
+  const classes = useStyles();
   const [news, setNews] = useState(['asdasd', 'asdasd']);
   useEffect(() => {
     obtainNews();
