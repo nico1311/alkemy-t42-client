@@ -1,8 +1,9 @@
+
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getNews, getMessage } from 'redux/Home/actions/home';
+import React, { useEffect } from 'react';
+import { getNews, getMessage } from '../../redux/Home/actions/home';
 import { Grid, Typography } from '@material-ui/core';
-import CardNews from './../CardNews/CardNews';
+import CardNews from '../CardNews/CardNews';
 import useStyles from './style.js';
 
 const Home = () => {
