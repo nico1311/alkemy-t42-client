@@ -9,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
-import DrawerList from 'components/backoffice/drawer';
 import UsersView from '../backoffice/Users/Users';
 import { AnimatePresence, motion } from 'framer-motion';
 import DrawerList from 'components/backoffice/drawer';

@@ -18,6 +18,11 @@ export default function userReducer(state = initialState, { type, data }) {
         ...state,
         ...initialState,
       };
+      case actionUser.GET_LOGGED:
+        return {
+          ...state,
+          user: data
+        }
     default:
       return state;
   }
