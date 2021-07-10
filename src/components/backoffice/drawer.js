@@ -7,6 +7,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import HomeIcon from '@material-ui/icons/Home';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import useStyles from 'view/backOfficeView/styles'
 
 const DrawerList = () => {
@@ -47,9 +48,10 @@ const DrawerList = () => {
                     <ListItemIcon><PermContactCalendarIcon/></ListItemIcon>
                     <ListItemText primary={'Testimonios'}/>
                 </ListItem>
+
                 <ListItem button onClick={() => onClickHandler('/lista-contactos')}>
-                    <ListItemIcon><PermContactCalendarIcon/></ListItemIcon>
-                    <ListItemText primary={'Contactos'}/>
+                    <ListItemIcon> <ContactsIcon/> </ListItemIcon>
+                        <ListItemText primary={'Contactos'} />
                 </ListItem>
             </List>
         </div>

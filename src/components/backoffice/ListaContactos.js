@@ -22,7 +22,6 @@ export default function ListOfContacts() {
 
   const { response, error, loading } = useFetch(ENDPOINT_CONTACTS, 
     {
-      method: "GET",
       headers: {
         'Content-Type': 'application/json',
         Authorization: getToken(),

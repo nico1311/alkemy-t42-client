@@ -56,8 +56,9 @@ export const makePOST = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
       Authorization: TOKENJWT,
+     },
       body: JSON.stringify(body),
     });
     if (!res.ok) {
