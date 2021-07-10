@@ -12,3 +12,10 @@ export const userLogout = () => {
     type: actionUser.USER_LOGOUT,
   };
 };
+
+export const getLoggedUser = (user) => {
+    return {
+      type: actionUser.GET_LOGGED,
+      data: user
+    }
+}
