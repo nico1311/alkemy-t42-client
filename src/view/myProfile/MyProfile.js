@@ -33,7 +33,7 @@ function MyProfile(props) {
                     <CardProfile icono={<MailIcon className={classes.iconos}/>} titulo="Email" texto="leandro.garassino@gmail.com" />
                 </Grid>
                 <Grid container className={classes.root}>
-                    <Button onClick={() => history.push('#')} className={classes.button} variant="contained" startIcon={<EditIcon className={classes.iconos}/>} color="primary"> Edit </Button>
+                    <Button onClick={() => history.push('/perfil/editar')} className={classes.button} variant="contained" startIcon={<EditIcon className={classes.iconos}/>} color="primary"> Edit </Button>
                     <Button className={classes.button} variant="contained" onClick={useDelete} startIcon={<DeleteIcon className={classes.iconos}/>} color="secondary"> Delete </Button>
                 </Grid>
             </Grid>
