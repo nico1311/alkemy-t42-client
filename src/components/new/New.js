@@ -1,0 +1,38 @@
+import React from 'react';
+import useStyles from './style.js';
+import {
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
+
+const New = (props) => {
+  const classes = useStyles();
+  const { createdAt, name, image } = props.props;
+
+  return (
+    <Grid item xs={12} md={5} lg={3} xl={2} className={classes.new}>
+      <Card>
+        <CardMedia
+          className={classes.cardImage}
+          component='img'
+          alt='Imagen de novedad'
+          image={image}
+          title={name}
+        />
+        <CardContent className={classes.cardContent}>
+          <Typography gutterBottom variant='h5' component='h2'>
+            {name}
+          </Typography>
+          <Typography variant='body2'>
+            {createdAt ? createdAt.slice(0, 10) : ''}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+  );
+};
+
+export default New;
