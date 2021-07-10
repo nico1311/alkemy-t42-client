@@ -4,7 +4,7 @@
  * @constant
  * @readonly
  */
-const TOKENJWT = localStorage.getItem('token') || '';
+const TOKENJWT = localStorage.getItem('TOKEN_KEY') || '';
 /**
  * Function to make a generic request GET.
  * @async
@@ -19,8 +19,9 @@ const TOKENJWT = localStorage.getItem('token') || '';
 export const makeGET = async (APIURL) => {
   try {
     const res = await fetch(APIURL, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
       Authorization: TOKENJWT,
+     },
     });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
