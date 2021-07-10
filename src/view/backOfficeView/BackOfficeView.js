@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import useStyles from './styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,9 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
-
 import DrawerList from 'components/backoffice/drawer';
-
 import UsersView from '../backoffice/Users/Users';
 import { AnimatePresence, motion } from 'framer-motion';
 import DrawerList from 'components/backoffice/drawer';
@@ -20,6 +18,7 @@ import {
   animate,
   exit,
 } from 'components/utils/transitionEffect/transitionPropertys';
+const News = lazy(() => import('view/news/NewsBackoffice'));
 
 function BackOfficeView(props) {
   const { window } = props;
@@ -93,10 +92,7 @@ function BackOfficeView(props) {
                 path={`${path}/users`}
                 component={() => <Test texto='users' />}
               />
-              <Route
-                path={`${path}/news`}
-                component={() => <Test texto='news' />}
-              />
+              <Route path={`${path}/news`} component={News} />
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}
