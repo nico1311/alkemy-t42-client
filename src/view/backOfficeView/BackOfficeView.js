@@ -20,6 +20,7 @@ import {
 const News = lazy(() => import('view/news/NewsBackoffice'));
 
 const ListContacts = lazy(() => import('./ListaContactos'));
+const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
 
 function BackOfficeView(props) {
   const { window } = props;
@@ -106,6 +107,12 @@ function BackOfficeView(props) {
                 path={`${path}/testimonials`}
                 component={() => <Test texto='testimonials' />}
               />
+              <Route 
+                path={`${path}/lista-contactos`} 
+                component={ListContacts} />
+              <Route 
+                path={`${path}/lista-contactos/:id/message`} 
+                component={ListaContactosMensaje} />
               <Route
                 path={`${path}/lista-contactos`}
                 component={<ListContacts/>}
@@ -127,3 +134,4 @@ function Test(props) {
 }
 
 export default BackOfficeView;
+

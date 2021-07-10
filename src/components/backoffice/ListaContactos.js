@@ -1,9 +1,26 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link'
 import { ENDPOINT_CONTACTS} from 'services/settings';
 import useFetch from 'hooks/useFetch';
 import { getToken } from 'services/tokenHandler'
 
+const useStyles = makeStyles({
+  table: {
+    minWidth: 400,
+  },
+});
+
 export default function ListOfContacts() {
-  const { response, loading } = useFetch(ENDPOINT_CONTACTS, 
+
+  const { response, error, loading } = useFetch(ENDPOINT_CONTACTS, 
     {
       headers: {
         'Content-Type': 'application/json',
@@ -11,6 +28,8 @@ export default function ListOfContacts() {
       },
     }
   )
+
+  const classes = useStyles();
   
   console.log(response)
 
@@ -20,5 +39,47 @@ export default function ListOfContacts() {
     )
   }
 
+  if(response?.contacts){
+    return (
+      <>
+        <h1 align='center'> Contactos</h1>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Nombre</TableCell>
+                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Mensaje</TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {response.contacts.map((res) => (
+                <TableRow key={res.id}>
+                  <TableCell align="center">{res.name}</TableCell>
+                  <TableCell align="center">{res.email}</TableCell>
+                  <TableCell align="center"><Link to={`/backoffice/lista-contactos/1/message`}><button>Mensaje</button></Link></TableCell>
+                  <TableCell align="center"><Link to="/backoffice/lista-contactos">Editar</Link></TableCell>
+                  <TableCell align="center"><Link to="/backoffice/lista-contactos">Eliminar</Link></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </>
+    );
+  };
+
   return null;
 }
+
+
+
+
+
+
+
+
+
+
