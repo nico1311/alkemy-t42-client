@@ -15,6 +15,7 @@ const AboutUs = lazy(() => import('view/aboutUs/AboutUs'));
 const SignUp = lazy(() => import('view/signup/SignUp'));
 const SignIn = lazy(() => import('view/signin/SignIn'));
 const Contact = lazy(() => import('view/contact/Contact'));
+const News = lazy(() => import('view/news/News'))
 const SingleNew = lazy(() => import('view/singleNew/SingleNew'))
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
@@ -28,14 +29,14 @@ const MainView = () => {
             <Grid container>
                 <Switch>
                     <Route path='/perfil/eliminar' component={DeleteProfile} />
+                    <Route path='/perfil/editar' component={EditUserPage}></Route>
+                    <Route path='/novedades/:id' render={({ match }) => (<SingleNew id={match.params.id}/>)} />
                     <Route path='/perfil' component={MyProfile} />
                     <Route path='/nosotros' component={AboutUs} />
                     <Route path='/contacto' component={Contact} />
                     <Route path='/registrar' component={SignUp} />
                     <Route path='/ingresar' component={SignIn} />
-                    <Route path='/perfil/editar' component={EditUserPage}></Route>
-                    <Route path='/novedades/:id' render={({ match }) => (<SingleNew id={match.params.id}/>)} />
-                    <Route path='/perfil' component={MyProfile} ></Route>
+                    <Route path='/novedades' component={News} />
                     <Route path='/' component={HomePage} />
                 </Switch>
             </Grid>
@@ -44,6 +45,5 @@ const MainView = () => {
       </AnimatePresence>
     )
 }
-
 
 export default MainView;
