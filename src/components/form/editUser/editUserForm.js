@@ -18,23 +18,24 @@ import submit from './submit';
  * Component EditUserForm will be use by the user to edit its own account (name and lastname) and by the admin to edit 
  * any user's information (name, lastname and roleid)
  * @function EditUserForm
+ * @param {Object} userInfo -{name: string, lastName: string, roleID: 1 or 2}
  * @example
  * import EditUserForm from 'components/forms/contact/editUserForm.js'
- * <EditUserForm isBackOffice={true} />
+ * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-function EditUserForm (props) {
+function EditUserForm ({userInfo = null, isBackOffice}) {
   // State to handler alert error show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
 
- 
+  
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      lastName: '',
-      roleID: '1',
+      name: userInfo ? userInfo.name : '',
+      lastName: userInfo ? userInfo.lastName : '',
+      roleID: userInfo ? userInfo.roleID : 1,
     },
     validate,
     onSubmit: (values, { setSubmitting }) => {
@@ -68,7 +69,7 @@ function EditUserForm (props) {
           helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
-        {props.isBackOffice === true ? <RoleID></RoleID> : null}
+        {isBackOffice === true ? <RoleID></RoleID> : null}
         <div className={classes.buttonContainer}>
           <Button
             disabled={formik.isSubmitting}
