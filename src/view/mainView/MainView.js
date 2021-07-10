@@ -15,6 +15,7 @@ const AboutUs = lazy(() => import('view/aboutUs/AboutUs'));
 const SignUp = lazy(() => import('view/signup/SignUp'));
 const SignIn = lazy(() => import('view/signin/SignIn'));
 const Contact = lazy(() => import('view/contact/Contact'));
+const SingleNew = lazy(() => import('view/singleNew/SingleNew'))
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 
@@ -30,6 +31,7 @@ const MainView = () => {
                     <Route path='/registrar' component={SignUp} />
                     <Route path='/ingresar' component={SignIn} />
                     <Route path='/perfil/editar' component={EditUserPage}></Route>
+                    <Route path='/novedades/:id' render={({ match }) => (<SingleNew id={match.params.id}/>)} />
                     <Route path='/perfil' component={MyProfile} ></Route>
                     <Route path='/' component={HomePage} />
                 </Switch>
