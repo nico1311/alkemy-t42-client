@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import useStyles from './styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +17,9 @@ import {
   animate,
   exit,
 } from 'components/utils/transitionEffect/transitionPropertys';
+const News = lazy(() => import('view/news/NewsBackoffice'));
+
+const ListContacts = lazy(() => import('./ListaContactos'));
 
 function BackOfficeView(props) {
   const { window } = props;
@@ -88,12 +91,9 @@ function BackOfficeView(props) {
             <Switch>
               <Route
                 path={`${path}/users`}
-                component={() => <Test texto='users' />}
+                component={() => <UsersView />}
               />
-              <Route
-                path={`${path}/news`}
-                component={() => <Test texto='news' />}
-              />
+              <Route path={`${path}/news`} component={News} />
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}
@@ -105,6 +105,10 @@ function BackOfficeView(props) {
               <Route
                 path={`${path}/testimonials`}
                 component={() => <Test texto='testimonials' />}
+              />
+              <Route
+                path={`${path}/lista-contactos`}
+                component={<ListContacts/>}
               />
               <Route
                 path={`${path}`}
