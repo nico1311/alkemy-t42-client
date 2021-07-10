@@ -15,7 +15,7 @@ import {
   initial,
   animate,
   exit,
-} from 'components/utils/transitionEffect/transitionPropertys';
+} from './components/utils/transitionEffect/transitionPropertys';
 
 const ListContacts = lazy(() => import('./ListaContactos'));
 
