@@ -47,6 +47,10 @@ const DrawerList = () => {
                     <ListItemIcon><PermContactCalendarIcon/></ListItemIcon>
                     <ListItemText primary={'Testimonios'}/>
                 </ListItem>
+                <ListItem button onClick={() => onClickHandler('/lista-contactos')}>
+                    <ListItemIcon><PermContactCalendarIcon/></ListItemIcon>
+                    <ListItemText primary={'Contactos'}/>
+                </ListItem>
             </List>
         </div>
     )

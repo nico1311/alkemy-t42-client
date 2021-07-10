@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link'
 import { ENDPOINT_CONTACTS} from 'services/settings';
 import useFetch from 'hooks/useFetch';
 import { getToken } from 'services/tokenHandler'
@@ -50,6 +51,8 @@ export default function ListOfContacts() {
                 <TableCell align="center">Nombre</TableCell>
                 <TableCell align="center">Email</TableCell>
                 <TableCell align="center">Mensaje</TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -57,7 +60,9 @@ export default function ListOfContacts() {
                 <TableRow key={res.id}>
                   <TableCell align="center">{res.name}</TableCell>
                   <TableCell align="center">{res.email}</TableCell>
-                  <TableCell align="center">{res.message}</TableCell>
+                  <TableCell align="center"><Link to={`/backoffice/lista-contactos/1/message`}><button>Mensaje</button></Link></TableCell>
+                  <TableCell align="center"><Link to="/backoffice/lista-contactos">Editar</Link></TableCell>
+                  <TableCell align="center"><Link to="/backoffice/lista-contactos">Eliminar</Link></TableCell>
                 </TableRow>
               ))}
             </TableBody>

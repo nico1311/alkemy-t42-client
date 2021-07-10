@@ -18,6 +18,7 @@ import {
 } from 'components/utils/transitionEffect/transitionPropertys';
 
 const ListContacts = lazy(() => import('./ListaContactos'));
+const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
 
 function BackOfficeView(props) {
   const { window } = props;
@@ -110,6 +111,9 @@ function BackOfficeView(props) {
               <Route 
                 path={`${path}/lista-contactos`} 
                 component={ListContacts} />
+              <Route 
+                path={`${path}/lista-contactos/:id/message`} 
+                component={ListaContactosMensaje} />
               <Route
                 path={`${path}`}
                 component={() => <Test texto='Welcome' />}
