@@ -35,3 +35,5 @@ export const ENDPOINT_CONTACTS = `${BASE_URL}api/contacts`;
  * @readonly
  */
 export const ENDPOINT_USER = `${BASE_URL}api/users`;
+
+export const ENDPOINT_NEWS = `${BASE_URL}api/news`
