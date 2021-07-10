@@ -17,8 +17,8 @@ const New = () => {
     return (
         <div style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
             { entries?.[0] && (
-                entries.map((child) => (
-                    <Link style={{textDecoration: 'none'}} to={`/novedades/${child.id}`}>
+                entries.map((child, i) => (
+                    <Link style={{textDecoration: 'none'}} to={`/novedades/${child.id}`} key={i}>
                     <Entry entry={child}/>
                     </Link>
                 ))

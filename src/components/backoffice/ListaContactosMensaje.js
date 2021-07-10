@@ -1,11 +1,14 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 
-export default function ListaContactosMensaje(props){
+export default function ListaContactosMensaje(){
 
-    const id = props.match.params.id
+    const {id, message} = useParams();
+
     return(
         <>
-            <h1>{id}</h1>
+            <h3>Mensaje:</h3>
+            <p> {message} </p>
         </>
     )
 }

@@ -21,8 +21,7 @@ const App = () => {
       <Suspense fallback={<Loader />}>
         <ThemeProvider theme={theme}>
           <Switch>
-            <Route path='/backoffice' component={BackOfficeView} />{' '}
-            {/** This should be a Private Route */}
+            <Route path='/backoffice' component={BackOfficeView} />
             <Route path='/' component={MainView} />
           </Switch>
         </ThemeProvider>

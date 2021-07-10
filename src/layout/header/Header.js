@@ -13,8 +13,10 @@ import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
+import {useSelector} from 'react-redux'
 
 const NavBar = () => {
+  const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -58,6 +60,8 @@ const NavBar = () => {
                     className={classes.noMinWidth}
                     disableRipple
                     label='novedades'
+                    to='/novedades'
+                    component={Link}
                   />
                   <Tab
                     className={classes.noMinWidth}
@@ -71,7 +75,14 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              <Grid item className={classes.align}>
+              {user ? <Button
+                  onClick={() => history.push('/backoffice')}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  Backoffice
+                </Button> : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'
@@ -89,7 +100,8 @@ const NavBar = () => {
                 >
                   Iniciar sesión
                 </Button>
-              </Grid>
+              </Grid>)}
+              
             </Grid>
           </>
         )}

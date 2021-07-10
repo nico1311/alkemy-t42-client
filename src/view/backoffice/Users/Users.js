@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,10 +19,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-
+import { ENDPOINT_USER } from 'services/settings'
 import { makeGET } from 'services/httpRequest';
-
-console.log(makeGET);
 
 const useStyles = makeStyles({
   table: {
@@ -45,174 +43,112 @@ const Users = () => {
   const [toastOpen, setToastOpen] = useState(false);
 
   useEffect(() => {
-    makeGET('http://localhost:4000/api/users').then((users) => {
-      console.log(users);
-    }).catch((err) => {
-      console.error('Something went wrong', err);
-    });
-
-    // TODO: remove sample data when api call works
-    setUsers([
-    {
-      "id": 1,
-      "firstName": "Agna",
-      "lastName": "Kienlein",
-      "email": "akienlein0@4shared.com",
-      "roleId": 2
-    }, {
-      "id": 2,
-      "firstName": "Liesa",
-      "lastName": "Mushett",
-      "email": "lmushett1@baidu.com",
-      "roleId": 1
-    }, {
-      "id": 3,
-      "firstName": "Georgina",
-      "lastName": "Macer",
-      "email": "gmacer2@pbs.org",
-      "roleId": 1
-    }, {
-      "id": 4,
-      "firstName": "Filide",
-      "lastName": "Ormonde",
-      "email": "formonde3@edublogs.org",
-      "roleId": 2
-    }, {
-      "id": 5,
-      "firstName": "Shandie",
-      "lastName": "Reinbech",
-      "email": "sreinbech4@google.ca",
-      "roleId": 2
-    }, {
-      "id": 6,
-      "firstName": "Graham",
-      "lastName": "Windross",
-      "email": "gwindross5@msu.edu",
-      "roleId": 2
-    }, {
-      "id": 7,
-      "firstName": "Northrop",
-      "lastName": "Massinger",
-      "email": "nmassinger6@digg.com",
-      "roleId": 2
-    }, {
-      "id": 8,
-      "firstName": "Peria",
-      "lastName": "Restill",
-      "email": "prestill7@wikipedia.org",
-      "roleId": 2
-    }, {
-      "id": 9,
-      "firstName": "Cleveland",
-      "lastName": "Klesse",
-      "email": "cklesse8@unc.edu",
-      "roleId": 2
-    }, {
-      "id": 10,
-      "firstName": "Alastair",
-      "lastName": "Trotton",
-      "email": "atrotton9@discovery.com",
-      "roleId": 1
+    async function getUser(){
+      const {users: allUsers} = await makeGET(ENDPOINT_USER);
+      setUsers(allUsers);
     }
-  ])
+    getUser();
   }, []);
 
-  const handleDeleteAction = (userId) => {
-    setPendingUser(users.find((user) => user.id === userId));
-    setDeleteDialogOpen(true);
-  }
+  // TODO: remove sample data when api call works
 
-  const handleDeleteCancel = () => {
-    setDeleteDialogOpen(false);
-    setPendingUser(null);
-  }
 
-  const handleDeleteConfirm = () => {
-    console.log(`Deleting user ${pendingUser}`);
+const handleDeleteAction = (userId) => {
+  setPendingUser(users.find((user) => user.id === userId));
+  setDeleteDialogOpen(true);
+}
 
-    // TODO: api call to delete user
+const handleDeleteCancel = () => {
+  setDeleteDialogOpen(false);
+  setPendingUser(null);
+}
 
-    // remove user from state
-    setUsers(users.filter((user) => user.id !== pendingUser.id));
+const handleDeleteConfirm = () => {
+  console.log(`Deleting user ${pendingUser}`);
 
-    setDeleteDialogOpen(false);
-    setPendingUser(null);
-    setToastOpen(true);
-  }
+  // TODO: api call to delete user
 
-  return (
-    <>
-      <Container px={4} py={4}>
-        <Typography variant='h4' component='h1' gutterBottom>
-          Usuarios
-        </Typography>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Apellido</TableCell>
-                <TableCell>Correo electrónico</TableCell>
-                <TableCell>Tipo</TableCell>
-                <TableCell align="right">Acciones</TableCell>
+  // remove user from state
+  setUsers(users.filter((user) => user.id !== pendingUser.id));
+
+  setDeleteDialogOpen(false);
+  setPendingUser(null);
+  setToastOpen(true);
+}
+
+return (
+  <>
+    <Container px={4} py={4}>
+      <Typography variant='h4' component='h1' gutterBottom>
+        Usuarios
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Apellido</TableCell>
+              <TableCell>Correo electrónico</TableCell>
+              <TableCell>Tipo</TableCell>
+              <TableCell align="right">Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>{user.firstName}</TableCell>
+                <TableCell>{user.lastName}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.roleId === 1 ? 'Administrador' : 'Usuario'}</TableCell>
+                <TableCell align="right">
+                  <Button color="primary" component={Link} to={`/backoffice/users/${user.id}/edit`}>Editar</Button>
+                  <Button color="secondary" onClick={() => handleDeleteAction(user.id)}>Eliminar</Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.roleId === 1 ? 'Administrador' : 'Usuario'}</TableCell>
-                  <TableCell align="right">
-                    <Button color="primary" component={Link} to={`/backoffice/users/${user.id}/edit`}>Editar</Button>
-                    <Button color="secondary" onClick={() => handleDeleteAction(user.id)}>Eliminar</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-      {pendingUser &&
-        <Dialog
-          open={deleteDialogOpen}
-          onClose={handleDeleteCancel}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              ¿Desea eliminar el usuario {pendingUser.firstName} {pendingUser.lastName}?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDeleteCancel} color="primary">
-              Cancelar
-            </Button>
-            <Button onClick={handleDeleteConfirm} color="primary" autoFocus>
-              Confirmar
-            </Button>
-          </DialogActions>
-        </Dialog>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
+    {pendingUser &&
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleDeleteCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Desea eliminar el usuario {pendingUser.firstName} {pendingUser.lastName}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="primary" autoFocus>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    }
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={toastOpen}
+      autoHideDuration={5000}
+      onClose={() => setToastOpen(false)}
+      message="Usuario eliminado"
+      action={
+        <IconButton size="small" aria-label="close" color="inherit" onClick={() => setToastOpen(false)}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
       }
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={toastOpen}
-        autoHideDuration={5000}
-        onClose={() => setToastOpen(false)}
-        message="Usuario eliminado"
-        action={
-          <IconButton size="small" aria-label="close" color="inherit" onClick={() => setToastOpen(false)}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        }
-      />
-    </>
-  );
+    />
+  </>
+);
 }
 
 export default Users;

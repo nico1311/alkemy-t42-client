@@ -70,7 +70,7 @@ export const validationPassword = (password) => {
  */
 export const validationMessage = (message) => {
   if (!message) return 'Requerido';
-  else if (message.length < 30) return 'Debe contener 30 caracteres o más.';
+  else if (message.length < 10) return 'Debe contener 10 caracteres o más.';
 };
 /**
  * Function to validate title for forms.

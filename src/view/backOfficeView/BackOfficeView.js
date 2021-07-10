@@ -21,6 +21,7 @@ const News = lazy(() => import('view/news/NewsBackoffice'));
 
 const ListContacts = lazy(() => import('./ListaContactos'));
 const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
+const EditUserForm = lazy(() => import('components/form/editUser/editUserForm.js'));
 
 function BackOfficeView(props) {
   const { window } = props;
@@ -52,6 +53,7 @@ function BackOfficeView(props) {
           <Typography variant='h6' noWrap>
             Somos mas
           </Typography>
+          
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
@@ -90,6 +92,14 @@ function BackOfficeView(props) {
         <AnimatePresence exitBeforeEnter>
           <motion.div initial={initial} animate={animate} exit={exit}>
             <Switch>
+
+              {/** `/backoffice/users/${user.id}/edit` */}
+              <Route 
+                path={`${path}/users/:id/edit`}
+                component={EditUserForm}/>
+              <Route 
+                path={`${path}/lista-contactos/:id/:message`} 
+                component={ListaContactosMensaje} />
               <Route
                 path={`${path}/users`}
                 component={() => <UsersView />}
@@ -107,15 +117,9 @@ function BackOfficeView(props) {
                 path={`${path}/testimonials`}
                 component={() => <Test texto='testimonials' />}
               />
-              <Route 
-                path={`${path}/lista-contactos`} 
-                component={ListContacts} />
-              <Route 
-                path={`${path}/lista-contactos/:id/message`} 
-                component={ListaContactosMensaje} />
               <Route
                 path={`${path}/lista-contactos`}
-                component={<ListContacts/>}
+                component={ListContacts}
               />
               <Route
                 path={`${path}`}

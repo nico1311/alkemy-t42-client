@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
 import FormContainer from '../FormContainer.js';
 import {
   FormControl,
@@ -24,18 +25,18 @@ import submit from './submit';
  * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-function EditUserForm ({userInfo = null, isBackOffice}) {
+function EditUserForm () {
   // State to handler alert error show/hide.
+  const isBackOffice = useSelector(state => state.user.user.roleId);
+  const userInfo = useSelector(state => state.user.user)
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
 
-  
-
   const formik = useFormik({
     initialValues: {
-      name: userInfo ? userInfo.name : '',
+      name: userInfo ? userInfo.firstName : '',
       lastName: userInfo ? userInfo.lastName : '',
-      roleID: userInfo ? userInfo.roleID : 1,
+      roleID: userInfo ? userInfo.roleId : 1,
     },
     validate,
     onSubmit: (values, { setSubmitting }) => {
@@ -69,7 +70,7 @@ function EditUserForm ({userInfo = null, isBackOffice}) {
           helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
-        {isBackOffice === true ? <RoleID></RoleID> : null}
+        {isBackOffice === 1 ? <RoleID></RoleID> : null}
         <div className={classes.buttonContainer}>
           <Button
             disabled={formik.isSubmitting}

@@ -5,7 +5,7 @@ import New from 'components/new/New';
 import { Grid } from '@material-ui/core';
 
 const NewsBackoffice = () => {
-  const [news, setNews] = useState(['']);
+  const [news, setNews] = useState([]);
   useEffect(() => {
     obtainNews();
     return () => {};
@@ -19,7 +19,7 @@ const NewsBackoffice = () => {
     }
   };
   if (news.length === 0) {
-    return null;
+    return (<h1>Cargando...</h1>);
   }
   return (
     <Grid container justify='space-between'>
