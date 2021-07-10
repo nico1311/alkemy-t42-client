@@ -1,6 +1,6 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Loader from './components/utils/Loader/Loader';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './theme';
@@ -12,15 +12,12 @@ const MainView = lazy(() => import('view/mainView/MainView'));
 const BackOfficeView = lazy(() => import('view/backOfficeView/BackOfficeView'));
 
 const App = () => {
-
   const dispatch = useDispatch()
-
+  // Set user on APP if have a token in LocalStorage.
   useEffect(() => {
     makeGET(ENDPOINT_GETLOGGED).then((res) => dispatch(getLoggedUser(res)));
-  }, []);
-
+  }, [dispatch]);
   return (
-    <>
       <Suspense fallback={<Loader />}>
         <ThemeProvider theme={theme}>
           <Switch>
@@ -30,7 +27,6 @@ const App = () => {
           </Switch>
         </ThemeProvider>
       </Suspense>
-    </>
   );
 };
 

@@ -91,7 +91,7 @@ function BackOfficeView(props) {
             <Switch>
               <Route
                 path={`${path}/users`}
-                component={() => <Test texto='users' />}
+                component={() => <UsersView />}
               />
               <Route path={`${path}/news`} component={News} />
               <Route
@@ -105,6 +105,10 @@ function BackOfficeView(props) {
               <Route
                 path={`${path}/testimonials`}
                 component={() => <Test texto='testimonials' />}
+              />
+              <Route
+                path={`${path}/lista-contactos`}
+                component={<ListContacts/>}
               />
               <Route
                 path={`${path}`}

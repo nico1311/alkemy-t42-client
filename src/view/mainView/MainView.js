@@ -18,6 +18,7 @@ const Contact = lazy(() => import('view/contact/Contact'));
 const SingleNew = lazy(() => import('view/singleNew/SingleNew'))
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
+const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 
 const MainView = () => {
     return (

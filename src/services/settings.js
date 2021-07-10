@@ -41,3 +41,9 @@ export const ENDPOINT_USER = `${BASE_URL}api/users`;
  * @readonly
  */
 export const ENDPOINT_NEWS = `${BASE_URL}api/news`;
+/**
+ * Constant with ENDPOINT to auth me.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_GETLOGGED = `${BASE_URL}api/auth/me`

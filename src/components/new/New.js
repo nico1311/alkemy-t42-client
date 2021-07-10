@@ -14,7 +14,7 @@ const New = (props) => {
 
   return (
     <Grid item xs={12} md={5} lg={3} xl={2} className={classes.new}>
-      <Card className={classes.root}>
+      <Card>
         <CardMedia
           className={classes.cardImage}
           component='img'
