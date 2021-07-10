@@ -21,6 +21,7 @@ const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 
 
+
 const MainView = () => {
     return (
         <AnimatePresence exitBeforeEnter>
@@ -33,9 +34,9 @@ const MainView = () => {
                     <Route path='/registrar' component={SignUp} />
                     <Route path='/ingresar' component={SignIn} />
                     <Route path='/perfil/editar' component={EditUserPage}></Route>
+                    <Route path='/perfil' component={MyProfile} ></Route>
                     <Route path='/novedades/:id' render={({ match }) => (<SingleNew id={match.params.id}/>)} />
                     <Route path='/novedades' component={News} />
-                    <Route path='/perfil' component={MyProfile} ></Route>
                     <Route path='/' component={HomePage} />
                 </Switch>
             </Grid>
