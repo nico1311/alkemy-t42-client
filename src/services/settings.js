@@ -46,4 +46,10 @@ export const ENDPOINT_NEWS = `${BASE_URL}api/news`;
  * @constant
  * @readonly
  */
-export const ENDPOINT_GETLOGGED = `${BASE_URL}api/auth/me`
+export const ENDPOINT_GETLOGGED = `${BASE_URL}api/auth/me`;
+/**
+ * Constant with ENDPOINT to category.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_CATEGORY = `${BASE_URL}api/categories`;
