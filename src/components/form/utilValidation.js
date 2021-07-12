@@ -130,3 +130,31 @@ export const validationContain = (contain) => {
   else if (contain.length > 100240) return 'Como máximo 100240 caracteres.';
   else if (contain.length < 24) return 'Debe contener 24 caracteres o más.';
 };
+/**
+ * Function to validate name for forms category.
+ * @fuction validationNameCategory
+ * @param {String} name - A string to check.
+ * @example
+ * validationNameCategory("News");
+ * validationNameCategory("n");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationNameCategory = (name) => {
+  if (!name) return 'Requerido';
+  else if (name.length > 24) return 'Como máximo 24 caracteres.';
+  else if (name.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+/**
+ * Function to validate description for forms category.
+ * @fuction validationDescriptionCategory
+ * @param {String} description - A string to check.
+ * @example
+ * validationDescriptionCategory("A news category is section about all news stuff.");
+ * validationDescriptionCategory("n");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationDescriptionCategory = (description) => {
+  if (!description) return 'Requerido';
+  else if (description.length > 256) return 'Como máximo 256 caracteres.';
+  else if (description.length < 12) return 'Debe contener 12 caracteres o más.';
+};
