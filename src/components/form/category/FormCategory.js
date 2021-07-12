@@ -19,12 +19,13 @@ import useStyles from './style';
  * @example
  * // Example for edit category.
  * import FormCategory from 'components/forms/category/FormCategory.js'
- * <FormCategory prevCategory={{name: "Ocio", description: "Una categoría para cosas relacionadas al oceo."}} />
+ * const category = {id: 6, name: "Ocio", description: "Una categoría para cosas relacionadas al oceo."}
+ * <FormCategory prevCategory={category} />
  */
 const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
-  const clases = useStyles();
+  const classes = useStyles();
   const formik = useFormik({
     initialValues: {
       name: prevCategory ? prevCategory.name : '',
@@ -33,21 +34,22 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
-      changeSubmit(values, setSubmitting, setTypeMSJ);
+      changeSubmit(values, setSubmitting, setTypeMSJ, prevCategory?.id);
     },
   });
   return (
     <FormContainer
       titleForm={
         prevCategory
-          ? 'Formulario Crear Nueva Categoría'
-          : 'Formulario Editar Categoría'
+          ? 'Formulario Editar Categoría'
+          : 'Formulario Crear Nueva Categoría'
       }
     >
-      <form className={clases.form} onSubmit={formik.handleSubmit}>
+      <form className={classes.form} onSubmit={formik.handleSubmit}>
         {/* Input name */}
         <Grid item xs={12}>
           <TextField
+            className={classes.submit}
             autoFocus
             variant='outlined'
             required
@@ -65,6 +67,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
         {/* Input description */}
         <Grid item xs={12}>
           <TextField
+            className={classes.submit}
             variant='outlined'
             required
             fullWidth
@@ -86,7 +89,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
         <Button
           disabled={formik.isSubmitting}
           variant='contained'
-          className={clases.button}
+          className={classes.button}
           color='secondary'
           type='submit'
         >
@@ -99,7 +102,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
             contentText='Se ha enviado con exito el formulario de categoria. Gracias.'
             variant='filled'
             severity='success'
-            className={clases.alert}
+            className={classes.alert}
           />
         )}
         {typeMSJ === 'error' && (
@@ -107,7 +110,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
             alertTitle='Error:'
             contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de categoría. Por favor, contactar con el soporte.'
             variant='filled'
-            className={clases.alert}
+            className={classes.alert}
           />
         )}
       </form>
