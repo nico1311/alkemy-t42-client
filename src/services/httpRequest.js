@@ -1,13 +1,8 @@
-import { getToken } from './tokenHandler'
+import { getToken } from './tokenHandler';
 /** @module services/http */
-/**
- * Constant with BASE URL to make requests.
- * @constant
- * @readonly
- */
-//const TOKENJWT = localStorage.getItem('SomosMasONG') || '';
 
 const TOKENJWT = getToken();
+
 /**
  * Function to make a generic request GET.
  * @async
@@ -22,8 +17,10 @@ const TOKENJWT = getToken();
 export const makeGET = async (APIURL) => {
   try {
     const res = await fetch(APIURL, {
-      headers: { 'Content-Type': 'application/json', 'Authorization': TOKENJWT},
-      /*Authorization: TOKENJWT,*/
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
+      },
     });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
@@ -33,7 +30,7 @@ export const makeGET = async (APIURL) => {
     }
     return res.json();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 /**
@@ -56,9 +53,10 @@ export const makePOST = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-      Authorization: TOKENJWT,
-     },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
+      },
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -69,7 +67,7 @@ export const makePOST = async (APIURL, body) => {
     }
     return res.json();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 /**
@@ -91,7 +89,9 @@ export const makePUT = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
@@ -103,7 +103,7 @@ export const makePUT = async (APIURL, body) => {
     }
     return res.json();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 /**
@@ -120,7 +120,9 @@ export const makePATCH = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
@@ -132,7 +134,7 @@ export const makePATCH = async (APIURL, body) => {
     }
     return res.json();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 /**
@@ -149,8 +151,10 @@ export const makeDELETE = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: TOKENJWT,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
+      },
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -159,8 +163,8 @@ export const makeDELETE = async (APIURL, body) => {
       error.status = res.status;
       throw error;
     }
-    return res.json();
+    return res.status === 204 ? true : res.json();
   } catch (error) {
-    return error;
+    throw error;
   }
 };
