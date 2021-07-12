@@ -1,5 +1,5 @@
 /** @module Form/Contact */
-import { makePOST } from 'services/httpRequest';
+import { makePOST, makePATCH } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 /**
  * Function submit default of component Form Contact.
@@ -19,16 +19,29 @@ const submit = async (
   setTypeMSJ,
   id = false,
 ) => {
-  const requestTo = id ? `${ENDPOINT_CATEGORY}/${id}` : ENDPOINT_CATEGORY;
+  let result;
   // Request Fetch with service http.
-  const result = await makePOST(requestTo, {
-    name,
-    category,
-  });
+  if (id) {
+    result = await makePATCH(`${ENDPOINT_CATEGORY}/${id}`, {
+      name,
+      category,
+    });
+  } else {
+    result = await makePOST(ENDPOINT_CATEGORY, {
+      name,
+      category,
+    });
+  }
   // Results
-  if (result.name) setTypeMSJ('success');
-  else if (!result.ok) setTypeMSJ('error');
-  setSubmit(false);
+  console.log(result);
+  if (result.description) {
+    // Need change for propiety of response.
+    setTypeMSJ('success');
+    setSubmit(false);
+  } else if (!result.ok) {
+    setTypeMSJ('error');
+    setSubmit(false);
+  }
 };
 
 export default submit;
