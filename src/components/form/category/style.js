@@ -1,25 +1,17 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: '100%',
-    marginBottom: theme.spacing(6),
-    paddingTop: '0px',
-    marginTop: '0px',
+    width: '100%', // Fix IE 11 issue.
+    height: '100%',
+    marginTop: theme.spacing(3),
+    textAlign: 'center',
   },
-  formControl: {
-    paddingTop: '0px',
-    marginTop: '0px',
-    alignSelf: 'flex-start',
-    width: '100%',
-    paddingBottom: theme.spacing(2),
-  },
-  button: {
-    float: 'right',
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
   alert: {
-    marginTop: theme.spacing(6),
-    padding: theme.spacing(3),
+    marginTop: theme.spacing(3),
   },
 }));
 
