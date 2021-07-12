@@ -93,7 +93,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
           color='secondary'
           type='submit'
         >
-          Enviar
+          {formik.isSubmitting ? 'Enviando...' : 'Enviar'}
         </Button>
         {/* Alert if is success or error */}
         {typeMSJ === 'success' && (
