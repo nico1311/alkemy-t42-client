@@ -33,7 +33,6 @@ const submit = async (
     });
   }
   // Results
-  console.log(result);
   if (result.description) {
     // Need change for propiety of response.
     setTypeMSJ('success');
