@@ -1,3 +1,4 @@
+/**@module view/singleNew */
 import React, { useEffect, useState } from 'react';
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_NEWS } from 'services/settings';
@@ -8,6 +9,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+/**
+ * Component SingleNew is a react component to render a single new get by id
+ * @function SingleNew
+ * @param {String} [props.id] - A string that represents the id of the new
+ * @param {*} param0 
+ * @returns 
+ */
 const SingleNew = ({ id }) => {
   const [entry, setEntry] = useState(null);
 

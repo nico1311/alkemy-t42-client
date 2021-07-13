@@ -1,9 +1,17 @@
+/**@module view/news */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_NEWS } from 'services/settings';
-import Entry from 'components/entries/Entry'
+import Entry from 'components/entries/Entry';
 
+/**
+ * Component New is a react component to render the organization news
+ * @function New
+ * @example
+ * import New from 'view/news/News.js'
+ * <New/>
+ */
 const New = () => {
     const [entries, setEntries] = useState({})
 
