@@ -3,7 +3,7 @@ import { makeGET, makeDELETE, makePUT } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import {
   Button,
-  Input,
+  TextField,
   Table,
   TableBody,
   TableCell,
@@ -56,12 +56,14 @@ const Activities = () => {
                   <TableCell>{activity.name}</TableCell>
                 ) : (
                   <TableCell>
-                    <Input
+                    <TextField
+                      required
+                      id='standard-basic'
                       defaultValue={activity.name}
                       onChange={(e) => {
                         setActivityName(e.target.value);
                       }}
-                    ></Input>
+                    ></TextField>
                   </TableCell>
                 )}
                 <TableCell className={classes.right}>
