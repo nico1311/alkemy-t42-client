@@ -17,9 +17,7 @@ const App = () => {
   const dispatch = useDispatch()
   // Set user on APP if have a token in LocalStorage.
   useEffect(() => {
-    if(getToken()){
       makeGET(ENDPOINT_GETLOGGED).then((res) => dispatch(getLoggedUser(res)));
-    }
   }, [dispatch]);
   return (
       <Suspense fallback={<Loader />}>
