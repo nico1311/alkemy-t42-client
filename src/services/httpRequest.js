@@ -149,8 +149,7 @@ export const makeDELETE = async (APIURL, body) => {
   try {
     const res = await fetch(APIURL, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: TOKENJWT,
+      headers: { 'Content-Type': 'application/json', Authorization : TOKENJWT },
       body: JSON.stringify(body),
     });
     if (!res.ok) {
