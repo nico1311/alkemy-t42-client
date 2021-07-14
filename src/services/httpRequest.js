@@ -1,13 +1,37 @@
-import { getToken } from './tokenHandler'
+import { getToken } from './tokenHandler';
 /** @module services/http */
 /**
- * Constant with BASE URL to make requests.
+ * Constant to set TOKEN JWT.
  * @constant
- * @readonly
  */
-//const TOKENJWT = localStorage.getItem('SomosMasONG') || '';
-
 const TOKENJWT = getToken();
+/**
+ * Function to build a base fetcher.
+ * @async
+ * @function fetcher
+ * @param {String} APIURL - An endpoint for fetcher.
+ */
+const fetcher = async (APIURL, verb, body) => {
+  try {
+    const res = await fetch(APIURL, {
+      method: verb,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
+      },
+      body: body ? JSON.stringify(body) : '',
+    });
+    if (!res.ok) {
+      const error = new Error('An error occurred while fetching the data.');
+      error.info = await res.json();
+      error.status = res.status;
+      return error;
+    }
+    return res.json();
+  } catch (error) {
+    return error;
+  }
+};
 /**
  * Function to make a generic request GET.
  * @async
@@ -20,21 +44,8 @@ const TOKENJWT = getToken();
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makeGET = async (APIURL) => {
-  try {
-    const res = await fetch(APIURL, {
-      headers: { 'Content-Type': 'application/json', 'Authorization': TOKENJWT},
-      /*Authorization: TOKENJWT,*/
-    });
-    if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.');
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  } catch (error) {
-    return error;
-  }
+  const result = await fetcher(APIURL, 'GET', null);
+  return result;
 };
 /**
  * Function to make a generic request POST.
@@ -53,24 +64,8 @@ export const makeGET = async (APIURL) => {
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makePOST = async (APIURL, body) => {
-  try {
-    const res = await fetch(APIURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-      Authorization: TOKENJWT,
-     },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.');
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  } catch (error) {
-    return error;
-  }
+  const result = await fetcher(APIURL, 'POST', body);
+  return result;
 };
 /**
  * Function to make a generic request PUT.
@@ -88,23 +83,8 @@ export const makePOST = async (APIURL, body) => {
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makePUT = async (APIURL, body) => {
-  try {
-    const res = await fetch(APIURL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: TOKENJWT,
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.');
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  } catch (error) {
-    return error;
-  }
+  const result = await fetcher(APIURL, 'PUT', body);
+  return result;
 };
 /**
  * Function to make a generic request PATCH.
@@ -117,23 +97,8 @@ export const makePUT = async (APIURL, body) => {
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makePATCH = async (APIURL, body) => {
-  try {
-    const res = await fetch(APIURL, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      Authorization: TOKENJWT,
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.');
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  } catch (error) {
-    return error;
-  }
+  const result = await fetcher(APIURL, 'PATCH', body);
+  return result;
 };
 /**
  * Function to make a generic request DELETE.
@@ -146,6 +111,7 @@ export const makePATCH = async (APIURL, body) => {
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makeDELETE = async (APIURL, body) => {
+<<<<<<< HEAD
   try {
     const res = await fetch(APIURL, {
       method: 'DELETE',
@@ -162,4 +128,8 @@ export const makeDELETE = async (APIURL, body) => {
   } catch (error) {
     return error;
   }
+=======
+  const result = await fetcher(APIURL, 'DELETE', body);
+  return result;
+>>>>>>> 4a4454eaeeade2342741e7bc674f9ba8172ea6f2
 };

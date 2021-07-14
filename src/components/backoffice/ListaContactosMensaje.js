@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 export default function ListaContactosMensaje(){
 
-    const {id, message} = useParams();
+    const {message} = useParams();
 
     return(
         <>
