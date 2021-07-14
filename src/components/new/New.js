@@ -30,6 +30,7 @@ const New = ({news, filterNews}) => {
     setOpenModal(false);
     setToastOpen(true);
     const DeleteNew = await makeDELETE(`${ENDPOINT_NEWS}/${id}`)
+    console.log(DeleteNew)
     filterNews(id)
   };
 

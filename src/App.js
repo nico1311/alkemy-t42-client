@@ -8,7 +8,6 @@ import theme from './theme';
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_GETLOGGED } from 'services/settings';
 import { getLoggedUser } from 'redux/user/actions/user';
-import { getToken } from 'services/tokenHandler'
 
 const MainView = lazy(() => import('view/mainView/MainView'));
 const BackOfficeView = lazy(() => import('view/backOfficeView/BackOfficeView'));

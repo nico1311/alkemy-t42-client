@@ -111,25 +111,6 @@ export const makePATCH = async (APIURL, body) => {
  * @returns {Object} Returns a result of promise with fetch.
  */
 export const makeDELETE = async (APIURL, body) => {
-<<<<<<< HEAD
-  try {
-    const res = await fetch(APIURL, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', Authorization : TOKENJWT },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.');
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    return res.json();
-  } catch (error) {
-    return error;
-  }
-=======
   const result = await fetcher(APIURL, 'DELETE', body);
   return result;
->>>>>>> 4a4454eaeeade2342741e7bc674f9ba8172ea6f2
 };
