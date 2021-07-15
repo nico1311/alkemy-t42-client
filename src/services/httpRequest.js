@@ -19,7 +19,7 @@ const fetcher = async (APIURL, verb, body) => {
         'Content-Type': 'application/json',
         Authorization: TOKENJWT,
       },
-      body: body ? JSON.stringify(body) : '',
+      body: body ? JSON.stringify(body) : null,
     });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
