@@ -91,8 +91,8 @@ export const makePUT = async (APIURL, body) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
       },
-      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {
@@ -122,8 +122,8 @@ export const makePATCH = async (APIURL, body) => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: TOKENJWT,
       },
-      Authorization: TOKENJWT,
       body: JSON.stringify(body),
     });
     if (!res.ok) {

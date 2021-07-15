@@ -130,3 +130,33 @@ export const validationContain = (contain) => {
   else if (contain.length > 100240) return 'Como máximo 100240 caracteres.';
   else if (contain.length < 24) return 'Debe contener 24 caracteres o más.';
 };
+/**
+ * Function to validate activity name in edit form.
+ * @fuction validationActivityName
+ * @param {string} name - A string to check validate.
+ * @example
+ * validationActivityName("Activity");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationActivityName = (name) => {
+  if (!name) return 'Requerido';
+  else if (name.length > 20)
+    return 'El nombre de la actividad debe contener como maximo 20 caracteres';
+  else if (name.length < 4)
+    return 'El nombre de la actividad debe contener como minimo 4 caracteres';
+};
+/**
+ * Function to validate activity content in edit form.
+ * @fuction validationActivityContent
+ * @param {string} content - A string to check validate.
+ * @example
+ * validationActivityContent("Activity content example");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationActivityContent = (content) => {
+  if (!content) return 'Requerido';
+  else if (content.length > 50)
+    return 'El contenido de la actividad debe contener como maximo 50 caracteres';
+  else if (content.length < 4)
+    return 'El contenido de la actividad debe contener como minimo 4 caracteres';
+};

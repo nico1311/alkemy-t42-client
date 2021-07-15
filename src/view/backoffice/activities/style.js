@@ -1,5 +1,10 @@
 import { makeStyles } from '@material-ui/core';
-
+/** Styles for Activities view in backoffice
+ * @function useStyles
+ * @example
+ * import useStyles from './style.js'
+ * const classes = useStyles();
+ */
 const useStyles = makeStyles((theme) => {
   return {
     button: {
@@ -9,12 +14,6 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: '#EE9944',
       '&:hover': {
         backgroundColor: '#e07a14',
-      },
-    },
-    buttonSend: {
-      backgroundColor: '#339966',
-      '&:hover': {
-        backgroundColor: '#2B612E',
       },
     },
     right: {
