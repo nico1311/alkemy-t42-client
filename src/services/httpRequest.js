@@ -13,27 +13,23 @@ const TOKENJWT = getToken();
  */
 const fetcher = async (APIURL, verb, body) => {
   try {
-    const fetchOptions = {
+    const res = await fetch(APIURL, {
       method: verb,
       headers: {
         'Content-Type': 'application/json',
         Authorization: TOKENJWT,
-      }
-    }
-    if ((['POST', 'PUT', 'PATCH'].includes(verb)) && body) {
-      fetchOptions.body = JSON.stringify(body);
-    }
-
-    const res = await fetch(APIURL, fetchOptions);
+      },
+      body: body ? JSON.stringify(body) : null,
+    });
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
       error.info = await res.json();
       error.status = res.status;
-      throw error;
+      return error;
     }
     return res.json();
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 /**
