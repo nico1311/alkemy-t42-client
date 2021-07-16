@@ -6,11 +6,8 @@
 /coverage
 # Build
 /build
+/docs
 # files
 .vscode
 .env
 package-lock.json
-# cypress
-cypress/downloads
-cypress/screenshots
-cypress/videos

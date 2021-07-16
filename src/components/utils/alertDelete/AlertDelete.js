@@ -17,7 +17,8 @@ export default function AlertDelete({
   cancelarMessage = 'Cancelar',
   onClose,
   snack,
-  closeIcon
+  closeIcon,
+  toastMessage
 }){
   return (
     <div>
@@ -49,7 +50,7 @@ export default function AlertDelete({
         open={snack}
         autoHideDuration={2000}
         onClose={onClose}
-        message='Usuario eliminado'
+        message={toastMessage}
         action={
           <IconButton
             size='small'

@@ -71,6 +71,7 @@ const New = ({news, filterNews}) => {
           onClose={() => setToastOpen(false)}
           closeIcon={() => setToastOpen(false)}
           message={`¿Desea eliminar la noticia "${news.name}"?`}
+          toastMessage={'Noticia eliminada'}
 
         />
       }
