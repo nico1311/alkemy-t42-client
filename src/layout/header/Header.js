@@ -16,12 +16,11 @@ import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
-//import {useSelector} from 'react-redux'
-import { isLogged } from '../../hooks/useUser'
+import useUser from 'hooks/useUser';
 
 
 const NavBar = () => {
-  //const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
+  const log  = useUser().isLogged;
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -84,7 +83,7 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {isLogged ? (<Grid item className={classes.align}>
+              {log ? (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/backoffice')}
                   variant='contained'

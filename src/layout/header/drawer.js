@@ -10,10 +10,11 @@ import {
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
-import { isLogged } from '../../hooks/useUser'
+import useUser from 'hooks/useUser';
 
 
 const DrawerComponent = () => {
+  const log  = useUser().isLogged;
   const [openDrawer, setOpenDrawer] = useState(false);
   const classes = useStyles();
   return (
@@ -69,7 +70,7 @@ const DrawerComponent = () => {
               </ListItemText>
             </ListItemIcon>
           </ListItem>
-          {isLogged ? (<List>
+          {log ? (<List>
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
                 <ListItemIcon>
                   <ListItemText>
