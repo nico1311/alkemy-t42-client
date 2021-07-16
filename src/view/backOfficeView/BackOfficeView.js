@@ -105,9 +105,10 @@ function BackOfficeView() {
                 component={DeleteProfile}
               />
               <Route path={`${path}/perfil/editar`} component={EditUserPage} />
-              <Route path={`${path}/users`} component={() => <UsersView />} />
-              <Route path={`${path}/users`} component={() => <UsersView />} />
+              <Route path={`${path}/users`} component={UsersView} />
               <Route path={`${path}/news`} component={News} />
+              <Route path={`${path}/categories`} component={CategoriesView} />
+
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}

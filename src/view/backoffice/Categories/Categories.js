@@ -27,11 +27,11 @@ const Categories = () => {
   const [toastOpen, setToastOpen] = useState(false);
 
   useEffect(() => {
-    makeGET(ENDPOINT_CATEGORY).then((data) => {
-      setCategories(data.categories);
-    }).catch((err) => {
-      console.error(err);
-    });
+    const fetchCategories = async () => {
+      const data = await makeGET(ENDPOINT_CATEGORY);
+      setCategories(data.categories);     
+    }
+    fetchCategories();
   }, []);
 
   const handleDeleteAction = (categoryId) => {
