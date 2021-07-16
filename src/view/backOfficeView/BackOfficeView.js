@@ -9,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
-import UsersView from '../backoffice/Users/Users';
 import { AnimatePresence, motion } from 'framer-motion';
 import DrawerList from 'components/backoffice/drawer';
 import {
@@ -28,6 +27,9 @@ const EditUserForm = lazy(() =>
 );
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
+
+const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
+const UsersView = lazy(() => import('../backoffice/Users/Users'));
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -103,9 +105,10 @@ function BackOfficeView() {
                 component={DeleteProfile}
               />
               <Route path={`${path}/perfil/editar`} component={EditUserPage} />
-              <Route path={`${path}/users`} component={() => <UsersView />} />
-              <Route path={`${path}/users`} component={() => <UsersView />} />
+              <Route path={`${path}/users`} component={UsersView} />
               <Route path={`${path}/news`} component={News} />
+              <Route path={`${path}/categories`} component={CategoriesView} />
+              
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}

@@ -3,6 +3,7 @@ import {
     List, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core'
 import People from '@material-ui/icons/People';
+import LabelIcon from '@material-ui/icons/Label';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import HomeIcon from '@material-ui/icons/Home';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
@@ -27,6 +28,11 @@ const AdminMenu = ({ onClickHandler }) => {
             <ListItem button onClick={() => onClickHandler('/news')}>
                 <ListItemIcon><AnnouncementIcon /></ListItemIcon>
                 <ListItemText primary={'Noticias'} />
+            </ListItem>
+
+            <ListItem button onClick={() => onClickHandler('/categories')}>
+                <ListItemIcon><LabelIcon /></ListItemIcon>
+                <ListItemText primary={'Categorías'} />
             </ListItem>
 
             <ListItem button onClick={() => onClickHandler('/organization')}>
