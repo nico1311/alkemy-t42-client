@@ -27,6 +27,7 @@ const EditUserForm = lazy(() =>
 );
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
+const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
 
 const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
@@ -105,7 +106,12 @@ function BackOfficeView() {
                 component={DeleteProfile}
               />
               <Route path={`${path}/perfil/editar`} component={EditUserPage} />
+<<<<<<< HEAD
+              <Route path={`${path}/users`} component={() => <UsersView />} />
+              <Route path={`${path}/users`} component={() => <UsersView />} />
+=======
               <Route path={`${path}/users`} component={UsersView} />
+>>>>>>> aeb6c2de6221c596789fafc428b53321211cbdb7
               <Route path={`${path}/news`} component={News} />
               <Route path={`${path}/categories`} component={CategoriesView} />
               
@@ -116,7 +122,7 @@ function BackOfficeView() {
               <Route path={`${path}/activities`} component={Activities} />
               <Route
                 path={`${path}/testimonials`}
-                component={() => <Test texto='testimonials' />}
+                component={() => <ListadoTestimonios />}
               />
               <Route
                 path={`${path}/lista-contactos`}

@@ -47,21 +47,28 @@ export const ENDPOINT_NEWS = `${BASE_URL}news`;
  * @readonly
  */
 export const ENDPOINT_GETLOGGED = `${BASE_URL}auth/me`;
+
 /**
  * Constant with ENDPOINT to activities.
  * @constant
  * @readonly
  */
-export const ENDPOINT_ACTIVITIES = `${BASE_URL}api/activities`;
-/**
- * Constant with ENDPOINT to activies.
- * @constant
- * @readonly
- */
-export const ENDPOINT_ACTIVITY = `${BASE_URL}activities`;
+
+export const ENDPOINT_ACTIVITIES = `${BASE_URL}activities`;
+
+
 /**
  * Constant with ENDPOINT to category.
  * @constant
  * @readonly
  */
 export const ENDPOINT_CATEGORY = `${BASE_URL}categories`;
+
+
+/**
+ * Constant with ENDPOINT to category.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_GETTESTIMONIALS = `${BASE_URL}testimonials`;
+
