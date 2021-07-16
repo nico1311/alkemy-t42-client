@@ -59,3 +59,9 @@ export const ENDPOINT_ACTIVITY = `${BASE_URL}api/activities`;
  * @readonly
  */
 export const ENDPOINT_CATEGORY = `${BASE_URL}api/categories`;
+/**
+ * Constant with ENDPOINT to testimonial.
+ * @constant
+ * @readonly
+ */
+ export const ENDPOINT_TESTIMONIAL = `${BASE_URL}api/testimonials`;
