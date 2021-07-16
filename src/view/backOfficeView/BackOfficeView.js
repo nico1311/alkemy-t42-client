@@ -19,10 +19,13 @@ import {
 } from 'components/utils/transitionEffect/transitionPropertys';
 
 const News = lazy(() => import('view/news/NewsBackoffice'));
+const Activities = lazy(() => import('view/backoffice/activities/Activities'));
 const ListContacts = lazy(() => import('./ListaContactos'));
 const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
-const EditUserForm = lazy(() => import('components/form/editUser/editUserForm.js'));
+const EditUserForm = lazy(() =>
+  import('components/form/editUser/editUserForm.js'),
+);
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 
@@ -52,7 +55,6 @@ function BackOfficeView() {
           <Typography variant='h6' noWrap>
             Somos mas
           </Typography>
-
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
@@ -90,33 +92,25 @@ function BackOfficeView() {
         <AnimatePresence exitBeforeEnter>
           <motion.div initial={initial} animate={animate} exit={exit}>
             <Switch>
-
               {/** `/backoffice/users/${user.id}/edit` */}
-              <Route
-                path={`${path}/users/:id/edit`}
-                component={EditUserForm} />
+              <Route path={`${path}/users/:id/edit`} component={EditUserForm} />
               <Route
                 path={`${path}/lista-contactos/:id/:message`}
-                component={ListaContactosMensaje} />
+                component={ListaContactosMensaje}
+              />
               <Route
                 path={`${path}/perfil/eliminar`}
-                component={DeleteProfile} />
-              <Route
-                path={`${path}/perfil/editar`}
-                component={EditUserPage} />
-              <Route
-                path={`${path}/users`}
-                component={() => <UsersView />}
+                component={DeleteProfile}
               />
+              <Route path={`${path}/perfil/editar`} component={EditUserPage} />
+              <Route path={`${path}/users`} component={() => <UsersView />} />
+              <Route path={`${path}/users`} component={() => <UsersView />} />
               <Route path={`${path}/news`} component={News} />
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}
               />
-              <Route
-                path={`${path}/activities`}
-                component={() => <Test texto='activities' />}
-              />
+              <Route path={`${path}/activities`} component={Activities} />
               <Route
                 path={`${path}/testimonials`}
                 component={() => <Test texto='testimonials' />}
@@ -125,10 +119,7 @@ function BackOfficeView() {
                 path={`${path}/lista-contactos`}
                 component={ListContacts}
               />
-              <Route
-                path={`${path}`}
-                component={MyProfile}
-              />
+              <Route path={`${path}`} component={MyProfile} />
             </Switch>
           </motion.div>
         </AnimatePresence>

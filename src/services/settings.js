@@ -48,6 +48,12 @@ export const ENDPOINT_NEWS = `${BASE_URL}news`;
  */
 export const ENDPOINT_GETLOGGED = `${BASE_URL}auth/me`;
 /**
+ * Constant with ENDPOINT to activities.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_ACTIVITIES = `${BASE_URL}api/activities`;
+/**
  * Constant with ENDPOINT to activies.
  * @constant
  * @readonly
