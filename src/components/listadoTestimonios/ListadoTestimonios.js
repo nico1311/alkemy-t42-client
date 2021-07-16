@@ -12,18 +12,25 @@ import {
   TableCell,
   TableBody,
   Button,
-  
 } from '@material-ui/core';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
-
-
 
 const ListadoTestimonios = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingTestimony, setPendingTestimony] = useState(null);
+
+  useEffect(() => {
+    async function getTestimonials() {
+      const { Testimonials: testimonialsAPI } = await makeGET(
+        ENDPOINT_GETTESTIMONIALS,
+      );
+      setTestimonials(testimonialsAPI);
+    }
+    getTestimonials();
+  }, []);
 
   const handleOpenAlert = (testimonyID) => {
     setPendingTestimony(
@@ -38,21 +45,11 @@ const ListadoTestimonios = () => {
   };
 
   const handleDeleteConfirm = () => {
-    setOpenAlert(false)
+    setOpenAlert(false);
     setToastOpen(true);
     console.log(toastOpen);
     setPendingTestimony(null);
   };
-
-  useEffect(() => {
-    async function getTestimonials() {
-      const { Testimonials: testimonialsAPI } = await makeGET(
-        ENDPOINT_GETTESTIMONIALS,
-      );
-      setTestimonials(testimonialsAPI);
-    }
-    getTestimonials();
-  }, []);
 
   console.log(testimonials);
 
@@ -78,7 +75,9 @@ const ListadoTestimonios = () => {
                   <TableRow>
                     <TableCell>{testimony.id}</TableCell>
                     <TableCell>{testimony.name}</TableCell>
-                    <TableCell><ContentModal message={testimony.content}></ContentModal></TableCell>
+                    <TableCell>
+                      <ContentModal message={testimony.content}></ContentModal>
+                    </TableCell>
                     <TableCell>
                       <Button>Editar</Button>
                       <Button onClick={() => handleOpenAlert(testimony.id)}>
