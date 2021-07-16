@@ -8,14 +8,13 @@ import { ENDPOINT_ACTIVITIES } from 'services/settings';
  * @param {function} setTypeMSJ - activates an alert
  */
 
-const submit = async ({ name, content, image, id }, setSubmit, setTypeMSJ) => {
-  const results = { name, content, image };
+const submit = (values, setSubmit, setTypeMSJ) => {
   try {
-    makePUT(`${ENDPOINT_ACTIVITIES}/${id}`, results);
-    console.log(results);
-    setSubmit(true);
+    makePUT(`${ENDPOINT_ACTIVITIES}/${values.id}`, values);
     setTypeMSJ('success');
-  } catch {}
+  } catch {
+    setTypeMSJ('error');
+  }
 };
 
 export default submit;
