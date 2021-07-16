@@ -19,17 +19,17 @@ import useStyles from './style';
 /**
  * Component FormTestimonial is a form for testimonial section.
  * @function FormTestimonial
- * @param {Object} prevActivity - An object with attributes of previous activity to edit.
+ * @param {Object} prevTestimony - An object with attributes of previous testimony to edit.
  * @param {Function} [props.changeSubmit=submit] - A custom function to change default function onSubmit.
  * @example
- * // Example for new activity.
- * import FormActivity from 'components/forms/activity/FormActivity.js'
- * <FormActivity />
+ * // Example for new testimony.
+ * import FormTestimony from 'components/forms/testimony/FormTestimony.js'
+ * <FormTestimony />
  * @example
- * // Example for edit activity.
- * import FormActivity from 'components/forms/activity/FormActivity.js'
- * const activity = {id: 6, name: "Añadir bolsas", content: "Es necesario agregar bolsas de reclables a las actuales."}
- * <FormActivity prevActivity={activity} />
+ * // Example for edit testimony.
+ * import FormTestimony from 'components/forms/testimony/FormTestimony.js'
+ * const testimony = {id: 6, name: "Añadir bolsas", content: "Es necesario agregar bolsas de reclables a las actuales."}
+ * <FormTestimony prevTestimony={testimony} />
  */
 const FormTestimonial = ({ prevTestimony = null, changeSubmit = submit }) => {
   // State to handler alert error/success show/hide.

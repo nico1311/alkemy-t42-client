@@ -1,13 +1,13 @@
-/** @module Form/Register */
+/** @module Form/Testimony */
 import {
     validationTitle as validationName,
     validationImage,
     validationContain as validateContent,
   } from '../utilValidation';
   /**
-   * Function to know if predeterminate values are valid. Check values for title, image, category and contain in a object in form register.
+   * Function to know if predeterminate values are valid. Check values for title, image, name and contain in a object in form register.
    * @fuction validation
-   * @param {String} values.title - A string.
+   * @param {String} values.name - A string.
    * @param {String} values.image - A string.
    * @param {String} values.contain - A string.
    * @example
@@ -17,14 +17,14 @@ import {
   const validation = ({ name, image, content }) => {
     const errors = {};
     // Check Title.
-    const isValidTitle = validationName(name);
-    if (isValidTitle) errors.title = isValidTitle;
+    const isValidName = validationName(name);
+    if (isValidName) errors.name = isValidName;
     // Check Image.
     const isValidImage = validationImage(image);
     if (isValidImage) errors.image = isValidImage;
     // Check Containt.
-    const isValidContain = validateContent(content);
-    if (isValidContain) errors.contain = isValidContain;
+    const isValidContent = validateContent(content);
+    if (isValidContent) errors.content = isValidContent;
   
     return errors;
   };

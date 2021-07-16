@@ -8,15 +8,20 @@ import {
   useTheme,
   Button,
   Grid,
+  IconButton,
 } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
 import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+//import {useSelector} from 'react-redux'
+import { getToken } from '../../services/tokenHandler'
 
 const NavBar = () => {
-  const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
+  //const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
+  const token = getToken()
+  console.log(token)
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -75,14 +80,25 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {user ? <Button
+              {token ? (<Grid item className={classes.align}>
+                <Button
                   onClick={() => history.push('/backoffice')}
                   variant='contained'
                   color='secondary'
                   className={classes.split}
                 >
                   Backoffice
-                </Button> : (<Grid item className={classes.align}>
+                </Button>
+
+                <IconButton
+                  onClick={() => history.push('/perfil')}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  <PersonIcon/>
+                </IconButton>
+                </Grid>) : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'
