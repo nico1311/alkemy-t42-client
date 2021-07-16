@@ -17,17 +17,19 @@ import {
   animate,
   exit,
 } from 'components/utils/transitionEffect/transitionPropertys';
+
 const News = lazy(() => import('view/news/NewsBackoffice'));
 const Activities = lazy(() => import('view/backoffice/activities/Activities'));
-
 const ListContacts = lazy(() => import('./ListaContactos'));
 const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
+const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserForm = lazy(() =>
   import('components/form/editUser/editUserForm.js'),
 );
+const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
+const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 
-function BackOfficeView(props) {
-  const { window } = props;
+function BackOfficeView() {
   const { path } = useRouteMatch();
   const classes = useStyles();
   const theme = useTheme();
@@ -36,9 +38,6 @@ function BackOfficeView(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className={classes.root}>
@@ -62,7 +61,6 @@ function BackOfficeView(props) {
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation='css'>
           <Drawer
-            container={container}
             variant='temporary'
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}
@@ -100,6 +98,12 @@ function BackOfficeView(props) {
                 path={`${path}/lista-contactos/:id/:message`}
                 component={ListaContactosMensaje}
               />
+              <Route
+                path={`${path}/perfil/eliminar`}
+                component={DeleteProfile}
+              />
+              <Route path={`${path}/perfil/editar`} component={EditUserPage} />
+              <Route path={`${path}/users`} component={() => <UsersView />} />
               <Route path={`${path}/users`} component={() => <UsersView />} />
               <Route path={`${path}/news`} component={News} />
               <Route
@@ -115,10 +119,7 @@ function BackOfficeView(props) {
                 path={`${path}/lista-contactos`}
                 component={ListContacts}
               />
-              <Route
-                path={`${path}`}
-                component={() => <Test texto='Welcome' />}
-              />
+              <Route path={`${path}`} component={MyProfile} />
             </Switch>
           </motion.div>
         </AnimatePresence>

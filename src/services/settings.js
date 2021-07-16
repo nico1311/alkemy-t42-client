@@ -53,3 +53,15 @@ export const ENDPOINT_GETLOGGED = `${BASE_URL}api/auth/me`;
  * @readonly
  */
 export const ENDPOINT_ACTIVITIES = `${BASE_URL}api/activities`;
+/**
+ * Constant with ENDPOINT to activies.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_ACTIVITY = `${BASE_URL}api/activities`;
+/**
+ * Constant with ENDPOINT to category.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_CATEGORY = `${BASE_URL}api/categories`;

@@ -42,12 +42,13 @@ const Activities = () => {
     setActivityToEdit(response.Activity);
     setEdit(true);
   };
-  const deleteActivity = async (id) => {
-    await makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
+  const deleteActivity = (id) => {
+    makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
     setOpen(false);
     getActivities();
   };
   const handleClose = () => {
+    setActivityToDelete('');
     setOpen(false);
   };
   if (edit) {
@@ -102,23 +103,10 @@ const Activities = () => {
             })}
           </TableBody>
         </Table>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-        >
-          <DialogTitle id='alert-dialog-title'>
-            {'¿Seguro que desea eliminar la actividad?'}
-          </DialogTitle>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>¿Seguro que desea eliminar la actividad?</DialogTitle>
           <DialogActions>
-            <Button
-              onClick={() => {
-                setActivityToDelete('');
-                setOpen(false);
-              }}
-              color='secondary'
-            >
+            <Button onClick={handleClose} color='secondary'>
               Cancelar
             </Button>
             <Button
