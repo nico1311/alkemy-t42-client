@@ -34,10 +34,11 @@ const useFetch = (url, options = null) => {
         const res = await fetch(url, { ...options, signal });
         const json = await res.json();
         setResponse(json);
+        setLoading(false);
       } catch (e) {
         setError(e);
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchData();
     return function cleanup() {
