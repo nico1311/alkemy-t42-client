@@ -11,16 +11,17 @@ import {
   IconButton,
 } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
 //import {useSelector} from 'react-redux'
-import { getToken } from '../../services/tokenHandler'
+import { isLogged } from '../../hooks/useUser'
+
 
 const NavBar = () => {
   //const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
-  const token = getToken();
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -83,7 +84,7 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {token ? (<Grid item className={classes.align}>
+              {isLogged ? (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/backoffice')}
                   variant='contained'
@@ -100,6 +101,15 @@ const NavBar = () => {
                   className={classes.split}
                 >
                   <PersonIcon/>
+                </IconButton>
+                {/* Log out en desarrollo */}
+                <IconButton 
+                  onClick={() => history.push('/')}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  <PowerSettingsNewIcon/>
                 </IconButton>
                 </Grid>) : (<Grid item className={classes.align}>
                 <Button

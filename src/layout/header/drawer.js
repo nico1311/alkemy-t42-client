@@ -10,13 +10,12 @@ import {
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
-import { getToken } from '../../services/tokenHandler'
+import { isLogged } from '../../hooks/useUser'
 
 
 const DrawerComponent = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const classes = useStyles();
-  const token = getToken();
   return (
     <>
       <Drawer
@@ -70,7 +69,16 @@ const DrawerComponent = () => {
               </ListItemText>
             </ListItemIcon>
           </ListItem>
-          {token ? (<List>
+          {isLogged ? (<List>
+              <ListItem divider button onClick={() => setOpenDrawer(false)}>
+                <ListItemIcon>
+                  <ListItemText>
+                    <Link to='/backoffice' style={{ textDecoration: 'none' }}>
+                      Backoffice
+                    </Link>
+                  </ListItemText>
+                </ListItemIcon>
+              </ListItem>
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
                 <ListItemIcon>
                   <ListItemText>
@@ -83,12 +91,12 @@ const DrawerComponent = () => {
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
                 <ListItemIcon>
                   <ListItemText>
-                    <Link to='/backoffice' style={{ textDecoration: 'none' }}>
-                      Backoffice
+                    <Link to='/' style={{ textDecoration: 'none' }}>
+                      Log out
                     </Link>
                   </ListItemText>
                 </ListItemIcon>
-              </ListItem>
+              </ListItem>                 
             </List>
           ):(<List>
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
