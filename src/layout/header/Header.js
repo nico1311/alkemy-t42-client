@@ -8,16 +8,19 @@ import {
   useTheme,
   Button,
   Grid,
+  IconButton,
 } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { logout } from "services/auth";
+import useUser from 'hooks/useUser';
+
 
 const NavBar = () => {
-  const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
+  const log  = useUser().isLogged;
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -68,32 +71,46 @@ const NavBar = () => {
                     className={classes.noMinWidth}
                     disableRipple
                     label='actividades'
+                    to='/actividades'
+                    component={Link}
                   />
                   <Tab
                     className={classes.noMinWidth}
                     disableRipple
                     label='testimonios'
+                    to='/testimonios'
+                    component={Link}
                   />
                 </Tabs>
               </Grid>
-                {user ? <>
-                  <Button
+              {log ? (<Grid item className={classes.align}>
+                <Button
                   onClick={() => history.push('/backoffice')}
                   variant='contained'
                   color='secondary'
                   className={classes.split}
                 >
                   Backoffice
-                  </Button>
-                  <Button
-                  onClick={logout}
+                </Button>
+
+                <IconButton
+                  onClick={() => history.push('/perfil')}
                   variant='contained'
                   color='secondary'
                   className={classes.split}
                 >
-                  Logout
-                  </Button>
-                </>  : (<Grid item className={classes.align}>
+                  <PersonIcon/>
+                </IconButton>
+                {/* Log out en desarrollo */}
+                <IconButton 
+                  onClick={() => history.push('/')}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  <PowerSettingsNewIcon/>
+                </IconButton>
+                </Grid>) : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'
