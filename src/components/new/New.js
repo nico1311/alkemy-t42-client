@@ -72,7 +72,6 @@ const New = ({news, filterNews}) => {
           closeIcon={() => setToastOpen(false)}
           message={`¿Desea eliminar la noticia "${news.name}"?`}
           toastMessage={'Noticia eliminada'}
-
         />
       }
     </Grid>

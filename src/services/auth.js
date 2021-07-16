@@ -1,26 +1,29 @@
+/** @module services/auth */
+import { setToken, deleteToken } from './tokenHandler';
+import store from 'redux/store';
+import { getLoggedUser, userLogout } from 'redux/user/actions/user';
+/**
+ * Function to login a user from client.
+ * @async
+ * @function login
+ * @param {Function} results - Result for make a request.
+ * @example
+ * import { login } from "services/auth";
+ * login(res);
+ */
+export const login = ( results ) => {
+  setToken(results.token);
+  store.dispatch(getLoggedUser(results.user));
+};
 /**
  * Function to logout a user from client.
  * @async
  * @function logout
- * @param {String} localStorageItem - It's a key of localStarage identificator.
- * @param {Function} dispatch - It's a dispatcher function, from storage of redux or use.
  * @example
  * import { logout } from "services/auth";
  * logout();
- * @example
- * import { logout } from "services/auth";
- * logout("token"); // Delete item token, from localStorage.
- * @example
- * import { logout } from "services/auth";
- * import { userLogout } from "redux/user/actions/user"
- * import { useDispatch } from 'react-redux'
- * const dispatch = useDispatch();
- * logout("token", dispatch(userLogout())); // Delete item token, from localStorage and run dispatch.
  */
-export const logout = (localStorageItem = 'user', dispatch = null) => {
-  localStorage.removeItem(localStorageItem);
-  // If not setted a function for dispath, function done.
-  if (!dispatch) return null;
-  // If dispatch is setted, run that dispatch.
-  dispatch();
+export const logout = () => {
+  deleteToken();
+  store.dispatch(userLogout());
 };

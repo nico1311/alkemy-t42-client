@@ -10,8 +10,7 @@ const MainView = lazy(() => import('view/mainView/MainView'));
 const BackOfficeView = lazy(() => import('view/backOfficeView/BackOfficeView'));
 
 const App = () => {
-  const { isAdmin, isLogged, loading, data } = useUser();
-  console.log({ isAdmin, isLogged, loading, data }); // Only to set results. Remove.
+  useUser(); // Init a user in redux, if have a token in localstorage.
   return (
     <Suspense fallback={<Loader />}>
       <ThemeProvider theme={theme}>

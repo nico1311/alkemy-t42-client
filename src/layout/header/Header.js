@@ -13,7 +13,8 @@ import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux';
+import { logout } from "services/auth";
 
 const NavBar = () => {
   const user = useSelector(state => state.user.user) //Aca esta el usuario ;)
@@ -75,14 +76,24 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {user ? <Button
+                {user ? <>
+                  <Button
                   onClick={() => history.push('/backoffice')}
                   variant='contained'
                   color='secondary'
                   className={classes.split}
                 >
                   Backoffice
-                </Button> : (<Grid item className={classes.align}>
+                  </Button>
+                  <Button
+                  onClick={logout}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  Logout
+                  </Button>
+                </>  : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'

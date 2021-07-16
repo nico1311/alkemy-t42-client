@@ -1,7 +1,7 @@
-import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react';
-
+import { Route } from 'react-router-dom';
+import useUser from 'hooks/useUser';
+import Loader from 'components/utils/Loader/Loader';
+import RedirectView from 'view/redirect/RedirectView';
 /**@module utils/PrivateRoute */
 /**
  *  Component that manages the access to a private route
@@ -22,22 +22,12 @@ export default function PrivateRoute({
   shouldBeAdmin,
   ...rest
 }) {
-  
-  const auth = useSelector(state => state.user.user ? true : false);
-  const adminIsUser = useSelector(state => state.user.user?.roleId === 1 ? true : false)
-  const [permitted, setPermitted] = useState(true)
-
-  useEffect(() => {
-    if(shouldBeAdmin){
-      setPermitted(adminIsUser)
-    } else {
-      setPermitted(auth)
-    }
-  }, [adminIsUser, auth, shouldBeAdmin])
+  const { isLogged, loading } = useUser();
+  if (loading) return <Loader />;
 
   return (
     <Route {...rest}>
-      {permitted ? <Component /> : <Redirect to={redirectTo} />}
+      {isLogged ? <Component /> : <RedirectView />}
     </Route>
   );
 }

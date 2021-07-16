@@ -12,7 +12,10 @@ import {
   TableCell,
   TableBody,
   Button,
+  Snackbar,
+  IconButton
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
 
@@ -45,13 +48,11 @@ const ListadoTestimonios = () => {
   };
 
   const handleDeleteConfirm = () => {
+    setPendingTestimony(null);
     setOpenAlert(false);
     setToastOpen(true);
-    console.log(toastOpen);
-    setPendingTestimony(null);
   };
 
-  console.log(testimonials);
 
   return (
     <>
@@ -70,9 +71,9 @@ const ListadoTestimonios = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {testimonials.map((testimony) => {
+              {testimonials.map((testimony, i) => {
                 return (
-                  <TableRow>
+                  <TableRow key={i}>
                     <TableCell>{testimony.id}</TableCell>
                     <TableCell>{testimony.name}</TableCell>
                     <TableCell>
@@ -91,20 +92,39 @@ const ListadoTestimonios = () => {
           </Table>
         </TableContainer>
       </Container>
-      {pendingTestimony && (
-        <>
-          <AlertDelete
+      {pendingTestimony && 
+        <AlertDelete
             open={openAlert}
-            cancelar={() => handleDeleteCancel()}
+            message={`¿Eliminar la categoría "${pendingTestimony.name}"?`}
             confirmar={handleDeleteConfirm}
-            snack={toastOpen}
+            cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
+            snack={toastOpen}
+            Message='Categoría eliminada'
             closeIcon={() => setToastOpen(false)}
-            message={`¿Desea eliminar el testimonio "${pendingTestimony.name}"?`}
-            toastMessage={'Testimonio eliminado'}
+            toastMessage="Se ha eliminado correctamente."
           />
-        </>
-      )}
+      }
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={() => setToastOpen(false)}
+        message='Categoría eliminada'
+        action={
+          <IconButton
+            size='small'
+            aria-label='close'
+            color='inherit'
+            onClick={() => setToastOpen(false)}
+          >
+            <CloseIcon fontSize='small' />
+          </IconButton>
+        }
+        />
     </>
   );
 };

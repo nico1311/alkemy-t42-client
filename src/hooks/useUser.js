@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getLoggedUser } from 'redux/user/actions/user';
 import { ENDPOINT_GETLOGGED } from 'services/settings';
 import { makeGET } from 'services/httpRequest';
+import { getToken } from 'services/tokenHandler';
 /**
  * useUser Hook - Hooks to fetching data from api or get data from redux. Only for this proyect.
  * @async
@@ -31,7 +32,7 @@ import { makeGET } from 'services/httpRequest';
  */
 const useUser = () => {
   // States
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [data, setData] = useState(null);
@@ -43,14 +44,13 @@ const useUser = () => {
   */
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       const res = await makeGET(ENDPOINT_GETLOGGED);
       // Dispatch user to redux.
       if (!res?.status && !res.info) dispatch(getLoggedUser(res));
       setLoading(false);
     };
     // Execute effect only we don't have a user in redux.
-    if (!user) fetchData();
+    if (!user && getToken()) fetchData();
   }, [dispatch, user]);
   /*
   // useEffect to set data.
@@ -59,10 +59,11 @@ const useUser = () => {
     // Check if user is admin.
     if (user?.roleId === 1) setIsAdmin(true);
     // Check if user is logged.
-    if (user?.id && user?.email) {
+    if (user?.id) {
       setIsLogged(true);
       setData(user);
     }
+    setLoading(false);
   }, [user]);
   // return object to use.
   return { isAdmin, isLogged, data, loading };

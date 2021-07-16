@@ -1,7 +1,7 @@
 /** @module Form/Login */
 import { makePOST } from 'services/httpRequest';
 import { ENDPOINT_LOGIN } from 'services/settings';
-import { setToken } from 'services/tokenHandler'
+import { login } from "services/auth";
 /**
  * Function submit default of component Form Login. If login is correct, redirect to "/", else we change state of funcion callback "setShowError" to true.
  * @function submit
@@ -26,8 +26,9 @@ const submit = async (
     password,
   });
   if (result.token) {
-    setToken(result.token)
-    redirect('/')
+    login(result);
+    setSubmit(false);
+    return redirect('/');
   }
   else if (!result.ok) setShowError(true);
   setSubmit(false);

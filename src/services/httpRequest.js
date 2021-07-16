@@ -1,5 +1,5 @@
-import { getToken } from './tokenHandler';
 /** @module services/http */
+import { getToken } from './tokenHandler';
 /**
  * Constant to set TOKEN JWT.
  * @constant

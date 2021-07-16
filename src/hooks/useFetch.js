@@ -37,7 +37,6 @@ const useFetch = (url, options = null) => {
         setLoading(false);
       } catch (e) {
         setError(e);
-        setLoading(false);
       }
     };
     fetchData();
@@ -48,9 +47,9 @@ const useFetch = (url, options = null) => {
   }, []);
   // Return Object.
   return {
-    response,
-    error,
     loading,
+    error,
+    response,
   };
 };
 

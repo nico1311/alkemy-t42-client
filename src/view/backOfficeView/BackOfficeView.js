@@ -105,21 +105,30 @@ function BackOfficeView() {
                 path={`${path}/perfil/eliminar`}
                 component={DeleteProfile}
               />
-              <Route path={`${path}/perfil/editar`} component={EditUserPage} />
-<<<<<<< HEAD
-              <Route path={`${path}/users`} component={() => <UsersView />} />
-              <Route path={`${path}/users`} component={() => <UsersView />} />
-=======
-              <Route path={`${path}/users`} component={UsersView} />
->>>>>>> aeb6c2de6221c596789fafc428b53321211cbdb7
-              <Route path={`${path}/news`} component={News} />
-              <Route path={`${path}/categories`} component={CategoriesView} />
-
+              <Route 
+                path={`${path}/perfil/editar`} 
+                component={EditUserPage} 
+              />
+              <Route 
+                path={`${path}/users`} 
+                component={UsersView} 
+              />
+              <Route 
+                path={`${path}/news`} 
+                component={News}
+              />
+              <Route 
+                path={`${path}/categories`} 
+                component={CategoriesView} 
+              />
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}
               />
-              <Route path={`${path}/activities`} component={Activities} />
+              <Route 
+                path={`${path}/activities`} 
+                component={Activities} 
+              />
               <Route
                 path={`${path}/testimonials`}
                 component={() => <ListadoTestimonios />}
