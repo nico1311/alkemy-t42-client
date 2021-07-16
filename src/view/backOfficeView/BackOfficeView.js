@@ -25,6 +25,7 @@ const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserForm = lazy(() => import('components/form/editUser/editUserForm.js'));
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
+const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -119,7 +120,7 @@ function BackOfficeView() {
               />
               <Route
                 path={`${path}/testimonials`}
-                component={() => <Test texto='testimonials' />}
+                component={() => <ListadoTestimonios />}
               />
               <Route
                 path={`${path}/lista-contactos`}
