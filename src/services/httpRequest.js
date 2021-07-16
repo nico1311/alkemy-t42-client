@@ -27,7 +27,7 @@ const fetcher = async (APIURL, verb, body) => {
       error.status = res.status;
       return error;
     }
-    return res.json();
+    return res.status === 204 ? true : res.json();
   } catch (error) {
     return error;
   }

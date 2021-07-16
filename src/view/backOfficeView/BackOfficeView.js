@@ -114,7 +114,7 @@ function BackOfficeView() {
 >>>>>>> aeb6c2de6221c596789fafc428b53321211cbdb7
               <Route path={`${path}/news`} component={News} />
               <Route path={`${path}/categories`} component={CategoriesView} />
-              
+
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}

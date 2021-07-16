@@ -22,6 +22,9 @@ import { ENDPOINT_CATEGORY } from 'services/settings';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [pendingCategory, setPendingCategory] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,6 +33,27 @@ const Categories = () => {
     }
     fetchCategories();
   }, []);
+
+  const handleDeleteAction = (categoryId) => {
+    setPendingCategory(categories.find((cat) => cat.id === categoryId));
+    setDeleteDialogOpen(true);
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false);
+    setPendingCategory(null);
+  }
+
+  const handleDeleteConfirm = async () => {
+    const result = await makeDELETE(`${ENDPOINT_CATEGORY}/${pendingCategory.id}`);
+    if (result) {
+      setCategories(categories.filter((cat) => cat.id !== pendingCategory.id));
+      setToastOpen(true);      
+    }
+
+    setDeleteDialogOpen(false);
+    setPendingCategory(null);
+  }
 
   return (
     <>
@@ -50,7 +74,7 @@ const Categories = () => {
               </ListItemIcon>
               <ListItemText primary={category.name} />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="delete">
+                  <IconButton aria-label="delete" onClick={() => handleDeleteAction(category.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -58,6 +82,38 @@ const Categories = () => {
           ))}
         </List>
       </Container>
+      {pendingCategory && 
+        <AlertDelete
+          message={`¿Eliminar la categoría "${pendingCategory.name}"?`}
+          open={deleteDialogOpen}
+          cancelar={handleDeleteCancel}
+          confirmar={handleDeleteConfirm}
+          onClose={handleDeleteCancel}
+          snackbarOpen={toastOpen}
+          snackbarMessage='Categoría eliminada'
+          onSnackbarClose={() => setToastOpen(false)}
+        />
+      }
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={() => setToastOpen(false)}
+        message='Categoría eliminada'
+        action={
+          <IconButton
+            size='small'
+            aria-label='close'
+            color='inherit'
+            onClick={() => setToastOpen(false)}
+          >
+            <CloseIcon fontSize='small' />
+          </IconButton>
+        }
+        />
     </>
   );
 }
