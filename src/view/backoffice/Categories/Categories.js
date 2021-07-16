@@ -44,16 +44,15 @@ const Categories = () => {
     setPendingCategory(null);
   }
 
-  const handleDeleteConfirm = () => {
-    makeDELETE(`${ENDPOINT_CATEGORY}/${pendingCategory.id}`).then(() => {
+  const handleDeleteConfirm = async () => {
+    const result = await makeDELETE(`${ENDPOINT_CATEGORY}/${pendingCategory.id}`);
+    if (result) {
       setCategories(categories.filter((cat) => cat.id !== pendingCategory.id));
-      setToastOpen(true);
-    }).catch((err) => {
-      console.error('Error deleting category: ', err);
-    }).finally(() => {
-      setDeleteDialogOpen(false);
-      setPendingCategory(null);
-    });
+      setToastOpen(true);      
+    }
+
+    setDeleteDialogOpen(false);
+    setPendingCategory(null);
   }
 
   return (
