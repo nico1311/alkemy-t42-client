@@ -10,10 +10,13 @@ import {
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
+import { getToken } from '../../services/tokenHandler'
+
 
 const DrawerComponent = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const classes = useStyles();
+  const token = getToken();
   return (
     <>
       <Drawer
@@ -51,19 +54,9 @@ const DrawerComponent = () => {
           </ListItem>
           <ListItem divider button onClick={() => setOpenDrawer(false)}>
             <ListItemIcon>
-              <ListItemText>Actividades</ListItemText>
-            </ListItemIcon>
-          </ListItem>
-          <ListItem divider button onClick={() => setOpenDrawer(false)}>
-            <ListItemIcon>
-              <ListItemText>Testimonios</ListItemText>
-            </ListItemIcon>
-          </ListItem>
-          <ListItem divider button onClick={() => setOpenDrawer(false)}>
-            <ListItemIcon>
               <ListItemText>
-                <Link to='/registrar' style={{ textDecoration: 'none' }}>
-                  Registrarse
+                <Link to='/actividades' style={{ textDecoration: 'none' }}>
+                  Actividades
                 </Link>
               </ListItemText>
             </ListItemIcon>
@@ -71,12 +64,52 @@ const DrawerComponent = () => {
           <ListItem divider button onClick={() => setOpenDrawer(false)}>
             <ListItemIcon>
               <ListItemText>
-                <Link to='/ingresar' style={{ textDecoration: 'none' }}>
-                  Iniciar Sesión
+                <Link to='/testimonios' style={{ textDecoration: 'none' }}>
+                  Testimonios
                 </Link>
               </ListItemText>
             </ListItemIcon>
           </ListItem>
+          {token ? (<List>
+              <ListItem divider button onClick={() => setOpenDrawer(false)}>
+                <ListItemIcon>
+                  <ListItemText>
+                    <Link to='/perfil' style={{ textDecoration: 'none' }}>
+                      Perfil
+                    </Link>
+                  </ListItemText>
+                </ListItemIcon>
+              </ListItem>
+              <ListItem divider button onClick={() => setOpenDrawer(false)}>
+                <ListItemIcon>
+                  <ListItemText>
+                    <Link to='/backoffice' style={{ textDecoration: 'none' }}>
+                      Backoffice
+                    </Link>
+                  </ListItemText>
+                </ListItemIcon>
+              </ListItem>
+            </List>
+          ):(<List>
+              <ListItem divider button onClick={() => setOpenDrawer(false)}>
+              <ListItemIcon>
+                <ListItemText>
+                  <Link to='/registrar' style={{ textDecoration: 'none' }}>
+                    Registrarse
+                  </Link>
+                </ListItemText>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem divider button onClick={() => setOpenDrawer(false)}>
+              <ListItemIcon>
+                <ListItemText>
+                  <Link to='/ingresar' style={{ textDecoration: 'none' }}>
+                    Iniciar Sesión
+                  </Link>
+                </ListItemText>
+              </ListItemIcon>
+            </ListItem>
+          </List>)}
         </List>
       </Drawer>
       <IconButton
