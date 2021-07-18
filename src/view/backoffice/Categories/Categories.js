@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,6 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
 
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,6 +23,8 @@ import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
 const Categories = () => {
+  const {url} = useRouteMatch();
+  const history = useHistory();
   const [categories, setCategories] = useState([]);
   const [pendingCategory, setPendingCategory] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -29,7 +33,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await makeGET(ENDPOINT_CATEGORY);
-      setCategories(data.categories);     
+      setCategories(data.categories);
     }
     fetchCategories();
   }, []);
@@ -48,7 +52,7 @@ const Categories = () => {
     const result = await makeDELETE(`${ENDPOINT_CATEGORY}/${pendingCategory.id}`);
     if (result) {
       setCategories(categories.filter((cat) => cat.id !== pendingCategory.id));
-      setToastOpen(true);      
+      setToastOpen(true);
     }
 
     setDeleteDialogOpen(false);
@@ -58,9 +62,21 @@ const Categories = () => {
   return (
     <>
       <Container px={4} py={4}>
-        <Typography variant='h4' component='h1' gutterBottom>
-            Categorías
-        </Typography>
+        <div style={{ width: '100%' }}>
+          <Box display="flex">
+            <Box width="100%">
+              <Typography variant='h4' component='h1' gutterBottom>
+                Categorías
+              </Typography>
+            </Box>
+            <Box>
+              <Button onClick={() => history.push(`${url}/create`)} variant="contained" color="primary">
+                Crear
+              </Button>
+            </Box>
+          </Box>
+        </div>
+
         <List component="nav" aria-label="main mailbox folders">
           {categories.map((category) => (
             <ListItem
@@ -73,16 +89,16 @@ const Categories = () => {
                 <LabelIcon />
               </ListItemIcon>
               <ListItemText primary={category.name} />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="delete" onClick={() => handleDeleteAction(category.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>          
+              <ListItemSecondaryAction>
+                <IconButton aria-label="delete" onClick={() => handleDeleteAction(category.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
           ))}
         </List>
       </Container>
-      {pendingCategory && 
+      {pendingCategory &&
         <AlertDelete
           message={`¿Eliminar la categoría "${pendingCategory.name}"?`}
           open={deleteDialogOpen}
@@ -113,7 +129,7 @@ const Categories = () => {
             <CloseIcon fontSize='small' />
           </IconButton>
         }
-        />
+      />
     </>
   );
 }

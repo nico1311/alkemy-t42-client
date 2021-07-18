@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import {
   Button,
+  Typography,
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -11,7 +14,7 @@ import {
   TableRow,
   Dialog,
   DialogTitle,
-  DialogActions,
+  DialogActions, Container,
 } from '@material-ui/core';
 import EditActivityForm from 'components/form/editActivity/editActivityForm';
 import useStyles from './style';
@@ -22,6 +25,8 @@ import useStyles from './style';
  * <Activities />
  */
 const Activities = () => {
+  const {url} = useRouteMatch()
+  const history = useHistory();
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [activities, setActivities] = useState([]);
@@ -31,7 +36,7 @@ const Activities = () => {
   const classes = useStyles();
   useEffect(() => {
     getActivities();
-    return () => {};
+    return () => { };
   }, []);
   const getActivities = async () => {
     const activities = await makeGET(ENDPOINT_ACTIVITIES);
@@ -45,7 +50,7 @@ const Activities = () => {
   const deleteActivity = (id) => {
     makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
     setOpen(false);
-    getActivities();
+    setActivities(activities.filter(item => item.id !== id))
   };
   const handleClose = () => {
     setActivityToDelete('');
@@ -62,65 +67,73 @@ const Activities = () => {
   }
   return (
     <>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell className={classes.right}>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {activities.map((activity, i) => {
-              return (
-                <TableRow key={i}>
-                  <TableCell>{activity.name}</TableCell>
-                  <TableCell className={classes.right}>
-                    <Button
-                      color='secondary'
-                      variant='contained'
-                      className={`${classes.button} ${classes.buttonEdit}`}
-                      onClick={() => {
-                        editActivity(activity.id);
-                      }}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      color='secondary'
-                      variant='contained'
-                      className={classes.button}
-                      onClick={() => {
-                        setActivityToDelete(activity.id);
-                        setOpen(true);
-                      }}
-                    >
-                      Eliminar
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>¿Seguro que desea eliminar la actividad?</DialogTitle>
-          <DialogActions>
-            <Button onClick={handleClose} color='secondary'>
-              Cancelar
-            </Button>
-            <Button
-              onClick={() => {
-                deleteActivity(activityToDelete);
-              }}
-              color='primary'
-              autoFocus
-            >
-              Eliminar
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </TableContainer>
+      <Container>
+        <div style={{width: '100%'}}>
+          <Box display="flex">
+            <Box width="100%"> <Typography variant="h4"> Actividades </Typography> </Box>
+            <Box> <Button onClick={() => history.push(`${url}/create`)} variant="contained" color="primary">Crear</Button> </Box>
+          </Box>
+        </div>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell className={classes.right}>Acciones</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {activities.map((activity, i) => {
+                return (
+                  <TableRow key={i}>
+                    <TableCell>{activity.name}</TableCell>
+                    <TableCell className={classes.right}>
+                      <Button
+                        color='secondary'
+                        variant='contained'
+                        className={`${classes.button} ${classes.buttonEdit}`}
+                        onClick={() => {
+                          editActivity(activity.id);
+                        }}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        color='secondary'
+                        variant='contained'
+                        className={classes.button}
+                        onClick={() => {
+                          setActivityToDelete(activity.id);
+                          setOpen(true);
+                        }}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>¿Seguro que desea eliminar la actividad?</DialogTitle>
+            <DialogActions>
+              <Button onClick={handleClose} color='secondary'>
+                Cancelar
+              </Button>
+              <Button
+                onClick={() => {
+                  deleteActivity(activityToDelete);
+                }}
+                color='primary'
+                autoFocus
+              >
+                Eliminar
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </TableContainer>
+      </Container>
     </>
   );
 };
