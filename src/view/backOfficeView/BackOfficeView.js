@@ -33,6 +33,8 @@ const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'))
 const FormCategory = lazy(() => import('components/form/category/FormCategory'))
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
 
+const EditTestimonial = lazy(() => import('./FormTestimonial'))
+
 function BackOfficeView() {
   const { path } = useRouteMatch();
   const classes = useStyles();
