@@ -17,10 +17,10 @@ import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
 import useUser from 'hooks/useUser';
-
+import { logout } from 'services/auth'
 
 const NavBar = () => {
-  const log  = useUser().isLogged;
+  const { isLogged, isAdmin } = useUser();
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -83,34 +83,38 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {log ? (<Grid item className={classes.align}>
-                <Button
-                  onClick={() => history.push('/backoffice')}
-                  variant='contained'
-                  color='secondary'
-                  className={classes.split}
-                >
-                  Backoffice
-                </Button>
-
-                <IconButton
-                  onClick={() => history.push('/perfil')}
-                  variant='contained'
-                  color='secondary'
-                  className={classes.split}
-                >
-                  <PersonIcon/>
-                </IconButton>
+              {isLogged ? (<Grid item className={classes.align}>
+                {
+                  isAdmin ? (
+                    <Button
+                      onClick={() => history.push('/backoffice')}
+                      variant='contained'
+                      color='secondary'
+                      className={classes.split}
+                    >
+                      Backoffice
+                    </Button>
+                  ) : (
+                    <IconButton
+                      onClick={() => history.push('/backoffice')}
+                      variant='contained'
+                      color='secondary'
+                      className={classes.split}
+                    >
+                      <PersonIcon />
+                    </IconButton>
+                  )
+                }
                 {/* Log out en desarrollo */}
-                <IconButton 
-                  onClick={() => history.push('/')}
+                <IconButton
+                  onClick={() => { logout(); history.push('/') }}
                   variant='contained'
                   color='secondary'
                   className={classes.split}
                 >
-                  <PowerSettingsNewIcon/>
+                  <PowerSettingsNewIcon />
                 </IconButton>
-                </Grid>) : (<Grid item className={classes.align}>
+              </Grid>) : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'
@@ -128,8 +132,8 @@ const NavBar = () => {
                 >
                   Iniciar sesión
                 </Button>
-              </Grid>)}
-              
+              </Grid>)
+              }
             </Grid>
           </>
         )}
