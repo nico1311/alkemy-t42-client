@@ -9,6 +9,7 @@ const initialState = {
     { id: 4, title: ' Título', content: 'Cuerpo de la tarjeta 4' },
     { id: 5, title: ' Título', content: 'Cuerpo de la tarjeta 5' },
   ],
+  slider: [{text:'Default', image: 'imagen.jpg'}]
 };
 
 export default function homeReducer(state = initialState, { type, payload }) {
@@ -23,6 +24,16 @@ export default function homeReducer(state = initialState, { type, payload }) {
         ...state,
         homeNews: payload,
       };
+    case actionHome.SET_WELCOME_TEXT:
+        return {
+            state,
+          welcomeMessage: payload
+        };
+    case actionHome.SET_SLIDE:
+        return {
+            ...state,
+          slider: payload
+        }
     default:
       return state;
   }
