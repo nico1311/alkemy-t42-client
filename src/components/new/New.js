@@ -52,10 +52,10 @@ const New = ({news, filterNews}) => {
             {createdAt ? createdAt.slice(0, 10) : ''}
           </Typography>
           <Button
-            className={classes.button}
-            onClick={handleDeleteNews}
+            className={ classes.button }
+            onClick={ handleDeleteNews }
             variant='contained'
-            startIcon={<DeleteIcon />}
+            startIcon={ <DeleteIcon/> }
             color='secondary'
           >
             Eliminar
