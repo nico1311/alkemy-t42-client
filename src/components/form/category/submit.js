@@ -14,7 +14,7 @@ import { ENDPOINT_CATEGORY } from 'services/settings';
  * <FormCategory changeSubmit={submit} /> // This is explicit.
  */
 const submit = async (
-  { name, category },
+  { name, description },
   setSubmit,
   setTypeMSJ,
   id = false,
@@ -24,12 +24,12 @@ const submit = async (
   if (id) {
     result = await makePATCH(`${ENDPOINT_CATEGORY}/${id}`, {
       name,
-      category,
+      description,
     });
   } else {
     result = await makePOST(ENDPOINT_CATEGORY, {
       name,
-      category,
+      description,
     });
   }
   // Results

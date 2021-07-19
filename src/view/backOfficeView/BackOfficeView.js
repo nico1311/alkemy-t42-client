@@ -19,6 +19,7 @@ import {
 
 const News = lazy(() => import('view/news/NewsBackoffice'));
 const Activities = lazy(() => import('view/backoffice/activities/Activities'));
+const ActivityForm = lazy(() => import('components/form/activity/FormActivity'));
 const ListContacts = lazy(() => import('./ListaContactos'));
 const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
@@ -28,9 +29,11 @@ const EditUserForm = lazy(() =>
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
-
+const CreateTestimonial = lazy(() => import('./FormTestimonial'))
 const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
+const FormCategory = lazy(() => import('components/form/category/FormCategory'))
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
+
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -108,6 +111,18 @@ function BackOfficeView() {
               <Route 
                 path={`${path}/perfil/editar`} 
                 component={EditUserPage} 
+              />
+              <Route  
+                path={`${path}/activities/create`}
+                component={ActivityForm}
+              />
+              <Route 
+                path={`${path}/categories/create`} 
+                component={FormCategory} 
+              />
+              <Route 
+                path={`${path}/testimonials/create`} 
+                component={CreateTestimonial} 
               />
               <Route 
                 path={`${path}/users`} 

@@ -66,7 +66,7 @@ export const ENDPOINT_CATEGORY = `${BASE_URL}categories`;
 
 
 /**
- * Constant with ENDPOINT to category.
+ * Constant with ENDPOINT to testimony.
  * @constant
  * @readonly
  */

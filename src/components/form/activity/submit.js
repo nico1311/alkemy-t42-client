@@ -1,6 +1,6 @@
 /** @module Form/Activity */
 import { makePOST, makePATCH } from 'services/httpRequest';
-import { ENDPOINT_ACTIVITY } from 'services/settings';
+import { ENDPOINT_ACTIVITIES } from 'services/settings';
 /**
  * Function submit default of component Form Activity.
  * @function submit
@@ -18,12 +18,12 @@ const submit = async ({ name, content }, setSubmit, setTypeMSJ, id = false) => {
   let result;
   // Request Fetch with service http.
   if (id) {
-    result = await makePATCH(`${ENDPOINT_ACTIVITY}/${id}`, {
+    result = await makePATCH(`${ENDPOINT_ACTIVITIES}/${id}`, {
       name,
       content,
     });
   } else {
-    result = await makePOST(ENDPOINT_ACTIVITY, {
+    result = await makePOST(ENDPOINT_ACTIVITIES, {
       name,
       content,
     });

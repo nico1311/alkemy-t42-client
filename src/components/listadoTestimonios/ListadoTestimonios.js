@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -6,6 +7,7 @@ import {
   Typography,
   TableContainer,
   Paper,
+  Box,
   Table,
   TableHead,
   TableRow,
@@ -20,6 +22,8 @@ import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
 
 const ListadoTestimonios = () => {
+  const history = useHistory();
+  const {url} = useRouteMatch()
   const [testimonials, setTestimonials] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
@@ -57,9 +61,12 @@ const ListadoTestimonios = () => {
   return (
     <>
       <Container>
-        <Typography variant='h4' component='h1' gutterBottom>
-          Testimonios
-        </Typography>
+        <div style={{ width: '100%' }}>
+          <Box display="flex">
+            <Box width="100%"> <Typography variant="h4" component='h1' gutterBottom> Testimonios </Typography> </Box>
+            <Box> <Button onClick={() => history.push(`${url}/create`)} variant="contained" color="primary">Crear</Button> </Box>
+          </Box>
+        </div>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -92,18 +99,18 @@ const ListadoTestimonios = () => {
           </Table>
         </TableContainer>
       </Container>
-      {pendingTestimony && 
+      {pendingTestimony &&
         <AlertDelete
-            open={openAlert}
-            message={`¿Eliminar la categoría "${pendingTestimony.name}"?`}
-            confirmar={handleDeleteConfirm}
-            cancelar={handleDeleteCancel}
-            onClose={() => setToastOpen(false)}
-            snack={toastOpen}
-            Message='Categoría eliminada'
-            closeIcon={() => setToastOpen(false)}
-            toastMessage="Se ha eliminado correctamente."
-          />
+          open={openAlert}
+          message={`¿Eliminar la categoría "${pendingTestimony.name}"?`}
+          confirmar={handleDeleteConfirm}
+          cancelar={handleDeleteCancel}
+          onClose={() => setToastOpen(false)}
+          snack={toastOpen}
+          Message='Categoría eliminada'
+          closeIcon={() => setToastOpen(false)}
+          toastMessage="Se ha eliminado correctamente."
+        />
       }
       <Snackbar
         anchorOrigin={{
@@ -124,7 +131,7 @@ const ListadoTestimonios = () => {
             <CloseIcon fontSize='small' />
           </IconButton>
         }
-        />
+      />
     </>
   );
 };
