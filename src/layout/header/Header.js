@@ -8,13 +8,19 @@ import {
   useTheme,
   Button,
   Grid,
+  IconButton,
 } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import LogoImage from '../../../src/images/assets/logosomos.png';
 import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
+import useUser from 'hooks/useUser';
+import { logout } from 'services/auth'
 
 const NavBar = () => {
+  const { isLogged, isAdmin } = useUser();
   const history = useHistory();
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -58,20 +64,57 @@ const NavBar = () => {
                     className={classes.noMinWidth}
                     disableRipple
                     label='novedades'
+                    to='/novedades'
+                    component={Link}
                   />
                   <Tab
                     className={classes.noMinWidth}
                     disableRipple
                     label='actividades'
+                    to='/actividades'
+                    component={Link}
                   />
                   <Tab
                     className={classes.noMinWidth}
                     disableRipple
                     label='testimonios'
+                    to='/testimonios'
+                    component={Link}
                   />
                 </Tabs>
               </Grid>
-              <Grid item className={classes.align}>
+              {isLogged ? (<Grid item className={classes.align}>
+                {
+                  isAdmin ? (
+                    <Button
+                      onClick={() => history.push('/backoffice')}
+                      variant='contained'
+                      color='secondary'
+                      className={classes.split}
+                    >
+                      Backoffice
+                    </Button>
+                  ) : (
+                    <IconButton
+                      onClick={() => history.push('/backoffice')}
+                      variant='contained'
+                      color='secondary'
+                      className={classes.split}
+                    >
+                      <PersonIcon />
+                    </IconButton>
+                  )
+                }
+                {/* Log out en desarrollo */}
+                <IconButton
+                  onClick={() => { logout(); history.push('/') }}
+                  variant='contained'
+                  color='secondary'
+                  className={classes.split}
+                >
+                  <PowerSettingsNewIcon />
+                </IconButton>
+              </Grid>) : (<Grid item className={classes.align}>
                 <Button
                   onClick={() => history.push('/registrar')}
                   variant='contained'
@@ -89,7 +132,8 @@ const NavBar = () => {
                 >
                   Iniciar sesión
                 </Button>
-              </Grid>
+              </Grid>)
+              }
             </Grid>
           </>
         )}

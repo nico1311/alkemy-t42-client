@@ -8,9 +8,7 @@ import useStyles from './style';
  *
  * <SocialMedia />
  */
-const SocialMedia = ({
-  arraySocialMedia = [{ socialMediaName: '', link: '' }],
-}) => {
+const SocialMedia = ({linkedin, instagram, facebook}) => {
   // object with styles options
   const classes = useStyles();
   return (
@@ -22,18 +20,37 @@ const SocialMedia = ({
               Nuestras redes
             </Typography>
           </ListItem>
-          {arraySocialMedia.map(({ link, socialMediaName }, i) => (
-            <ListItem key={i}>
+            <ListItem >
               <Link
                 target='_blank'
                 rel='noreferrer'
-                href={link}
+                href={facebook}
                 className={classes.footerSocialLink}
               >
-                {socialMediaName}
+                Facebook
               </Link>
             </ListItem>
-          ))}
+            <ListItem >
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href={instagram}
+                className={classes.footerSocialLink}
+              >
+                Instagram
+              </Link>
+            </ListItem>
+            <ListItem >
+              <Link
+                target='_blank'
+                rel='noreferrer'
+                href={linkedin}
+                className={classes.footerSocialLink}
+              >
+                Linkedin
+              </Link>
+            </ListItem>
+          
         </List>
       </Grid>
     </Grid>

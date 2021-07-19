@@ -1,4 +1,5 @@
 /** @module Form */
+import listCategories from './news/categories';
 /**
  * Function to validate first name for forms.
  * @fuction validationFirstName
@@ -67,8 +68,123 @@ export const validationPassword = (password) => {
  * validationMessage("Incorrect message.")
  * @returns {String} Returns string to set in an object Error.
  */
-
 export const validationMessage = (message) => {
   if (!message) return 'Requerido';
-  else if (message.length < 30) return 'Debe contener 30 caracteres o más.';
+  else if (message.length < 10) return 'Debe contener 10 caracteres o más.';
+};
+/**
+ * Function to validate title for forms.
+ * @fuction validationTitle
+ * @param {String} title - A string to check.
+ * @example
+ * validationFirstName("My News");
+ * validationFirstName("N");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationTitle = (title) => {
+  if (!title) return 'Requerido';
+  else if (title.length > 18) return 'Como máximo 18 caracteres.';
+  else if (title.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+/**
+ * Function to validate images for forms.
+ * @fuction validationImage
+ * @param {Object} image - An object with data of Image to check.
+ * @example
+ * validationImage(myImage);
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationImage = (image) => {
+  if (!image) return 'Requerido';
+  else if (!image.name) return 'Requerido';
+  else if (!/\.(gif|jpe?g|png|webp|bmp)$/i.test(image.name))
+    return 'El archivo debe ser una imagen y su extensión debe ser un .git, .jpg, .png, .webp, .bmp.';
+  else if (image.size > 2 * 1024 * 1024)
+    return 'El tamaño del archivo es demasiado grande. No debe superar los 2 mb.';
+};
+/**
+ * Function to validate categories for forms.
+ * @fuction validationCategory
+ * @param {string} category - A string to compare with a contain in array.
+ * @example
+ * validationCategory("News");
+ * validationCategory("Ne");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationCategory = (category) => {
+  if (!category) return 'Requerido';
+  else if (!listCategories.includes(category))
+    return 'El valor de categorías, no es correcto.';
+};
+/**
+ * Function to validate contain for forms.
+ * @fuction validationContaint
+ * @param {String} contain - A string to check.
+ * @example
+ * validationContain("Brendam and your contain to add a news.");
+ * validationContaint("B");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationContain = (contain) => {
+  if (!contain) return 'Requerido';
+  else if (contain.length > 100240) return 'Como máximo 100240 caracteres.';
+  else if (contain.length < 24) return 'Debe contener 24 caracteres o más.';
+};
+/**
+ * Function to validate activity name in edit form.
+ * @fuction validationActivityName
+ * @param {string} name - A string to check validate.
+ * @example
+ * validationActivityName("Activity");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationActivityName = (name) => {
+  if (!name) return 'Requerido';
+  else if (name.length > 20)
+    return 'El nombre de la actividad debe contener como maximo 20 caracteres';
+  else if (name.length < 4)
+    return 'El nombre de la actividad debe contener como minimo 4 caracteres';
+};
+/**
+ * Function to validate activity content in edit form.
+ * @fuction validationActivityContent
+ * @param {string} content - A string to check validate.
+ * @example
+ * validationActivityContent("Activity content example");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationActivityContent = (content) => {
+  if (!content) return 'Requerido';
+  else if (content.length > 50)
+    return 'El contenido de la actividad debe contener como maximo 50 caracteres';
+  else if (content.length < 4)
+    return 'El contenido de la actividad debe contener como minimo 4 caracteres';
+};
+/**
+ * Function to validate name for forms category.
+ * @fuction validationNameCategory
+ * @param {String} name - A string to check.
+ * @example
+ * validationNameCategory("News");
+ * validationNameCategory("n");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationNameCategory = (name) => {
+  if (!name) return 'Requerido';
+  else if (name.length > 24) return 'Como máximo 24 caracteres.';
+  else if (name.length < 2) return 'Debe contener 2 caracteres o más.';
+};
+/**
+ * Function to validate description for forms category.
+ * @fuction validationDescriptionCategory
+ * @param {String} description - A string to check.
+ * @example
+ * validationDescriptionCategory("A news category is section about all news stuff.");
+ * validationDescriptionCategory("n");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationDescriptionCategory = (description) => {
+  if (!description) return 'Requerido';
+  else if (description.length > 256) return 'Como máximo 256 caracteres.';
+  else if (description.length < 12) return 'Debe contener 12 caracteres o más.';
 };

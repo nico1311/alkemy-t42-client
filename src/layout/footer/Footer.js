@@ -15,9 +15,14 @@ import SocialMedia from './SocialMedia';
 export default function Footer() {
   // object with styles options
   const classes = useStyles();
-  const { response, loading } = useFetch(ENDPOINT_ORGANIZATION);
-  const socialLinks = response.socialLinks;
+  const { response } = useFetch(ENDPOINT_ORGANIZATION);
+  let facebook, instagram, linkedin = ''
   const footerWebLinks = ['Noticias', 'Testimonios', 'Contacto'];
+  if(response){
+     facebook= response.publicData.facebook
+     instagram= response.publicData.instagram
+     linkedin= response.publicData.linkedin
+  }
   //socialMediaName link
   return (
     <footer className={classes.footer}>
@@ -25,15 +30,13 @@ export default function Footer() {
         {/* Logo en el footer. */}
         <Grid item xs={12} sm={4} className={classes.marginAuto}>
           <Grid container justify='center' alignItems='center' align='center'>
-            {loading ? (
-              <Typography> Cargando Imagen... </Typography>
-            ) : (
+            {response ?  (
               <img
-                src={response.image}
+                src={response.publicData.image}
                 alt='ONG Logo in footer'
                 width='120px'
               />
-            )}
+            ) : <Typography> Cargando Imagen... </Typography>}
             <Typography variant='h5'>{response.name}</Typography>
           </Grid>
         </Grid>
@@ -57,10 +60,10 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        {loading ? (
+        {response ? (
+          <SocialMedia facebook={facebook} linkedin={linkedin} instagram={instagram}/>
+          ) : (
           <Typography> Cargando Social Media... </Typography>
-        ) : (
-          <SocialMedia arraySocialMedia={socialLinks} />
         )}
 
         <Grid item xs={12} className={classes.maxWidth}>
