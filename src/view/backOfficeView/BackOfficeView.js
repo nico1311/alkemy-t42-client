@@ -21,7 +21,6 @@ const News = lazy(() => import('view/news/NewsBackoffice'));
 const Activities = lazy(() => import('view/backoffice/activities/Activities'));
 const ActivityForm = lazy(() => import('components/form/activity/FormActivity'));
 const ListContacts = lazy(() => import('./ListaContactos'));
-const ListaContactosMensaje = lazy(() => import('./ListaContactosMensaje'));
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserForm = lazy(() =>
   import('components/form/editUser/editUserForm.js'),
@@ -100,10 +99,6 @@ function BackOfficeView() {
             <Switch>
               {/** `/backoffice/users/${user.id}/edit` */}
               <Route path={`${path}/users/:id/edit`} component={EditUserForm} />
-              <Route
-                path={`${path}/lista-contactos/:id/:message`}
-                component={ListaContactosMensaje}
-              />
               <Route
                 path={`${path}/perfil/eliminar`}
                 component={DeleteProfile}
