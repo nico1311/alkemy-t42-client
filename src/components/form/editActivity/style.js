@@ -22,12 +22,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
-  buttonSend: {
-    backgroundColor: '#339966',
-    '&:hover': {
-      backgroundColor: '#2B612E',
-    },
-  },
   alert: {
     margin: theme.spacing(2),
   },

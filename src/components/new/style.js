@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => {
       objectPosition: 'center',
     },
     cardContent: {
-      backgroundColor: '#9AC9FB',
+      backgroundColor: '#0086FF',
     },
     button: {
-      marginTop: '1vh'
-    }
+      marginTop: '1vh',
+    },
   };
 });
 

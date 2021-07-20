@@ -17,7 +17,7 @@ import DrawerComponent from './drawer';
 import useStyles from './style';
 import { Link, useHistory } from 'react-router-dom';
 import useUser from 'hooks/useUser';
-import { logout } from 'services/auth'
+import { logout } from 'services/auth';
 
 const NavBar = () => {
   const { isLogged, isAdmin } = useUser();
@@ -83,14 +83,14 @@ const NavBar = () => {
                   />
                 </Tabs>
               </Grid>
-              {isLogged ? (<Grid item className={classes.align}>
-                {
-                  isAdmin ? (
+              {isLogged ? (
+                <Grid item className={classes.align}>
+                  {isAdmin ? (
                     <Button
                       onClick={() => history.push('/backoffice')}
                       variant='contained'
                       color='secondary'
-                      className={classes.split}
+                      className={`${classes.split} ${classes.backofficeButton}`}
                     >
                       Backoffice
                     </Button>
@@ -103,37 +103,41 @@ const NavBar = () => {
                     >
                       <PersonIcon />
                     </IconButton>
-                  )
-                }
-                {/* Log out en desarrollo */}
-                <IconButton
-                  onClick={() => { logout(); history.push('/') }}
-                  variant='contained'
-                  color='secondary'
-                  className={classes.split}
-                >
-                  <PowerSettingsNewIcon />
-                </IconButton>
-              </Grid>) : (<Grid item className={classes.align}>
-                <Button
-                  onClick={() => history.push('/registrar')}
-                  variant='contained'
-                  color='secondary'
-                  className={classes.split}
-                >
-                  Registrarse
-                </Button>
+                  )}
+                  {/* Log out en desarrollo */}
+                  <IconButton
+                    onClick={() => {
+                      logout();
+                      history.push('/');
+                    }}
+                    variant='contained'
+                    color='secondary'
+                    className={`${classes.split} ${classes.logoutButton}`}
+                  >
+                    <PowerSettingsNewIcon />
+                  </IconButton>
+                </Grid>
+              ) : (
+                <Grid item className={classes.align}>
+                  <Button
+                    onClick={() => history.push('/registrar')}
+                    variant='contained'
+                    color='secondary'
+                    className={classes.split}
+                  >
+                    Registrarse
+                  </Button>
 
-                <Button
-                  onClick={() => history.push('/ingresar')}
-                  variant='contained'
-                  color='secondary'
-                  className={classes.split}
-                >
-                  Iniciar sesión
-                </Button>
-              </Grid>)
-              }
+                  <Button
+                    onClick={() => history.push('/ingresar')}
+                    variant='contained'
+                    color='secondary'
+                    className={classes.split}
+                  >
+                    Iniciar sesión
+                  </Button>
+                </Grid>
+              )}
             </Grid>
           </>
         )}

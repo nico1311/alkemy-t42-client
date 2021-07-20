@@ -39,7 +39,22 @@ const useStyles = makeStyles((theme) => ({
   spaced: {
     justifyContent: 'space-between',
   },
+  backofficeButton: {
+    border: '1px solid transparent',
+    transition: '0.2s ease-out',
+    '&:hover': {
+      border: '1px solid #0006FF',
+      backgroundColor: '#0086FF',
+      color: 'black',
+    },
+  },
+  logoutButton: {
+    border: 'solid 1px transparent',
+    transition: '0.2s ease-out',
+    '&:hover': {
+      border: '1px solid #0006FF',
+    },
+  },
 }));
 
 export default useStyles;
-

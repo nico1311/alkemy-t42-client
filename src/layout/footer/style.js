@@ -5,7 +5,7 @@ import { makeStyles, createMuiTheme } from '@material-ui/core';
 const theme = createMuiTheme();
 const useStyles = makeStyles({
   footer: {
-    backgroundColor: '#9AC9FB',
+    backgroundColor: '#0086FF',
     flexGrow: '1',
     color: 'black',
     padding: '0.8rem',
