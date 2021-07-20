@@ -1,6 +1,8 @@
 export const actionHome = {
   GET_WELCOME_TEXT: 'GET_WELCOME_TEXT',
   GET_NEWS: 'GET_NEWS',
+  SET_SLIDE: 'SET_SLIDE',
+  SET_WELCOME_TEXT: 'SET_WELCOME_TEXT'
 };
 
 export const actionUser = {
