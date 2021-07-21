@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import {
   Button,
   Typography,
@@ -14,10 +14,13 @@ import {
   TableRow,
   Dialog,
   DialogTitle,
-  DialogActions, Container,
+  DialogActions,
+  Container,
 } from '@material-ui/core';
 import EditActivityForm from 'components/form/editActivity/editActivityForm';
 import useStyles from './style';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 /**
  * Activities view in backoffice
  * @example
@@ -25,7 +28,7 @@ import useStyles from './style';
  * <Activities />
  */
 const Activities = () => {
-  const {url} = useRouteMatch()
+  const { url } = useRouteMatch();
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -36,7 +39,7 @@ const Activities = () => {
   const classes = useStyles();
   useEffect(() => {
     getActivities();
-    return () => { };
+    return () => {};
   }, []);
   const getActivities = async () => {
     const activities = await makeGET(ENDPOINT_ACTIVITIES);
@@ -50,7 +53,7 @@ const Activities = () => {
   const deleteActivity = (id) => {
     makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
     setOpen(false);
-    setActivities(activities.filter(item => item.id !== id))
+    setActivities(activities.filter((item) => item.id !== id));
   };
   const handleClose = () => {
     setActivityToDelete('');
@@ -68,10 +71,22 @@ const Activities = () => {
   return (
     <>
       <Container>
-        <div style={{width: '100%'}}>
-          <Box display="flex">
-            <Box width="100%"> <Typography variant="h4"> Actividades </Typography> </Box>
-            <Box> <Button onClick={() => history.push(`${url}/create`)} variant="contained" color="primary">Crear</Button> </Box>
+        <div style={{ width: '100%' }}>
+          <Box display='flex'>
+            <Box width='100%'>
+              {' '}
+              <Typography variant='h4'> Actividades </Typography>{' '}
+            </Box>
+            <Box>
+              {' '}
+              <Button
+                onClick={() => history.push(`${url}/create`)}
+                variant='contained'
+                color='primary'
+              >
+                Crear
+              </Button>{' '}
+            </Box>
           </Box>
         </div>
         <TableContainer>
@@ -89,9 +104,10 @@ const Activities = () => {
                     <TableCell>{activity.name}</TableCell>
                     <TableCell className={classes.right}>
                       <Button
-                        color='secondary'
                         variant='contained'
-                        className={`${classes.button} ${classes.buttonEdit}`}
+                        color='primary'
+                        className={classes.button}
+                        startIcon={<EditIcon className={classes.icon} />}
                         onClick={() => {
                           editActivity(activity.id);
                         }}
@@ -99,8 +115,9 @@ const Activities = () => {
                         Editar
                       </Button>
                       <Button
-                        color='secondary'
                         variant='contained'
+                        color='secondary'
+                        startIcon={<DeleteIcon className={classes.icon} />}
                         className={classes.button}
                         onClick={() => {
                           setActivityToDelete(activity.id);
