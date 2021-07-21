@@ -55,15 +55,19 @@ export default function ListOfContacts() {
   };
 
   const handleDeleteConfirm = () => {
-    try {
-      makeDELETE(`${ENDPOINT_CONTACTS}/${pendingContact.id}`);
+    makeDELETE(`${ENDPOINT_CONTACTS}/${pendingContact.id}`)
+    .then(() => {
+      setContacts(contacts.filter((contact) => contact.id !== pendingContact.id));
+    })
+    .catch((error) => {
+      console.error('Error deleting contact: ', error);
+    })
+    .finally(() => {
       setPendingContact(null);
       setOpenAlert(false);
       setToastOpen(true);
-      window.location.reload();
-    } catch (error) {
-      
-    }
+      setTimeout(window.location.reload(), 3000);
+    })
   };
 
   console.log(contacts)
