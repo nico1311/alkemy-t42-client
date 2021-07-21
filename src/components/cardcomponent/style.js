@@ -2,20 +2,18 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => {
   return {
-    new: {
-      textAlign: 'center',
-      margin: theme.spacing(2),
+    container: {
+      padding: theme.spacing(1, 3),
     },
-    cardImage: {
-      height: '15rem',
+    media: {
+      width: '100%',
+      maxWidth: '65vh',
       objectFit: 'contain',
       objectPosition: 'center',
     },
-    cardContent: {
-      backgroundColor: '#0086FF',
-    },
-    button: {
-      marginTop: '1vh',
+    content: {
+      padding: theme.spacing(4, 1),
+      backgroundColor: '#99CCFF',
     },
   };
 });

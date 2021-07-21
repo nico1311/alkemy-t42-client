@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import useStyles from './style';
 import validate from './validate';
 import submit from './submit';
+
 /**
  * Component EditActivityForm will be use by the admin to edit any activity
  * @function EditActivityForm
@@ -85,10 +86,10 @@ const EditActivityForm = ({ activityToEdit, getActivities, setEdit }) => {
             Volver
           </Button>
           <Button
-            className={`${classes.buttonSend} ${classes.button}`}
+            className={`${classes.button}`}
             disabled={formik.isSubmitting}
             variant='contained'
-            color='secondary'
+            color='primary'
             type='submit'
           >
             Enviar
