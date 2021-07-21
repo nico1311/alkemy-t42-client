@@ -1,12 +1,7 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import FormContainer from '../FormContainer.js';
-import {
-  FormControl,
-  TextField,
-  FormLabel,
-  Button,
-} from '@material-ui/core';
+import { FormControl, TextField, FormLabel, Button } from '@material-ui/core';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { useFormik } from 'formik';
 import useStyles from './style';
@@ -14,9 +9,8 @@ import RoleID from './roleID';
 import validate from './validate';
 import submit from './submit';
 
-
 /**
- * Component EditUserForm will be use by the user to edit its own account (name and lastname) and by the admin to edit 
+ * Component EditUserForm will be use by the user to edit its own account (name and lastname) and by the admin to edit
  * any user's information (name, lastname and roleid)
  * @function EditUserForm
  * @param {Object} userInfo -{name: string, lastName: string, roleID: 1 or 2}
@@ -25,10 +19,10 @@ import submit from './submit';
  * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-function EditUserForm () {
+function EditUserForm() {
   // State to handler alert error show/hide.
-  const isBackOffice = useSelector(state => state.user.user.roleId);
-  const userInfo = useSelector(state => state.user.user)
+  const isBackOffice = useSelector((state) => state.user.user.roleId);
+  const userInfo = useSelector((state) => state.user.user);
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
 
@@ -50,24 +44,24 @@ function EditUserForm () {
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <FormControl className={classes.formControl}>
           <FormLabel htmlFor='nameInput'>Nombre: </FormLabel>
-          <TextField 
-          id='name' 
-          type='text'
-          onChange={formik.handleChange}
-          defaultValue={formik.values.name}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
+          <TextField
+            id='name'
+            type='text'
+            onChange={formik.handleChange}
+            defaultValue={formik.values.name}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
           />
         </FormControl>
         <FormControl className={classes.formControl}>
           <FormLabel htmlFor='lastNameInput'>Apellido: </FormLabel>
-          <TextField 
-          id='lastName' 
-          type='text' 
-          onChange={formik.handleChange}
-          defaultValue={formik.values.lastName}
-          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-          helperText={formik.touched.lastName && formik.errors.lastName}
+          <TextField
+            id='lastName'
+            type='text'
+            onChange={formik.handleChange}
+            defaultValue={formik.values.lastName}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
         {isBackOffice === 1 ? <RoleID></RoleID> : null}
@@ -75,16 +69,15 @@ function EditUserForm () {
           <Button
             disabled={formik.isSubmitting}
             variant='contained'
-            color='secondary'
+            color='primary'
             className={classes.button}
             type='submit'
-
           >
             Enviar
           </Button>
         </div>
-                {/* Alert if is success or error */}
-                {typeMSJ === 'success' && (
+        {/* Alert if is success or error */}
+        {typeMSJ === 'success' && (
           <AlertGenerator
             alertTitle='Success:'
             contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
@@ -104,6 +97,6 @@ function EditUserForm () {
       </form>
     </FormContainer>
   );
-};
+}
 
 export default EditUserForm;

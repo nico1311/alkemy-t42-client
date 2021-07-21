@@ -14,9 +14,9 @@ import {
   Button,
 } from '@material-ui/core';
 
-const New = ({news, filterNews}) => {
+const New = ({ news, filterNews }) => {
   const classes = useStyles();
-  const { createdAt, name, image, id } = news
+  const { createdAt, name, image, id } = news;
   const [toastOpen, setToastOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -29,9 +29,9 @@ const New = ({news, filterNews}) => {
   const handleDeleteConfirm = async () => {
     setOpenModal(false);
     setToastOpen(true);
-    const DeleteNew = await makeDELETE(`${ENDPOINT_NEWS}/${id}`)
-    console.log(DeleteNew)
-    filterNews(id)
+    const DeleteNew = await makeDELETE(`${ENDPOINT_NEWS}/${id}`);
+    console.log(DeleteNew);
+    filterNews(id);
   };
 
   return (

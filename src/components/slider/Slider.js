@@ -84,6 +84,7 @@ const Slider = () => {
               name='radio-button'
               onChange={handleChange}
               key={i}
+              color='primary'
             ></Radio>
           );
         })}

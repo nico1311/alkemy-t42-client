@@ -10,12 +10,6 @@ const useStyles = makeStyles((theme) => {
     button: {
       margin: theme.spacing(1),
     },
-    buttonEdit: {
-      backgroundColor: '#EE9944',
-      '&:hover': {
-        backgroundColor: '#e07a14',
-      },
-    },
     right: {
       textAlign: 'end',
     },

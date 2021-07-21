@@ -72,3 +72,10 @@ export const ENDPOINT_CATEGORY = `${BASE_URL}categories`;
  */
 export const ENDPOINT_GETTESTIMONIALS = `${BASE_URL}testimonials`;
 
+/**
+ * Constant with ENDPOINT to members.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_MEMBERS = `${BASE_URL}members`
+
