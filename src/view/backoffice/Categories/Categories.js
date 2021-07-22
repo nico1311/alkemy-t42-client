@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import TableContainer from '@material-ui/core/TableContainer';
+import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
@@ -15,9 +16,10 @@ import Button from '@material-ui/core/Button'
 
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
-import LabelIcon from '@material-ui/icons/Label';
+import EditIcon from '@material-ui/icons/Edit';
 
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
+import useStyles from './style';
 
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
@@ -30,6 +32,7 @@ const Categories = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
 
+  const classes = useStyles();
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await makeGET(ENDPOINT_CATEGORY);
@@ -61,42 +64,68 @@ const Categories = () => {
 
   return (
     <>
-      <Container px={4} py={4}>
+      <Container>
         <div style={{ width: '100%' }}>
-          <Box display="flex">
-            <Box width="100%">
-              <Typography variant='h4' component='h1' gutterBottom>
-                Categorías
-              </Typography>
+          <Box display='flex'>
+            <Box width='100%'>
+              {' '}
+              <Typography variant='h4'> Categorias </Typography>{' '}
             </Box>
             <Box>
-              <Button onClick={() => history.push(`${url}/create`)} variant="contained" color="primary">
+              {' '}
+              <Button
+                onClick={() => history.push(`${url}/create`)}
+                variant='contained'
+                color='primary'
+              >
                 Crear
-              </Button>
+              </Button>{' '}
             </Box>
           </Box>
         </div>
-
-        <List component="nav" aria-label="main mailbox folders">
-          {categories.map((category) => (
-            <ListItem
-              button
-              key={category.id}
-              component={Link}
-              to={`/backoffice/categories/${category.id}/edit`}
-            >
-              <ListItemIcon>
-                <LabelIcon />
-              </ListItemIcon>
-              <ListItemText primary={category.name} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="delete" onClick={() => handleDeleteAction(category.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell className={classes.right}>Acciones</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {categories.map((category, i) => {
+                return (
+                  <TableRow key={i}>
+                    <TableCell>{category.name}</TableCell>
+                    <TableCell className={classes.right}>
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        className={classes.button}
+                        startIcon={<EditIcon className={classes.icon} />}
+                        onClick={() => {
+                        {/*editActivity(activity.id);*/}
+                        }}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        startIcon={<DeleteIcon className={classes.icon} />}
+                        className={classes.button}
+                        onClick={() => {
+                          handleDeleteAction(category.id);
+                        }}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
       {pendingCategory &&
         <AlertDelete
