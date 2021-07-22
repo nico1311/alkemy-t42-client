@@ -7,9 +7,11 @@ const useStyles = makeStyles((theme) => {
       margin: theme.spacing(2),
     },
     cardImage: {
-      height: '15rem',
+      height: '14rem',
       objectFit: 'contain',
       objectPosition: 'center',
+      borderRadius: "30%",
+      padding: '2vh'
     },
     cardContent: {
       backgroundColor: '#9AC9FB',

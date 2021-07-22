@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Typography, Box } from '@material-ui/core';
 import FormContact from 'components/form/contact/FormContact';
 import useStyles from './styles';
 
@@ -14,13 +14,17 @@ const Contact = () => {
   const classes = useStyles();
   return (
     <Container maxWidth='lg'>
-      <Grid container justify='center'>
-        <Grid item md={4} xs={12} className={classes.textContainer}>
-          <Typography variant='body1'>Texto predeterminado</Typography>
-        </Grid>
-        <Grid item md={8} xs={12}>
+      <Grid container justify='center' alignItems='center'>
+      <Box textAlign='center' marginTop='2vh'>
+          <Typography variant='h5'>Texto Predeterminado</Typography>
+      </Box>
+      
+      <Grid item md={6} xs={12}>
+      <Box textAlign='center'>
           <FormContact></FormContact>
-        </Grid>
+      </Box>
+          
+      </Grid>
       </Grid>
     </Container>
   );

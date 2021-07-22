@@ -4,24 +4,22 @@ import {
   Card,
   CardMedia,
   CardContent,
-  Typography
+  Typography,
 } from '@material-ui/core';
 
-
-
 const Members = (Members) => {
-    const classes = useStyles();
-    const { createdAt, name, image } = Members
+  const classes = useStyles();
+  const { createdAt, name, image } = Members;
   return (
     <Grid item xs={12} md={5} lg={3} xl={2} className={classes.member}>
+      <CardMedia
+        className={classes.cardImage}
+        component='img'
+        alt='Miembros de la ONG'
+        image={image}
+        title={name}
+      />
       <Card>
-        <CardMedia
-          className={classes.cardImage}
-          component='img'
-          alt='Miembros de la ONG'
-          image={image}
-          title={name}
-        />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant='h5' component='h2'>
             {name}
@@ -37,4 +35,4 @@ const Members = (Members) => {
   );
 };
 
-export default Members
+export default Members;
