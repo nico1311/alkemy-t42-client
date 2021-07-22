@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import FaceIcon from '@material-ui/icons/Face';
-import CardProfile from 'components/profile/CardProfile';
+import CardProfile from 'components/Profile/CardProfile';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';

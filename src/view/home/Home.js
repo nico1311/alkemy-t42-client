@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@material-ui/core';
-import CardNews from 'components/cardnews/CardNews';
+import CardNews from 'components/CardNews/CardNews';
 import useStyles from './style.js';
 
 const Home = () => {
