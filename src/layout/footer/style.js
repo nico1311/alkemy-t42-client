@@ -11,7 +11,6 @@ const useStyles = makeStyles({
     padding: '0.8rem',
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '2rem',
   },
   footerSocialLink: {
     margin: theme.spacing(0.2, 0),
