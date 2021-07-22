@@ -30,10 +30,7 @@ const MainView = () => {
               path='/actividades/:id'
               render={({ match }) => <Activity id={match.params.id} />}
             />
-            <Route
-              path='/novedades/:id'
-              render={({ match }) => <SingleNew id={match.params.id} />}
-            />
+            <Route path='/novedades/:id' component={SingleNew}/>
             <Route path='/nosotros' component={AboutUs} />
             <Route path='/contacto' component={Contact} />
             <Route path='/registrar' component={SignUp} />
