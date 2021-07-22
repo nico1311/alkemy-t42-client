@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      boxShadow: '20px 20px 10px -10px rgba(0,0,0,0.3)',
+      boxShadow: '0px 15px 15px 5px rgba(0,0,0,0.4)',
       [theme.breakpoints.down('md')]: {
         minWidth: '95vw',
-        marginTop: '10vh',
+        margin: theme.spacing(4, 2),
       },
       [theme.breakpoints.down('lg')]: {
         minWidth: '22vw',
