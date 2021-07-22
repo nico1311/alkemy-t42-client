@@ -11,8 +11,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
 
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -25,7 +25,7 @@ import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
 const Categories = () => {
-  const { url } = useRouteMatch();
+  const {url} = useRouteMatch();
   const history = useHistory();
   const [categories, setCategories] = useState([]);
   const [pendingCategory, setPendingCategory] = useState(null);
@@ -37,24 +37,22 @@ const Categories = () => {
     const fetchCategories = async () => {
       const data = await makeGET(ENDPOINT_CATEGORY);
       setCategories(data.categories);
-    };
+    }
     fetchCategories();
   }, []);
 
   const handleDeleteAction = (categoryId) => {
     setPendingCategory(categories.find((cat) => cat.id === categoryId));
     setDeleteDialogOpen(true);
-  };
+  }
 
   const handleDeleteCancel = () => {
     setDeleteDialogOpen(false);
     setPendingCategory(null);
-  };
+  }
 
   const handleDeleteConfirm = async () => {
-    const result = await makeDELETE(
-      `${ENDPOINT_CATEGORY}/${pendingCategory.id}`,
-    );
+    const result = await makeDELETE(`${ENDPOINT_CATEGORY}/${pendingCategory.id}`);
     if (result) {
       setCategories(categories.filter((cat) => cat.id !== pendingCategory.id));
       setToastOpen(true);
@@ -62,7 +60,7 @@ const Categories = () => {
 
     setDeleteDialogOpen(false);
     setPendingCategory(null);
-  };
+  }
 
   return (
     <>
@@ -141,12 +139,28 @@ const Categories = () => {
           onSnackbarClose={() => setToastOpen(false)}
         />
       }
-    
-    );
-    } else {
-      return <h1>No hay categorias para mostrar.</h1>;
-    }
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={toastOpen}
+        autoHideDuration={2000}
+        onClose={() => setToastOpen(false)}
+        message='Categoría eliminada'
+        action={
+          <IconButton
+            size='small'
+            aria-label='close'
+            color='inherit'
+            onClick={() => setToastOpen(false)}
+          >
+            <CloseIcon fontSize='small' />
+          </IconButton>
+        }
+      />
     </>
-  };
-};
+  );
+}
+
 export default Categories;
