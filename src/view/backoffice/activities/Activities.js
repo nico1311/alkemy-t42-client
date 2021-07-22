@@ -68,91 +68,97 @@ const Activities = () => {
       ></EditActivityForm>
     );
   }
-  return (
-    <>
-      <Container>
-        <div style={{ width: '100%' }}>
-          <Box display='flex'>
-            <Box width='100%'>
-              {' '}
-              <Typography variant='h4'> Actividades </Typography>{' '}
+  if (activities) {
+    return (
+      <>
+        <Container>
+          <div style={{ width: '100%' }}>
+            <Box display='flex'>
+              <Box width='100%'>
+                {' '}
+                <Typography variant='h4'> Actividades </Typography>{' '}
+              </Box>
+              <Box>
+                {' '}
+                <Button
+                  onClick={() => history.push(`${url}/create`)}
+                  variant='contained'
+                  color='primary'
+                >
+                  Crear
+                </Button>{' '}
+              </Box>
             </Box>
-            <Box>
-              {' '}
-              <Button
-                onClick={() => history.push(`${url}/create`)}
-                variant='contained'
-                color='primary'
-              >
-                Crear
-              </Button>{' '}
-            </Box>
-          </Box>
-        </div>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell className={classes.right}>Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {activities.map((activity, i) => {
-                return (
-                  <TableRow key={i}>
-                    <TableCell>{activity.name}</TableCell>
-                    <TableCell className={classes.right}>
-                      <Button
-                        variant='contained'
-                        color='primary'
-                        className={classes.button}
-                        startIcon={<EditIcon className={classes.icon} />}
-                        onClick={() => {
-                          editActivity(activity.id);
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        variant='contained'
-                        color='secondary'
-                        startIcon={<DeleteIcon className={classes.icon} />}
-                        className={classes.button}
-                        onClick={() => {
-                          setActivityToDelete(activity.id);
-                          setOpen(true);
-                        }}
-                      >
-                        Eliminar
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>¿Seguro que desea eliminar la actividad?</DialogTitle>
-            <DialogActions>
-              <Button onClick={handleClose} color='secondary'>
-                Cancelar
-              </Button>
-              <Button
-                onClick={() => {
-                  deleteActivity(activityToDelete);
-                }}
-                color='primary'
-                autoFocus
-              >
-                Eliminar
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </TableContainer>
-      </Container>
-    </>
-  );
+          </div>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell className={classes.right}>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {activities.map((activity, i) => {
+                  return (
+                    <TableRow key={i}>
+                      <TableCell>{activity.name}</TableCell>
+                      <TableCell className={classes.right}>
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          className={classes.button}
+                          startIcon={<EditIcon className={classes.icon} />}
+                          onClick={() => {
+                            editActivity(activity.id);
+                          }}
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          variant='contained'
+                          color='secondary'
+                          startIcon={<DeleteIcon className={classes.icon} />}
+                          className={classes.button}
+                          onClick={() => {
+                            setActivityToDelete(activity.id);
+                            setOpen(true);
+                          }}
+                        >
+                          Eliminar
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>
+                ¿Seguro que desea eliminar la actividad?
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose} color='secondary'>
+                  Cancelar
+                </Button>
+                <Button
+                  onClick={() => {
+                    deleteActivity(activityToDelete);
+                  }}
+                  color='primary'
+                  autoFocus
+                >
+                  Eliminar
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </TableContainer>
+        </Container>
+      </>
+    );
+  } else {
+    return <h1>No hay actividades para mostrar</h1>;
+  }
 };
 
 export default Activities;

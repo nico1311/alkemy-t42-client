@@ -1,22 +1,48 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { Typography, Button, Grid } from '@material-ui/core';
+import useStyles from './style';
+import LogoImage from 'images/assets/logosomos.png';
 
 const RedirectView = () => {
+  const history = useHistory();
+  const classes = useStyles();
+  return (
+    <Grid
+      container
+      justify='center'
+      align='center'
+      alignItems='center'
+      className={classes.container}
+    >
+      <Grid
+        container
+        direction='column'
+        justify='space-around'
+        alignItems='center'
+        className={classes.alertContainer}
+      >
+        <img src={LogoImage} alt='Logo de la ong' className={classes.logo} />
+        <Typography
+          variant='h2'
+          component='h2'
+          color='initial'
+          className={classes.text}
+        >
+          Debe iniciar sesión para entrar al backoffice
+        </Typography>
+        <Button
+          className={classes.button}
+          onClick={() => history.replace('/')}
+          variant='contained'
+          color='primary'
+          size='large'
+        >
+          Volver
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
 
-    const history = useHistory();
-
-    return (
-        <div>
-            <Typography variant="h1" color="initial">
-                Debe estar logeado para entrar al backoffice
-            </Typography>
-            <Button onClick={() => history.replace('/')} variant="outlined" color="primary">
-                Volver
-            </Button>
-        </div>
-    )
-}
-
-export default RedirectView
+export default RedirectView;

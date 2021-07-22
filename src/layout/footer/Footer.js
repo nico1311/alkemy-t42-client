@@ -4,6 +4,7 @@ import { Grid, Link, Typography, List, ListItem } from '@material-ui/core';
 import useStyles from './style';
 import { ENDPOINT_ORGANIZATION } from 'services/settings';
 import SocialMedia from './SocialMedia';
+import LogoImage from 'images/assets/logosomos.png';
 /**
  * @function Footer
  * @example
@@ -16,12 +17,14 @@ export default function Footer() {
   // object with styles options
   const classes = useStyles();
   const { response } = useFetch(ENDPOINT_ORGANIZATION);
-  let facebook, instagram, linkedin = ''
+  let facebook,
+    instagram,
+    linkedin = '';
   const footerWebLinks = ['Noticias', 'Testimonios', 'Contacto'];
-  if(response){
-     facebook= response.publicData.facebook
-     instagram= response.publicData.instagram
-     linkedin= response.publicData.linkedin
+  if (response) {
+    facebook = response.publicData.facebook;
+    instagram = response.publicData.instagram;
+    linkedin = response.publicData.linkedin;
   }
   //socialMediaName link
   return (
@@ -30,14 +33,14 @@ export default function Footer() {
         {/* Logo en el footer. */}
         <Grid item xs={12} sm={4} className={classes.marginAuto}>
           <Grid container justify='center' alignItems='center' align='center'>
-            {response ?  (
-              <img
-                src={response.publicData.image}
-                alt='ONG Logo in footer'
-                width='120px'
-              />
-            ) : <Typography> Cargando Imagen... </Typography>}
-            <Typography variant='h5'>{response.name}</Typography>
+            {response ? (
+              <img src={LogoImage} alt='ONG Logo in footer' width='120px' />
+            ) : (
+              <Typography> Cargando Imagen... </Typography>
+            )}
+            {response ? (
+              <Typography variant='h5'>{response.publicData.name}</Typography>
+            ) : null}
           </Grid>
         </Grid>
 
@@ -61,8 +64,12 @@ export default function Footer() {
         </Grid>
 
         {response ? (
-          <SocialMedia facebook={facebook} linkedin={linkedin} instagram={instagram}/>
-          ) : (
+          <SocialMedia
+            facebook={facebook}
+            linkedin={linkedin}
+            instagram={instagram}
+          />
+        ) : (
           <Typography> Cargando Social Media... </Typography>
         )}
 

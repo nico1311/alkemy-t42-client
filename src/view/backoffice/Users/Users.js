@@ -75,98 +75,102 @@ const Users = () => {
       });
   };
 
-  return (
-    <>
-      <Container px={4} py={4}>
-        <Typography variant='h4' component='h1' gutterBottom>
-          Usuarios
-        </Typography>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label='simple table'>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Apellido</TableCell>
-                <TableCell>Correo electrónico</TableCell>
-                <TableCell>Tipo</TableCell>
-                <TableCell align='right'>Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    {user.roleId === 1 ? 'Administrador' : 'Usuario'}
-                  </TableCell>
-                  <TableCell align='right'>
-                    <Button
-                      color='primary'
-                      component={Link}
-                      to={`/backoffice/users/${user.id}/edit`}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      color='secondary'
-                      onClick={() => handleDeleteAction(user.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </TableCell>
+  if (users) {
+    return (
+      <>
+        <Container px={4} py={4}>
+          <Typography variant='h4' component='h1' gutterBottom>
+            Usuarios
+          </Typography>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell>Apellido</TableCell>
+                  <TableCell>Correo electrónico</TableCell>
+                  <TableCell>Tipo</TableCell>
+                  <TableCell align='right'>Acciones</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-      {pendingUser && (
-        <Dialog
-          open={deleteDialogOpen}
-          onClose={handleDeleteCancel}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-        >
-          <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
-              ¿Desea eliminar el usuario {pendingUser.firstName}{' '}
-              {pendingUser.lastName}?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDeleteCancel} color='primary'>
-              Cancelar
-            </Button>
-            <Button onClick={handleDeleteConfirm} color='primary' autoFocus>
-              Confirmar
-            </Button>
-          </DialogActions>
-        </Dialog>
-      )}
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={toastOpen}
-        autoHideDuration={5000}
-        onClose={() => setToastOpen(false)}
-        message='Usuario eliminado'
-        action={
-          <IconButton
-            size='small'
-            aria-label='close'
-            color='inherit'
-            onClick={() => setToastOpen(false)}
+              </TableHead>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.firstName}</TableCell>
+                    <TableCell>{user.lastName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>
+                      {user.roleId === 1 ? 'Administrador' : 'Usuario'}
+                    </TableCell>
+                    <TableCell align='right'>
+                      <Button
+                        color='primary'
+                        component={Link}
+                        to={`/backoffice/users/${user.id}/edit`}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        color='secondary'
+                        onClick={() => handleDeleteAction(user.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+        {pendingUser && (
+          <Dialog
+            open={deleteDialogOpen}
+            onClose={handleDeleteCancel}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
           >
-            <CloseIcon fontSize='small' />
-          </IconButton>
-        }
-      />
-    </>
-  );
+            <DialogContent>
+              <DialogContentText id='alert-dialog-description'>
+                ¿Desea eliminar el usuario {pendingUser.firstName}{' '}
+                {pendingUser.lastName}?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDeleteCancel} color='primary'>
+                Cancelar
+              </Button>
+              <Button onClick={handleDeleteConfirm} color='primary' autoFocus>
+                Confirmar
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={toastOpen}
+          autoHideDuration={5000}
+          onClose={() => setToastOpen(false)}
+          message='Usuario eliminado'
+          action={
+            <IconButton
+              size='small'
+              aria-label='close'
+              color='inherit'
+              onClick={() => setToastOpen(false)}
+            >
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          }
+        />
+      </>
+    );
+  } else {
+    return <h1>No hay usuarios para mostrar.</h1>;
+  }
 };
 
 export default Users;
