@@ -10,7 +10,7 @@ const Activity = ({ id }) => {
     getActivity(id);
 
     return () => {};
-  }, []);
+  }, [id]);
 
   const getActivity = async (id) => {
     const ACTIVITY = await makeGET(`${ENDPOINT_ACTIVITIES}/${id}`);
