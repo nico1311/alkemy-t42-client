@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTestimonials } from 'redux/testimonials/actions/testimonials';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -22,6 +24,8 @@ import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
 
 const ListadoTestimonios = () => {
+  const dispatch = useDispatch();
+  const testimonialsFromStore = useSelector(state => state.testimonials.testimonials)
   const history = useHistory();
   const { url } = useRouteMatch();
   const [testimonials, setTestimonials] = useState([]);
@@ -30,13 +34,12 @@ const ListadoTestimonios = () => {
   const [pendingTestimony, setPendingTestimony] = useState(null);
 
   useEffect(() => {
-    async function getTestimonials() {
-      const { Testimonials: testimonialsAPI } = await makeGET(
-        ENDPOINT_GETTESTIMONIALS,
-      );
+    async function getAllTestimonials() {
+      const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
+      dispatch(getTestimonials(testimonialsAPI));
       setTestimonials(testimonialsAPI);
     }
-    getTestimonials();
+    !testimonialsFromStore ? getAllTestimonials() : setTestimonials(testimonialsFromStore);
   }, []);
 
   const handleOpenAlert = (testimonyID) => {

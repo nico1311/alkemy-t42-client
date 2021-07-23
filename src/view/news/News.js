@@ -5,6 +5,8 @@ import { makeGET } from 'services/httpRequest';
 import Entry from 'components/entries/Entry';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNews } from 'redux/news/actions/news'
 
 /**
  * Component New is a react component to render the organization news
@@ -14,14 +16,18 @@ import Grid from '@material-ui/core/Grid';
  * <New/>
  */
 const New = () => {
-    const [news, setNews] = useState(null)
+    const newsFromStore = useSelector(state => state.news.news);
+    const dispatch = useDispatch();
+    const [news, setNews] = useState(null);
 
     useEffect(() => {
         async function getAllNews() {
-            const { news } = await makeGET(ENDPOINT_NEWS)
-            setNews(news)
+            const { news } = await makeGET(ENDPOINT_NEWS);
+            dispatch(getNews(news));
+            setNews(news);
+            console.log('Se llamo a la api');
         }
-        getAllNews()
+        !newsFromStore ? getAllNews() : setNews(newsFromStore)
     }, [])
 
     if (!news) return (

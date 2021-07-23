@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/contacts/actions/contacts';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,6 +26,8 @@ const useStyles = makeStyles({
 });
 
 export default function ListOfContacts() {
+  const dispatch = useDispatch();
+  const contactsFromStore = useSelector(state => state.contacts.contacts);
   const [contacts, setContacts] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
@@ -31,11 +35,12 @@ export default function ListOfContacts() {
   const classes = useStyles();
 
   useEffect(() => {
-    async function getContacts() {
-      const contactsAPI = await makeGET(ENDPOINT_CONTACTS);
-      setContacts(contactsAPI.contacts);
+    async function getAllContacts() {
+      const { contacts } = await makeGET(ENDPOINT_CONTACTS);
+      dispatch(getContacts(contacts));
+      setContacts(contacts);
     }
-    getContacts();
+    !contactsFromStore ? getAllContacts() : setContacts(contactsFromStore);
   }, []);
 
   const handleOpenAlert = (id) => {

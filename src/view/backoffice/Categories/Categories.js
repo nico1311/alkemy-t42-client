@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from 'redux/categories/actions/categories'
 
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,6 +25,8 @@ import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
 const Categories = () => {
+  const dispatch = useDispatch();
+  const categoriesFromStore = useSelector(state => state.categories.categories);
   const { url } = useRouteMatch();
   const history = useHistory();
   const [categories, setCategories] = useState([]);
@@ -32,10 +36,11 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await makeGET(ENDPOINT_CATEGORY);
-      setCategories(data.categories);
+      const {categories} = await makeGET(ENDPOINT_CATEGORY);
+      dispatch(getCategories(categories));
+      setCategories(categories);
     };
-    fetchCategories();
+    !categoriesFromStore ? fetchCategories() : setCategories(categoriesFromStore);
   }, []);
 
   const handleDeleteAction = (categoryId) => {
