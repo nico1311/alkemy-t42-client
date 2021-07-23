@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Dialog,
     DialogTitle,
     DialogContent,
@@ -6,26 +5,22 @@ import {Dialog,
     Button,
     Typography
 } from '@material-ui/core'
-import useStyle from './style';
+import useStyles from './style';
 
-
-const ContentModal = ({message}) => {
-    const [openMessage, setOpenMessage] = useState(false);
-    const classes = useStyle();
+const ContentModal = ({ message, isOpen, onClose }) => {
+    const classes = useStyles();
 
     return (
-      <div>
-        <Button onClick={() => setOpenMessage(true)}>Contenido</Button>
-  
+      <div>  
         <Dialog
-          onClose={() => setOpenMessage(!openMessage)}
+          onClose={onClose}
           aria-labelledby='customized-dialog-title'
-          open={openMessage}
+          open={isOpen}
           className={classes.container}
         >
           <DialogTitle
             id='customized-dialog-title'
-            onClose={() => setOpenMessage(!openMessage)}
+            onClose={onClose}
           >
             Contenido
           </DialogTitle>
@@ -38,7 +33,7 @@ const ContentModal = ({message}) => {
           <DialogActions>
             <Button
               autoFocus
-              onClick={() => setOpenMessage(!openMessage)}
+              onClick={onClose}
               color='primary'
             >
               Cerrar

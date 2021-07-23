@@ -3,28 +3,53 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
-  Container,
-  Typography,
-  TableContainer,
-  Paper,
   Box,
+  Button,
+  Container,
+  IconButton,
+  Link,
+  Paper,
+  Snackbar,
+  TableContainer,
+  Typography,
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  Snackbar,
-  IconButton,
+  makeStyles
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
+
+const useStyles = makeStyles((theme) => {
+  return {
+    button: {
+      margin: theme.spacing(1),
+    },
+    right: {
+      textAlign: 'end',
+    },
+  };
+});
 
 const ListadoTestimonios = () => {
   const history = useHistory();
   const { url } = useRouteMatch();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes = useStyles();
   const [testimonials, setTestimonials] = useState([]);
+  const [contentModalOpen, setContentModalOpen] = useState(false);
+  const [visibleTestimonial, setVisibleTestimonial] = useState(null);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingTestimony, setPendingTestimony] = useState(null);
@@ -39,9 +64,19 @@ const ListadoTestimonios = () => {
     getTestimonials();
   }, []);
 
-  const handleOpenAlert = (testimonyID) => {
+  const handleContentModalOpen = (testimonialID) => {
+    setVisibleTestimonial(testimonials.find((testimonial) => testimonial.id === testimonialID));
+    setContentModalOpen(true);
+  }
+
+  const handleContentModalClose = () => {
+    setContentModalOpen(false);
+    setVisibleTestimonial(null);
+  }
+
+  const handleOpenAlert = (testimonialID) => {
     setPendingTestimony(
-      testimonials.find((testimony) => testimony.id === testimonyID),
+      testimonials.find((testimonial) => testimonial.id === testimonialID),
     );
     setOpenAlert(true);
   };
@@ -86,29 +121,76 @@ const ListadoTestimonios = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
                   <TableCell>Nombre</TableCell>
-                  <TableCell>Contenido</TableCell>
-                  <TableCell>Acciones</TableCell>
+                  <TableCell className={classes.right}>Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {testimonials.map((testimony, i) => {
+                {testimonials.map((testimonial) => {
                   return (
-                    <TableRow key={i}>
-                      <TableCell>{testimony.id}</TableCell>
-                      <TableCell>{testimony.name}</TableCell>
+                    <TableRow key={testimonial.id}>
                       <TableCell>
-                        <ContentModal
-                          message={testimony.content}
-                        ></ContentModal>
+                        <Link
+                          component='button'
+                          color='primary'
+                          aria-label='Ver'
+                          onClick={() => {handleContentModalOpen(testimonial.id)}}
+                        >
+                          {testimonial.name}
+                        </Link>
                       </TableCell>
-                      <TableCell>
-                        <Button>Editar</Button>
-                        <Button onClick={() => handleOpenAlert(testimony.id)}>
-                          Eliminar
-                        </Button>
-                      </TableCell>
+                      {isMobile ?
+                        <TableCell className={classes.right}>
+                          <IconButton
+                            color='primary'
+                            aria-label='Ver'
+                            onClick={() => handleContentModalOpen(testimonial.id)}
+                          >
+                            <VisibilityIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='primary'
+                            aria-label='Editar'
+                          >
+                            <EditIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Eliminar'
+                            onClick={() => handleOpenAlert(testimonial.id)}
+                          >
+                            <DeleteIcon className={classes.icon} />
+                          </IconButton>
+                        </TableCell> :
+                        <TableCell className={classes.right}>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<VisibilityIcon className={classes.icon} />}
+                            onClick={() => handleContentModalOpen(testimonial.id)}
+                          >
+                            Ver
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<EditIcon className={classes.icon} />}
+                          >
+                            Editar
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='secondary'
+                            className={classes.button}
+                            startIcon={<DeleteIcon className={classes.icon} />}
+                            onClick={() => handleOpenAlert(testimonial.id)}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                        }
                     </TableRow>
                   );
                 })}
@@ -119,16 +201,23 @@ const ListadoTestimonios = () => {
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
-            message={`¿Eliminar la categoría "${pendingTestimony.name}"?`}
+            message={`¿Eliminar testimonio "${pendingTestimony.name}"?`}
             confirmar={handleDeleteConfirm}
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}
-            Message='Categoría eliminada'
+            Message='Testimonio eliminado'
             closeIcon={() => setToastOpen(false)}
             toastMessage='Se ha eliminado correctamente.'
           />
         )}
+        {contentModalOpen &&
+          <ContentModal
+            message={visibleTestimonial.content}
+            isOpen={contentModalOpen}
+            onClose={handleContentModalClose}
+          />
+        }
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
