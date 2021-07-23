@@ -3,7 +3,7 @@ import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import CardComponent from 'components/cardcomponent/CardComponent';
 import NotFound from 'components/notfound/NotFound';
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 const Activity = ({ id }) => {
@@ -20,21 +20,19 @@ const Activity = ({ id }) => {
     setActivity(ACTIVITY.Activity);
   };
   return activity ? (
-    <Grid xs={12}  justify="center" >
-    <CardComponent
-      name={activity.name}
-      image={activity.image}
-      content={activity.content}
-      activities={activity}
-      botton={'Volver'}
-      vermas={() => history.goBack()}
-    ></CardComponent>
+    <Grid item xs={12}>
+      <CardComponent
+        name={activity.name}
+        image={activity.image}
+        content={activity.content}
+        activities={activity}
+        botton={'Volver'}
+        vermas={() => history.goBack()}
+      ></CardComponent>
     </Grid>
   ) : (
     <NotFound />
-    
   );
-    
 };
 
 export default Activity;

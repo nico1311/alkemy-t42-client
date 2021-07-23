@@ -3,7 +3,7 @@ import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import CardComponent from 'components/cardcomponent/CardComponent';
 import NotFound from 'components/notfound/NotFound';
-import { Grid, Container, Box, Typography, Button } from '@material-ui/core';
+import { Grid, Container, Box, Typography } from '@material-ui/core';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
 const Activities = () => {
@@ -21,8 +21,6 @@ const Activities = () => {
     setActivities(ACTIVITIES.activities);
   };
   const handleActivity = async (id) => {
-    const ACTIVITY = await makeGET(`${ENDPOINT_ACTIVITIES}/${id}`);
-    console.log(ACTIVITY.Activity);
     history.push(`${url}/${id}`);
   };
   return (
@@ -36,7 +34,7 @@ const Activities = () => {
       >
         <Typography variant='h4'>Actividades de la ONG</Typography>
       </Box>
-      <Grid container justify='space-between' xs={12}>
+      <Grid container justify='space-between' item xs={12}>
         {activities ? (
           activities.map((item, i) => (
             <CardComponent

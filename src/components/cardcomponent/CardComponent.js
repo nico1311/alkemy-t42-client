@@ -6,9 +6,8 @@ import {
   CardContent,
   Typography,
   Grid,
-  Button
+  Button,
 } from '@material-ui/core';
-
 
 /**
  * @module CardComponent
@@ -24,32 +23,36 @@ import {
  */
 
 const CardComponent = ({ botton, activities, vermas }) => {
-  const { name, image, content, id} = activities
+  const { name, image, content } = activities;
   const classes = useStyles();
-  
-  
 
-  
   return (
-      <Grid className={classes.container}>
-        <Card  >
-          <CardMedia
-            component='img'
-            image={image}
-            title={`${name} image`}
-            className={classes.media}
-          />
-          <CardContent className={classes.content}>
-            <Typography gutterBottom variant='h5' component='h3'>
-              {name}
-            </Typography>
-            <Typography variant='body1' component='p'>
-              {content}
-            </Typography>
-            <Button size='medium' variant='contained' color='secondary' onClick={vermas}>{botton}</Button>
-          </CardContent>
-        </Card>
-      </Grid>
+    <Grid className={classes.container}>
+      <Card>
+        <CardMedia
+          component='img'
+          image={image}
+          title={`${name} image`}
+          className={classes.media}
+        />
+        <CardContent className={classes.content}>
+          <Typography gutterBottom variant='h5' component='h3'>
+            {name}
+          </Typography>
+          <Typography variant='body1' component='p'>
+            {content}
+          </Typography>
+          <Button
+            size='medium'
+            variant='contained'
+            color='secondary'
+            onClick={vermas}
+          >
+            {botton}
+          </Button>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
