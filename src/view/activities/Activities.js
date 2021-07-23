@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import CardComponent from 'components/cardcomponent/CardComponent';
-import NotFound from 'components/notfound/NotFound';
 import { Grid, Container, Box, Typography } from '@material-ui/core';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
@@ -45,7 +44,7 @@ const Activities = () => {
             ></CardComponent>
           ))
         ) : (
-          <NotFound />
+          'Cargando...'
         )}
       </Grid>
     </Container>
