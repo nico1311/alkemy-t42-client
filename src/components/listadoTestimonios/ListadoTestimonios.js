@@ -55,14 +55,13 @@ const ListadoTestimonios = () => {
   const [pendingTestimony, setPendingTestimony] = useState(null);
 
   useEffect(() => {
-    async function getTestimonials() {
-      const { Testimonials: testimonialsAPI } = await makeGET(
-        ENDPOINT_GETTESTIMONIALS,
-      );
-      setTestimonials(testimonialsAPI);
-    }
     getTestimonials();
   }, []);
+
+  const getTestimonials = async () => {
+    const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
+    setTestimonials(testimonialsAPI);
+  }
 
   const handleContentModalOpen = (testimonialID) => {
     setVisibleTestimonial(testimonials.find((testimonial) => testimonial.id === testimonialID));
@@ -134,7 +133,7 @@ const ListadoTestimonios = () => {
                           component='button'
                           color='primary'
                           aria-label='Ver'
-                          onClick={() => {handleContentModalOpen(testimonial.id)}}
+                          onClick={() => handleContentModalOpen(testimonial.id)}
                         >
                           {testimonial.name}
                         </Link>
@@ -198,6 +197,13 @@ const ListadoTestimonios = () => {
             </Table>
           </TableContainer>
         </Container>
+        {contentModalOpen &&
+          <ContentModal
+            message={visibleTestimonial.content}
+            isOpen={contentModalOpen}
+            onClose={handleContentModalClose}
+          />
+        }
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
@@ -211,13 +217,6 @@ const ListadoTestimonios = () => {
             toastMessage='Se ha eliminado correctamente.'
           />
         )}
-        {contentModalOpen &&
-          <ContentModal
-            message={visibleTestimonial.content}
-            isOpen={contentModalOpen}
-            onClose={handleContentModalClose}
-          />
-        }
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
