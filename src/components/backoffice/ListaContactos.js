@@ -25,6 +25,8 @@ const useStyles = makeStyles({
 
 export default function ListOfContacts() {
   const [contacts, setContacts] = useState([]);
+  const [contentModalOpen, setContentModalOpen] = useState(false);
+  const [visibleContact, setVisibleContact] = useState(null);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingContact, setPendingContact] = useState(null);
@@ -37,6 +39,16 @@ export default function ListOfContacts() {
     }
     getContacts();
   }, []);
+
+  const handleContentModalOpen = (id) => {
+    setVisibleContact(contacts.find((contact) => contact.id === id));
+    setContentModalOpen(true);
+  }
+
+  const handleContentModalClose = () => {
+    setContentModalOpen(false);
+    setVisibleContact(null);
+  }
 
   const handleOpenAlert = (id) => {
     setPendingContact(contacts.find((contact) => contact.id === id));
@@ -77,22 +89,24 @@ export default function ListOfContacts() {
                 <TableRow>
                   <TableCell align='center'>Nombre</TableCell>
                   <TableCell align='center'>Email</TableCell>
-                  <TableCell align='center'>Mensaje</TableCell>
-                  <TableCell align='center'></TableCell>
+                  <TableCell align='center'>Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {contacts.map((res, i) => (
-                  <TableRow key={i}>
-                    <TableCell align='center'>{res.name}</TableCell>
-                    <TableCell align='center'>{res.email}</TableCell>
-                    <TableCell align='center'>
-                      <ContentModal message={res.message}></ContentModal>
-                    </TableCell>
+                {contacts.map((contact) => (
+                  <TableRow key={contact.id}>
+                    <TableCell align='center'>{contact.name}</TableCell>
+                    <TableCell align='center'>{contact.email}</TableCell>
                     <TableCell align='center'>
                       <Button
                         color='secondary'
-                        onClick={() => handleOpenAlert(res.id)}
+                        onClick={() => handleContentModalOpen(contact.id)}
+                      >
+                        Ver mensaje
+                      </Button>
+                      <Button
+                        color='secondary'
+                        onClick={() => handleOpenAlert(contact.id)}
                       >
                         Eliminar
                       </Button>
@@ -103,6 +117,13 @@ export default function ListOfContacts() {
             </Table>
           </TableContainer>
         </Container>
+        {contentModalOpen &&
+          <ContentModal
+            message={visibleContact.message}
+            isOpen={contentModalOpen}
+            onClose={handleContentModalClose}
+          />
+        }
         {pendingContact && (
           <AlertDelete
             open={openAlert}

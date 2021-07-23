@@ -120,7 +120,7 @@ const FormRegister = ({ linkToSignIn = '#', changeSubmit = submit }) => {
         {!errorReturnForm || (
           <AlertGenerator
             alertTitle='Error:'
-            contentText='Sorry we have a error. Contact with support, please.'
+            contentText='Disculpe, ha ocurrido un error. Por favor, contacte con soporte.'
             variant='filled'
             className={classes.alert}
           />
