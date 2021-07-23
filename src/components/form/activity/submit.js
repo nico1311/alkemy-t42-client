@@ -1,6 +1,7 @@
 /** @module Form/Activity */
 import { makePOST, makePATCH } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
+import { setNewActivity } from 'redux/activities/actions/activities';
 /**
  * Function submit default of component Form Activity.
  * @function submit
@@ -14,7 +15,7 @@ import { ENDPOINT_ACTIVITIES } from 'services/settings';
  * <FormActivity /> // Default version use this module, that is implicit.
  * <FormActivity changeSubmit={submit} /> // This is explicit.
  */
-const submit = async ({ name, content }, setSubmit, setTypeMSJ, id = false) => {
+const submit = async ({ name, content }, setSubmit, setTypeMSJ, id = false, dispatch) => {
   let result;
   // Request Fetch with service http.
   if (id) {
@@ -31,6 +32,7 @@ const submit = async ({ name, content }, setSubmit, setTypeMSJ, id = false) => {
   // Results
   if (result.content) {
     // Need change for propiety of response.
+    dispatch(setNewActivity(result));
     setTypeMSJ('success');
     setSubmit(false);
   } else if (!result.ok) {

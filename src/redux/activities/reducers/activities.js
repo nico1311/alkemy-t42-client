@@ -12,6 +12,10 @@ export default function activitiesReducer(state = initialState, { type, payload 
                 activities: payload
             }
 
+        case actionActivities.SET_ACTIVITY:
+            state.activities.push(payload)
+            return state
+            
         default:
             return state
     }

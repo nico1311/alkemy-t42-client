@@ -6,3 +6,10 @@ export const getActivities = (payload) => {
         payload
     }
 }
+
+export const setNewActivity = (payload) => {
+    return {
+        type: actionActivities.SET_ACTIVITY,
+        payload
+    }
+}

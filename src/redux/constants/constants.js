@@ -24,7 +24,8 @@ export const actionCategories = {
 }
 
 export const actionActivities = {
-  GET_ACTIVITIES : 'GET_ACTIVITIES'
+  GET_ACTIVITIES : 'GET_ACTIVITIES',
+  SET_ACTIVITY : 'SET_ACTIVITY'
 }
 
 export const actionTestimonials = {
