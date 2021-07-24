@@ -19,7 +19,9 @@ import {
 
 const News = lazy(() => import('view/news/NewsBackoffice'));
 const Activities = lazy(() => import('view/backoffice/activities/Activities'));
-const ActivityForm = lazy(() => import('components/form/activity/FormActivity'));
+const ActivityForm = lazy(() =>
+  import('components/form/activity/FormActivity'),
+);
 const ListContacts = lazy(() => import('./ListaContactos'));
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
 const EditUserForm = lazy(() =>
@@ -27,12 +29,20 @@ const EditUserForm = lazy(() =>
 );
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
-const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
-const CreateTestimonial = lazy(() => import('./FormTestimonial'))
-const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
-const FormCategory = lazy(() => import('components/form/category/FormCategory'))
+const ListadoTestimonios = lazy(() =>
+  import('components/listadoTestimonios/ListadoTestimonios'),
+);
+const CreateTestimonial = lazy(() => import('./FormTestimonial'));
+const CategoriesView = lazy(() =>
+  import('../backoffice/Categories/Categories'),
+);
+const FormCategory = lazy(() =>
+  import('components/form/category/FormCategory'),
+);
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
-
+const PublicDataView = lazy(() =>
+  import('../backoffice/publicData/PublicData'),
+);
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -103,42 +113,27 @@ function BackOfficeView() {
                 path={`${path}/perfil/eliminar`}
                 component={DeleteProfile}
               />
-              <Route 
-                path={`${path}/perfil/editar`} 
-                component={EditUserPage} 
-              />
-              <Route  
+              <Route path={`${path}/perfil/editar`} component={EditUserPage} />
+              <Route
                 path={`${path}/activities/create`}
                 component={ActivityForm}
               />
-              <Route 
-                path={`${path}/categories/create`} 
-                component={FormCategory} 
+              <Route
+                path={`${path}/categories/create`}
+                component={FormCategory}
               />
-              <Route 
-                path={`${path}/testimonials/create`} 
-                component={CreateTestimonial} 
+              <Route
+                path={`${path}/testimonials/create`}
+                component={CreateTestimonial}
               />
-              <Route 
-                path={`${path}/users`} 
-                component={UsersView} 
-              />
-              <Route 
-                path={`${path}/news`} 
-                component={News}
-              />
-              <Route 
-                path={`${path}/categories`} 
-                component={CategoriesView} 
-              />
+              <Route path={`${path}/users`} component={UsersView} />
+              <Route path={`${path}/news`} component={News} />
+              <Route path={`${path}/categories`} component={CategoriesView} />
               <Route
                 path={`${path}/organization`}
                 component={() => <Test texto='organization' />}
               />
-              <Route 
-                path={`${path}/activities`} 
-                component={Activities} 
-              />
+              <Route path={`${path}/activities`} component={Activities} />
               <Route
                 path={`${path}/testimonials`}
                 component={() => <ListadoTestimonios />}
@@ -146,6 +141,10 @@ function BackOfficeView() {
               <Route
                 path={`${path}/lista-contactos`}
                 component={ListContacts}
+              />
+              <Route
+                path={`${path}/edit-organization`}
+                component={PublicDataView}
               />
               <Route path={`${path}`} component={MyProfile} />
             </Switch>
