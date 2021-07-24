@@ -1,4 +1,5 @@
 /** @module Form/News */
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import validation from './validation';
 import submit from './submit';
@@ -32,6 +33,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
  * <FormEdit prevNews={myNewsToEdit} />
  */
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
+  const [imgPreview, setImgPreview] = useState(null);
   // React Router function to redirect user if register is correct.
   const classes = useStyles();
   const formik = useFormik({
@@ -117,12 +119,22 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
                   fullWidth
                   onChange={(event) => {
                     formik.setFieldValue('image', event.currentTarget.files[0]);
+                    setImgPreview(
+                      URL.createObjectURL(event.currentTarget.files[0]),
+                    );
                   }}
                 />
               </Button>
             </Grid>
+            {imgPreview && !formik.errors.image && (
+              <img
+                className={classes.imgPreview}
+                alt='Upload img'
+                src={imgPreview}
+              />
+            )}
             <FormHelperText style={{ color: 'red' }}>
-              {formik.touched.image && formik.errors.image}
+              {!formik.touched.image && formik.errors.image}
             </FormHelperText>
           </Grid>
           {/* Input contain in CKEDITOR */}
