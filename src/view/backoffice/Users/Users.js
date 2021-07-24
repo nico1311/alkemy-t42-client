@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from 'redux/users/actions/users'
-
+import { getUsers, removeUser } from 'redux/users/actions/users'
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -69,6 +68,7 @@ const Users = () => {
     makeDELETE(`${ENDPOINT_USER}/${pendingUser.id}`)
       .then(() => {
         setUsers(users.filter((user) => user.id !== pendingUser.id));
+        dispatch(removeUser(pendingUser.id));
       })
       .catch((err) => {
         console.error('Error deleting user: ', err);

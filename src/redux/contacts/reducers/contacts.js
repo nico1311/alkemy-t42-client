@@ -12,6 +12,13 @@ export default function contactsReducer(state = initialState, { type, payload })
                 contacts: payload
             }
 
+        case actionContacts.DELETE_CONTACT:
+            const newState = state.contacts.filter(item => item.id !== payload);
+            return {
+                ...state,
+                contacts: newState
+            }
+
         default:
             return state
     }

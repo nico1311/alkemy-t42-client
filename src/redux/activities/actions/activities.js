@@ -13,3 +13,10 @@ export const setNewActivity = (payload) => {
         payload
     }
 }
+
+export const removeActivity = (id) => {
+    return {
+        type: actionActivities.DELETE_ACTIVITY,
+        payload: id
+    }
+}

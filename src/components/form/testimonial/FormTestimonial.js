@@ -1,5 +1,6 @@
 /**@module Form/Testimonial */
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import FormContainer from '../FormContainer.js';
 import {
@@ -32,6 +33,7 @@ import useStyles from './style';
  * <FormTestimony prevTestimony={testimony} />
  */
 const FormTestimonial = ({ prevTestimony = null, changeSubmit = submit }) => {
+  const dispatch = useDispatch();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
@@ -44,7 +46,7 @@ const FormTestimonial = ({ prevTestimony = null, changeSubmit = submit }) => {
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
-      changeSubmit(values, setSubmitting, setTypeMSJ, prevTestimony?.id);
+      changeSubmit(values, setSubmitting, setTypeMSJ, prevTestimony?.id, dispatch);
     },
   });
   return (

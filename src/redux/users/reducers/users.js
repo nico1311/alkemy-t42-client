@@ -12,6 +12,12 @@ export default function usersReducer(state = initialState, { type, payload }) {
                 users: payload
             }
 
+        case actionUsers.DELETE_USER:
+            const newState = state.users.filter(item => item.id !== payload);
+            return {
+                ...state,
+                users: newState
+            }
         default:
             return state
     }

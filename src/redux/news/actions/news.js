@@ -6,3 +6,17 @@ export const getNews = (payload) => {
         payload
     }
 }
+
+export const addNews = (payload) => {
+    return{
+        type: actionNews.ADD_NEWS,
+        payload
+    }
+}
+
+export const deleteNews = (id) => {
+    return{
+        type: actionNews.DELETE_NEWS,
+        payload: id
+    }
+}

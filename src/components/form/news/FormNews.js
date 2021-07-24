@@ -1,5 +1,6 @@
 /** @module Form/News */
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import validation from './validation';
 import submit from './submit';
 import FormContainer from '../FormContainer.js';
@@ -32,6 +33,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
  * <FormEdit prevNews={myNewsToEdit} />
  */
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
+  const dispatch = useDispatch();
   // React Router function to redirect user if register is correct.
   const classes = useStyles();
   const formik = useFormik({
@@ -43,7 +45,7 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting, prevNews?.id);
+      changeSubmit(values, setSubmitting, prevNews?.id, dispatch);
     },
   });
   return (

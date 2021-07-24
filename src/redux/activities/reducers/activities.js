@@ -13,8 +13,15 @@ export default function activitiesReducer(state = initialState, { type, payload 
             }
 
         case actionActivities.SET_ACTIVITY:
-            state.activities.push(payload)
+            state.activities.push(payload);
             return state
+            
+        case actionActivities.DELETE_ACTIVITY:
+            const newState = state.activities.filter(item => item.id !== payload);
+            return {
+                ...state,
+                activities: newState
+            }
             
         default:
             return state

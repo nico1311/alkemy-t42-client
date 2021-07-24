@@ -6,3 +6,10 @@ export const getContacts = (payload) => {
         payload
     }
 }
+
+export const removeContacts = (id) => {
+    return {
+        type: actionContacts.DELETE_CONTACT,
+        payload: id
+    }
+}

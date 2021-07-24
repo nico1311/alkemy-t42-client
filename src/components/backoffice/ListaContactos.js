@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/contacts/actions/contacts';
+import { getContacts, removeContacts } from 'redux/contacts/actions/contacts';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -59,6 +59,7 @@ export default function ListOfContacts() {
         setContacts(
           contacts.filter((contact) => contact.id !== pendingContact.id),
         );
+        dispatch(removeContacts(pendingContact.id));
       })
       .catch((error) => {
         console.error('Error deleting contact: ', error);
@@ -67,7 +68,6 @@ export default function ListOfContacts() {
         setPendingContact(null);
         setOpenAlert(false);
         setToastOpen(true);
-        setTimeout(window.location.reload(), 3000);
       });
   };
 

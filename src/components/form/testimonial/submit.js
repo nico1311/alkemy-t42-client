@@ -1,6 +1,7 @@
 /** @module Form/Testimonial */
 import { makePOST, makePUT } from 'services/httpRequest';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
+import { addTestimonial } from 'redux/testimonials/actions/testimonials'
 /**
  * Function submit default of component Form Testimonial.
  * @function submit
@@ -14,7 +15,7 @@ import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
  * <FormTestimonial /> // Default version use this module, that is implicit.
  * <FormTestimonial changeSubmit={submit} /> // This is explicit.
  */
-const submit = async ({ name, content, image }, setSubmit, setTypeMSJ, id = false) => {
+const submit = async ({ name, content, image }, setSubmit, setTypeMSJ, id = false, dispatch) => {
   let result;
   // Request Fetch with service http.
   if (id) {
@@ -31,8 +32,10 @@ const submit = async ({ name, content, image }, setSubmit, setTypeMSJ, id = fals
     });
   }
   // Results
-  if (result.content) {
+  if (!result.status) {
     // Need change for propiety of response.
+    console.log(result);
+    dispatch(addTestimonial(result))
     setTypeMSJ('success');
     setSubmit(false);
   } else if (!result.ok) {

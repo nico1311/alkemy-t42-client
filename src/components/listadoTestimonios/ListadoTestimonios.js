@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTestimonials } from 'redux/testimonials/actions/testimonials';
+import { getTestimonials, removeTestimonial } from 'redux/testimonials/actions/testimonials';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -54,7 +54,13 @@ const ListadoTestimonios = () => {
     setOpenAlert(false);
   };
 
-  const handleDeleteConfirm = () => {
+  const filterTestimonials = (id) => {
+    setTestimonials(testimonials.filter(item => item.id !== id));
+  }
+
+  const handleDeleteConfirm = (id) => {
+    filterTestimonials(id);
+    dispatch(removeTestimonial(id));
     setPendingTestimony(null);
     setOpenAlert(false);
     setToastOpen(true);
@@ -122,12 +128,12 @@ const ListadoTestimonios = () => {
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
-            message={`¿Eliminar la categoría "${pendingTestimony.name}"?`}
-            confirmar={handleDeleteConfirm}
+            message={`¿Eliminar el testimonio "${pendingTestimony.name}"?`}
+            confirmar={() => handleDeleteConfirm(pendingTestimony.id)}
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}
-            Message='Categoría eliminada'
+            Message='Testimonio eliminado'
             closeIcon={() => setToastOpen(false)}
             toastMessage='Se ha eliminado correctamente.'
           />
@@ -140,7 +146,7 @@ const ListadoTestimonios = () => {
           open={toastOpen}
           autoHideDuration={2000}
           onClose={() => setToastOpen(false)}
-          message='Categoría eliminada'
+          message='Testimonio eliminado'
           action={
             <IconButton
               size='small'

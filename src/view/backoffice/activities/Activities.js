@@ -3,7 +3,7 @@ import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getActivities } from 'redux/activities/actions/activities';
+import { getActivities, removeActivity } from 'redux/activities/actions/activities';
 import {
   Button,
   Typography,
@@ -60,6 +60,7 @@ const Activities = () => {
 
   const deleteActivity = (id) => {
     makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
+    dispatch(removeActivity(id));
     setOpen(false);
     setActivities(activities.filter((item) => item.id !== id));
   };
