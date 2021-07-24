@@ -18,20 +18,18 @@ import {
 } from 'components/utils/transitionEffect/transitionPropertys';
 
 const News = lazy(() => import('view/news/NewsBackoffice'));
+const FormNews = lazy(() => import('components/form/news/FormNews'));
 const Activities = lazy(() => import('view/backoffice/activities/Activities'));
 const ActivityForm = lazy(() => import('components/form/activity/FormActivity'));
 const ListContacts = lazy(() => import('./ListaContactos'));
 const MyProfile = lazy(() => import('view/myProfile/MyProfile'));
-const EditUserForm = lazy(() =>
-  import('components/form/editUser/editUserForm.js'),
-);
+const EditUserForm = lazy(() => import('components/form/editUser/editUserForm.js'));
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
 const CreateTestimonial = lazy(() => import('./FormTestimonial'))
 const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
 const FormCategory = lazy(() => import('components/form/category/FormCategory'));
-const FormNews = lazy(() => import('components/form/news/FormNews'));
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
 
 
@@ -115,6 +113,10 @@ function BackOfficeView() {
               <Route 
                 path={`${path}/categories/create`} 
                 component={FormCategory} 
+              />
+              <Route
+                path={`${path}/news/create`}
+                component={FormNews}
               />
               <Route 
                 path={`${path}/categories/edit`} 
