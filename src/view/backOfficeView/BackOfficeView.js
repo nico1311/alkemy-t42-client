@@ -41,6 +41,7 @@ const FormCategory = lazy(() =>
   import('components/form/category/FormCategory'),
 );
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
+const EditTestimony = lazy(() => import('view/editTestimony/EditTestimony.js'));
 const PublicDataView = lazy(() =>
   import('../backoffice/publicData/PublicData'),
 );
@@ -119,7 +120,20 @@ function BackOfficeView() {
                 path={`${path}/activities/create`}
                 component={ActivityForm}
               />
-              <Route
+          
+              <Route 
+                path={`${path}/categories/edit`} 
+                component={FormCategory} 
+              />
+              <Route 
+                path={`${path}/testimonials/:id/edit`}
+                component={EditTestimony}
+              />
+              <Route 
+                path={`${path}/testimonials/create`} 
+                component={CreateTestimonial} 
+              />
+              <Route 
                 path={`${path}/categories/create`}
                 component={FormCategory}
               />
