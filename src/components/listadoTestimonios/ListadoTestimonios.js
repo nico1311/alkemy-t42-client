@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { getTestimonials, removeTestimonial } from 'redux/testimonials/actions/testimonials';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -102,6 +103,7 @@ const ListadoTestimonios = () => {
       setTestimonials(
         testimonials.filter((testimony) => testimony.id !== pendingTestimony.id),
       );
+      dispatch(removeTestimonial(pendingTestimony.id));
     })
     .catch((error) => {
       console.error('Error deleting testimony: ', error);
@@ -227,8 +229,13 @@ const ListadoTestimonios = () => {
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
+<<<<<<< HEAD
+            message={`¿Eliminar el testimonio "${pendingTestimony.name}"?`}
+            confirmar={() => handleDeleteConfirm(pendingTestimony.id)}
+=======
             message={`¿Eliminar testimonio "${pendingTestimony.name}"?`}
             confirmar={handleDeleteConfirm}
+>>>>>>> f66ad53a7c418d349646c37c790ea35a17014dee
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}

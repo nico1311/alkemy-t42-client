@@ -6,3 +6,10 @@ export const getUsers = (payload) => {
         payload
     }
 }
+
+export const removeUser = (id) => {
+    return {
+        type: actionUsers.DELETE_USER,
+        payload: id
+    }
+}

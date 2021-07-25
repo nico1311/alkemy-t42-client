@@ -6,3 +6,17 @@ export const getTestimonials = (payload) => {
         payload
     }
 }
+
+export const addTestimonial = (payload) => {
+    return {
+        type: actionTestimonials.ADD_TESTIMONIAL,
+        payload
+    }
+}
+
+export const removeTestimonial = (id) => {
+    return {
+        type: actionTestimonials.DELETE_TESTIMONIAL,
+        payload: id
+    }
+}

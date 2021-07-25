@@ -4,6 +4,7 @@ import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import validation from './validation';
 import submit from './submit';
 import FormContainer from '../FormContainer.js';
@@ -42,6 +43,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
+  const dispatch = useDispatch();
   // React Router function to redirect user if register is correct.
   const [categories, setCategories] = useState([]);
   const [imageURL, setImageURL] = useState([false]);
@@ -65,7 +67,7 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting, prevNews?.id);
+      changeSubmit(values, setSubmitting, prevNews?.id, dispatch);
     },
   });
 
