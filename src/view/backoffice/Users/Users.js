@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers } from 'redux/users/actions/users'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -36,6 +38,8 @@ const useStyles = makeStyles({
  * @returns {import('react').ReactNode} the users view
  */
 const Users = () => {
+  const dispatch = useDispatch();
+  const usersFromStorage = useSelector(state => state.users.users);
   const classes = useStyles();
   const [users, setUsers] = useState([]);
   const [pendingUser, setPendingUser] = useState(null);
@@ -45,9 +49,10 @@ const Users = () => {
   useEffect(() => {
     async function getUser() {
       const { users: allUsers } = await makeGET(ENDPOINT_USER);
+      dispatch(getUsers(allUsers));
       setUsers(allUsers);
     }
-    getUser();
+    !usersFromStorage ? getUser() : setUsers(usersFromStorage);
   }, []);
 
   const handleDeleteAction = (userId) => {

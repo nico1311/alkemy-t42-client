@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -44,6 +45,8 @@ const useStyles = makeStyles((theme) => {
 });
 
 const ListadoTestimonios = () => {
+  const dispatch = useDispatch();
+  const testimonialsFromStore = useSelector(state => state.testimonials.testimonials)
   const history = useHistory();
   const { url } = useRouteMatch();
   const theme = useTheme();
@@ -58,7 +61,12 @@ const ListadoTestimonios = () => {
 
 
   useEffect(() => {
-    getTestimonials();
+    async function getAllTestimonials() {
+      const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
+      dispatch(getTestimonials(testimonialsAPI));
+      setTestimonials(testimonialsAPI);
+    }
+    !testimonialsFromStore ? getAllTestimonials() : setTestimonials(testimonialsFromStore);
   }, []);
 
   const getTestimonials = async () => {
