@@ -56,14 +56,12 @@ export const ENDPOINT_GETLOGGED = `${BASE_URL}auth/me`;
 
 export const ENDPOINT_ACTIVITIES = `${BASE_URL}activities`;
 
-
 /**
  * Constant with ENDPOINT to category.
  * @constant
  * @readonly
  */
 export const ENDPOINT_CATEGORY = `${BASE_URL}categories`;
-
 
 /**
  * Constant with ENDPOINT to testimony.
@@ -77,5 +75,10 @@ export const ENDPOINT_GETTESTIMONIALS = `${BASE_URL}testimonials`;
  * @constant
  * @readonly
  */
-export const ENDPOINT_MEMBERS = `${BASE_URL}members`
-
+export const ENDPOINT_MEMBERS = `${BASE_URL}members`;
+/**
+ * Constant with ENDPOINT to members.
+ * @constant
+ * @readonly
+ */
+export const ENDPOINT_PUBLICDATA = `${BASE_URL}organizations/1/public`;
