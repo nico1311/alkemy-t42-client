@@ -1,51 +1,46 @@
-import {useState} from 'react';
-import {Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
+import {
     Button,
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
     Typography
-} from '@material-ui/core'
-import useStyle from './style';
+} from '@material-ui/core';
 
+import useStyles from './style';
 
-const ContentModal = ({message}) => {
-    const [openMessage, setOpenMessage] = useState(false);
-    const classes = useStyle();
+const ContentModal = ({ message, isOpen, onClose }) => {
+    const classes = useStyles();
 
     return (
-      <div>
-        <Button onClick={() => setOpenMessage(true)}>Contenido</Button>
-  
-        <Dialog
-          onClose={() => setOpenMessage(!openMessage)}
-          aria-labelledby='customized-dialog-title'
-          open={openMessage}
-          className={classes.container}
+      <Dialog
+        onClose={onClose}
+        aria-labelledby='customized-dialog-title'
+        open={isOpen}
+        className={classes.container}
+      >
+        <DialogTitle
+          id='customized-dialog-title'
+          onClose={onClose}
         >
-          <DialogTitle
-            id='customized-dialog-title'
-            onClose={() => setOpenMessage(!openMessage)}
-          >
-            Contenido
-          </DialogTitle>
-          <DialogContent dividers>
-            <Typography gutterBottom>
-              {message}
-            </Typography>
+          Contenido
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            {message}
+          </Typography>
             
-          </DialogContent>
-          <DialogActions>
-            <Button
-              autoFocus
-              onClick={() => setOpenMessage(!openMessage)}
-              color='primary'
-            >
-              Cerrar
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={onClose}
+            color='primary'
+          >
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   };
 

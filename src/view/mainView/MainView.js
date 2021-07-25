@@ -17,6 +17,7 @@ const SignIn = lazy(() => import('view/signin/SignIn'));
 const Contact = lazy(() => import('view/contact/Contact'));
 const News = lazy(() => import('view/news/News'));
 const SingleNew = lazy(() => import('view/singleNew/SingleNew'));
+const Activities = lazy(() => import('view/activities/Activities'));
 const Activity = lazy(() => import('view/activities/activity/Activity'));
 
 const MainView = () => {
@@ -32,6 +33,7 @@ const MainView = () => {
             />
             <Route path='/novedades/:id' component={SingleNew}/>
             <Route path='/nosotros' component={AboutUs} />
+            <Route path='/actividades' component={Activities} />            
             <Route path='/contacto' component={Contact} />
             <Route path='/registrar' component={SignUp} />
             <Route path='/ingresar' component={SignIn} />

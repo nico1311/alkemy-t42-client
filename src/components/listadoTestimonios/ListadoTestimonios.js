@@ -5,33 +5,61 @@ import { getTestimonials, removeTestimonial } from 'redux/testimonials/actions/t
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
-  Container,
-  Typography,
-  TableContainer,
-  Paper,
   Box,
+  Button,
+  Container,
+  IconButton,
+  Paper,
+  Snackbar,
+  TableContainer,
+  Typography,
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  Snackbar,
-  IconButton,
+  makeStyles
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
+
+import { makeDELETE } from 'services/httpRequest.js';
+ 
+
+const useStyles = makeStyles((theme) => {
+  return {
+    button: {
+      margin: theme.spacing(1),
+    },
+    right: {
+      textAlign: 'end',
+    },
+  };
+});
 
 const ListadoTestimonios = () => {
   const dispatch = useDispatch();
   const testimonialsFromStore = useSelector(state => state.testimonials.testimonials)
   const history = useHistory();
   const { url } = useRouteMatch();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes = useStyles();
   const [testimonials, setTestimonials] = useState([]);
+  const [contentModalOpen, setContentModalOpen] = useState(false);
+  const [visibleTestimonial, setVisibleTestimonial] = useState(null);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingTestimony, setPendingTestimony] = useState(null);
+
 
   useEffect(() => {
     async function getAllTestimonials() {
@@ -42,9 +70,24 @@ const ListadoTestimonios = () => {
     !testimonialsFromStore ? getAllTestimonials() : setTestimonials(testimonialsFromStore);
   }, []);
 
-  const handleOpenAlert = (testimonyID) => {
+  const getTestimonials = async () => {
+    const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
+    setTestimonials(testimonialsAPI);
+  }
+
+  const handleContentModalOpen = (testimonialID) => {
+    setVisibleTestimonial(testimonials.find((testimonial) => testimonial.id === testimonialID));
+    setContentModalOpen(true);
+  }
+
+  const handleContentModalClose = () => {
+    setContentModalOpen(false);
+    setVisibleTestimonial(null);
+  }
+
+  const handleOpenAlert = (testimonialID) => {
     setPendingTestimony(
-      testimonials.find((testimony) => testimony.id === testimonyID),
+      testimonials.find((testimonial) => testimonial.id === testimonialID),
     );
     setOpenAlert(true);
   };
@@ -54,16 +97,24 @@ const ListadoTestimonios = () => {
     setOpenAlert(false);
   };
 
-  const filterTestimonials = (id) => {
-    setTestimonials(testimonials.filter(item => item.id !== id));
-  }
+  const handleDeleteConfirm = () => {
+    makeDELETE(`${ENDPOINT_GETTESTIMONIALS}/${pendingTestimony.id}`)
+    .then(() => {
+      setTestimonials(
+        testimonials.filter((testimony) => testimony.id !== pendingTestimony.id),
+      );
+      dispatch(removeTestimonial(pendingTestimony.id));
+    })
+    .catch((error) => {
+      console.error('Error deleting testimony: ', error);
+    })
+    .finally(() => {
+      setPendingTestimony(null);
+      setOpenAlert(false);
+      setToastOpen(true);
+      setTimeout(window.location.reload(), 5000);
+    });
 
-  const handleDeleteConfirm = (id) => {
-    filterTestimonials(id);
-    dispatch(removeTestimonial(id));
-    setPendingTestimony(null);
-    setOpenAlert(false);
-    setToastOpen(true);
   };
 
   if (testimonials) {
@@ -95,29 +146,72 @@ const ListadoTestimonios = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
                   <TableCell>Nombre</TableCell>
-                  <TableCell>Contenido</TableCell>
-                  <TableCell>Acciones</TableCell>
+                  <TableCell className={classes.right}>Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {testimonials.map((testimony, i) => {
+                {testimonials.map((testimonial) => {
                   return (
-                    <TableRow key={i}>
-                      <TableCell>{testimony.id}</TableCell>
-                      <TableCell>{testimony.name}</TableCell>
+                    <TableRow key={testimonial.id}>
                       <TableCell>
-                        <ContentModal
-                          message={testimony.content}
-                        ></ContentModal>
+                        {testimonial.name}
                       </TableCell>
-                      <TableCell>
-                        <Button>Editar</Button>
-                        <Button onClick={() => handleOpenAlert(testimony.id)}>
-                          Eliminar
-                        </Button>
-                      </TableCell>
+                      {isMobile ?
+                        <TableCell className={classes.right}>
+                          <IconButton
+                            color='primary'
+                            aria-label='Ver'   
+                            onClick={() => handleContentModalOpen(testimonial.id)}
+                          >
+                            <VisibilityIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='primary'
+                            aria-label='Editar'
+                            onClick={() => history.push(`/backoffice/testimonials/${testimonial.id}/edit`)}
+                          >
+                            <EditIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Eliminar'
+                            onClick={() => handleOpenAlert(testimonial.id)}
+
+                          >
+                            <DeleteIcon className={classes.icon} />
+                          </IconButton>
+                        </TableCell> :
+                        <TableCell className={classes.right}>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<VisibilityIcon className={classes.icon} />}
+                            onClick={() => handleContentModalOpen(testimonial.id)}
+                          >
+                            Ver
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<EditIcon className={classes.icon} />}
+                            onClick={() => history.push(`/backoffice/testimonials/${testimonial.id}/edit`)}
+                          >
+                            Editar
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='secondary'
+                            className={classes.button}
+                            startIcon={<DeleteIcon className={classes.icon} />}
+                            onClick={() => handleOpenAlert(testimonial.id)}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                        }
                     </TableRow>
                   );
                 })}
@@ -125,11 +219,23 @@ const ListadoTestimonios = () => {
             </Table>
           </TableContainer>
         </Container>
+        {contentModalOpen &&
+          <ContentModal
+            message={visibleTestimonial.content}
+            isOpen={contentModalOpen}
+            onClose={handleContentModalClose}
+          />
+        }
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
+<<<<<<< HEAD
             message={`¿Eliminar el testimonio "${pendingTestimony.name}"?`}
             confirmar={() => handleDeleteConfirm(pendingTestimony.id)}
+=======
+            message={`¿Eliminar testimonio "${pendingTestimony.name}"?`}
+            confirmar={handleDeleteConfirm}
+>>>>>>> f66ad53a7c418d349646c37c790ea35a17014dee
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}
