@@ -1,6 +1,9 @@
 /** @module Form/News */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { makeGET } from 'services/httpRequest';
+import { ENDPOINT_CATEGORY } from 'services/settings';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import validation from './validation';
 import submit from './submit';
 import FormContainer from '../FormContainer.js';
@@ -12,7 +15,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
-import listCategories from './categories';
 import useStyles from './style';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -32,9 +34,23 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
  * const myNewsToEdit = {id, title, image, category, contain};
  * <FormEdit prevNews={myNewsToEdit} />
  */
+
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
   const [imgPreview, setImgPreview] = useState(null);
+  const dispatch = useDispatch();
   // React Router function to redirect user if register is correct.
+  const [categories, setCategories] = useState([]);
+  const [imageURL, setImageURL] = useState([false]);
+  const [imageFile, setImageFile] = useState();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await makeGET(ENDPOINT_CATEGORY);
+      setCategories(data.categories);
+    }
+  fetchCategories();
+  }, []);
+  
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -45,9 +61,10 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
-      changeSubmit(values, setSubmitting, prevNews?.id);
+      changeSubmit(values, setSubmitting, prevNews?.id, dispatch);
     },
   });
+
   return (
     <FormContainer titleForm='Formulario Novedades'>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
@@ -85,9 +102,9 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
               value={formik.values.category}
               onChange={formik.handleChange}
             >
-              {listCategories.map((elem, index) => (
-                <MenuItem key={index} value={elem}>
-                  {elem}
+              {categories.map((category, i) => (
+                <MenuItem key={i} value={category}>
+                  {category.name}
                 </MenuItem>
               ))}
             </Select>

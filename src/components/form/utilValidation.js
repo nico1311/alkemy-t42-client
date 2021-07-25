@@ -188,3 +188,44 @@ export const validationDescriptionCategory = (description) => {
   else if (description.length > 256) return 'Como máximo 256 caracteres.';
   else if (description.length < 12) return 'Debe contener 12 caracteres o más.';
 };
+/**
+ * Function to validate urlSocialLink for publicData form.
+ * @fuction validationSocialLink
+ * @param {String} urlSocialLink - A string to check.
+ * @example
+ * validationSocialLink("instagram.com/ongnameexample");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationSocialLink = (urlSocialLink) => {
+  if (!urlSocialLink) return 'Requerido';
+  else if (urlSocialLink.length > 128) return 'Como máximo 128 caracteres.';
+  else if (urlSocialLink.length < 12)
+    return 'Debe contener 12 caracteres o más.';
+};
+/**
+ * Function to validate validationPhone for publicData form.
+ * @fuction validationPhone
+ * @param {String} phone - A string to check.
+ * @example
+ * validationPhone("54343222111");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationPhone = (phone) => {
+  if (!phone) return 'Requerido';
+  else if (!/^\d+$/.test(phone)) return 'Solo caracteres numericos';
+  else if (phone.length > 40) return 'Como máximo 40 caracteres.';
+  else if (phone.length < 7) return 'Debe contener 7 caracteres o más.';
+};
+/**
+ * Function to validate validationImagePublicData for publicData form.
+ * @fuction validationImagePublicData
+ * @param {String} phone - A string to check.
+ * @example
+ * validationImagePublicData("urlimageexample.jpg");
+ * @returns {String} Returns string to set in an object Error.
+ */
+export const validationImagePublicData = (imagen) => {
+  if (!imagen) return 'Requerido';
+  else if (!/\.(jpe?g|png|bmp)$/i.test(imagen))
+    return 'La imagen debe ser una URL con terminación en un formato valido (jpe/g, png, bmp)';
+};

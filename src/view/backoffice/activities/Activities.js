@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_ACTIVITIES } from 'services/settings';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getActivities, removeActivity } from 'redux/activities/actions/activities';
 import {
   Button,
   Typography,
@@ -28,6 +30,8 @@ import EditIcon from '@material-ui/icons/Edit';
  * <Activities />
  */
 const Activities = () => {
+  const dispatch = useDispatch();
+  const activitiesFromStore = useSelector(state => state.activities.activities);
   const { url } = useRouteMatch();
   const history = useHistory();
   const [open, setOpen] = useState(false);
@@ -38,27 +42,34 @@ const Activities = () => {
 
   const classes = useStyles();
   useEffect(() => {
-    getActivities();
+    !activitiesFromStore ? getAllActivities() : setActivities(activitiesFromStore);
     return () => {};
   }, []);
-  const getActivities = async () => {
-    const activities = await makeGET(ENDPOINT_ACTIVITIES);
-    setActivities(activities.activities);
+
+  const getAllActivities = async () => {
+    const {activities} = await makeGET(ENDPOINT_ACTIVITIES);
+    dispatch(getActivities(activities))
+    setActivities(activities);
   };
+
   const editActivity = async (id) => {
     const response = await makeGET(`${ENDPOINT_ACTIVITIES}/${id}`);
     setActivityToEdit(response.Activity);
     setEdit(true);
   };
+
   const deleteActivity = (id) => {
     makeDELETE(`${ENDPOINT_ACTIVITIES}/${id}`);
+    dispatch(removeActivity(id));
     setOpen(false);
     setActivities(activities.filter((item) => item.id !== id));
   };
+
   const handleClose = () => {
     setActivityToDelete('');
     setOpen(false);
   };
+
   if (edit) {
     return (
       <EditActivityForm

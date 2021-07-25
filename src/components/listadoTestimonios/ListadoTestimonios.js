@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTestimonials, removeTestimonial } from 'redux/testimonials/actions/testimonials';
 import { makeGET } from 'services/httpRequest.js';
 import { ENDPOINT_GETTESTIMONIALS } from 'services/settings';
 import {
@@ -7,7 +9,6 @@ import {
   Button,
   Container,
   IconButton,
-  Link,
   Paper,
   Snackbar,
   TableContainer,
@@ -30,6 +31,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
 
+import { makeDELETE } from 'services/httpRequest.js';
+ 
+
 const useStyles = makeStyles((theme) => {
   return {
     button: {
@@ -42,6 +46,8 @@ const useStyles = makeStyles((theme) => {
 });
 
 const ListadoTestimonios = () => {
+  const dispatch = useDispatch();
+  const testimonialsFromStore = useSelector(state => state.testimonials.testimonials)
   const history = useHistory();
   const { url } = useRouteMatch();
   const theme = useTheme();
@@ -54,8 +60,14 @@ const ListadoTestimonios = () => {
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingTestimony, setPendingTestimony] = useState(null);
 
+
   useEffect(() => {
-    getTestimonials();
+    async function getAllTestimonials() {
+      const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
+      dispatch(getTestimonials(testimonialsAPI));
+      setTestimonials(testimonialsAPI);
+    }
+    !testimonialsFromStore ? getAllTestimonials() : setTestimonials(testimonialsFromStore);
   }, []);
 
   const getTestimonials = async () => {
@@ -86,9 +98,23 @@ const ListadoTestimonios = () => {
   };
 
   const handleDeleteConfirm = () => {
-    setPendingTestimony(null);
-    setOpenAlert(false);
-    setToastOpen(true);
+    makeDELETE(`${ENDPOINT_GETTESTIMONIALS}/${pendingTestimony.id}`)
+    .then(() => {
+      setTestimonials(
+        testimonials.filter((testimony) => testimony.id !== pendingTestimony.id),
+      );
+      dispatch(removeTestimonial(pendingTestimony.id));
+    })
+    .catch((error) => {
+      console.error('Error deleting testimony: ', error);
+    })
+    .finally(() => {
+      setPendingTestimony(null);
+      setOpenAlert(false);
+      setToastOpen(true);
+      setTimeout(window.location.reload(), 5000);
+    });
+
   };
 
   if (testimonials) {
@@ -129,20 +155,13 @@ const ListadoTestimonios = () => {
                   return (
                     <TableRow key={testimonial.id}>
                       <TableCell>
-                        <Link
-                          component='button'
-                          color='primary'
-                          aria-label='Ver'
-                          onClick={() => handleContentModalOpen(testimonial.id)}
-                        >
-                          {testimonial.name}
-                        </Link>
+                        {testimonial.name}
                       </TableCell>
                       {isMobile ?
                         <TableCell className={classes.right}>
                           <IconButton
                             color='primary'
-                            aria-label='Ver'
+                            aria-label='Ver'   
                             onClick={() => handleContentModalOpen(testimonial.id)}
                           >
                             <VisibilityIcon className={classes.icon} />
@@ -150,6 +169,7 @@ const ListadoTestimonios = () => {
                           <IconButton
                             color='primary'
                             aria-label='Editar'
+                            onClick={() => history.push(`/backoffice/testimonials/${testimonial.id}/edit`)}
                           >
                             <EditIcon className={classes.icon} />
                           </IconButton>
@@ -157,6 +177,7 @@ const ListadoTestimonios = () => {
                             color='secondary'
                             aria-label='Eliminar'
                             onClick={() => handleOpenAlert(testimonial.id)}
+
                           >
                             <DeleteIcon className={classes.icon} />
                           </IconButton>
@@ -176,6 +197,7 @@ const ListadoTestimonios = () => {
                             color='primary'
                             className={classes.button}
                             startIcon={<EditIcon className={classes.icon} />}
+                            onClick={() => history.push(`/backoffice/testimonials/${testimonial.id}/edit`)}
                           >
                             Editar
                           </Button>
@@ -207,8 +229,13 @@ const ListadoTestimonios = () => {
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
+<<<<<<< HEAD
+            message={`¿Eliminar el testimonio "${pendingTestimony.name}"?`}
+            confirmar={() => handleDeleteConfirm(pendingTestimony.id)}
+=======
             message={`¿Eliminar testimonio "${pendingTestimony.name}"?`}
             confirmar={handleDeleteConfirm}
+>>>>>>> f66ad53a7c418d349646c37c790ea35a17014dee
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}
@@ -225,7 +252,7 @@ const ListadoTestimonios = () => {
           open={toastOpen}
           autoHideDuration={2000}
           onClose={() => setToastOpen(false)}
-          message='Categoría eliminada'
+          message='Testimonio eliminado'
           action={
             <IconButton
               size='small'

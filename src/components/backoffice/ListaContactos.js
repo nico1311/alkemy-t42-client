@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, removeContacts } from 'redux/contacts/actions/contacts';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,6 +26,8 @@ const useStyles = makeStyles({
 });
 
 export default function ListOfContacts() {
+  const dispatch = useDispatch();
+  const contactsFromStore = useSelector(state => state.contacts.contacts);
   const [contacts, setContacts] = useState([]);
   const [contentModalOpen, setContentModalOpen] = useState(false);
   const [visibleContact, setVisibleContact] = useState(null);
@@ -33,11 +37,12 @@ export default function ListOfContacts() {
   const classes = useStyles();
 
   useEffect(() => {
-    async function getContacts() {
-      const contactsAPI = await makeGET(ENDPOINT_CONTACTS);
-      setContacts(contactsAPI.contacts);
+    async function getAllContacts() {
+      const { contacts } = await makeGET(ENDPOINT_CONTACTS);
+      dispatch(getContacts(contacts));
+      setContacts(contacts);
     }
-    getContacts();
+    !contactsFromStore ? getAllContacts() : setContacts(contactsFromStore);
   }, []);
 
   const handleContentModalOpen = (id) => {
@@ -66,6 +71,7 @@ export default function ListOfContacts() {
         setContacts(
           contacts.filter((contact) => contact.id !== pendingContact.id),
         );
+        dispatch(removeContacts(pendingContact.id));
       })
       .catch((error) => {
         console.error('Error deleting contact: ', error);
@@ -74,7 +80,6 @@ export default function ListOfContacts() {
         setPendingContact(null);
         setOpenAlert(false);
         setToastOpen(true);
-        setTimeout(window.location.reload(), 3000);
       });
   };
 

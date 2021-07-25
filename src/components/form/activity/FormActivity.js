@@ -1,5 +1,6 @@
 /**@module Form/Activity */
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import FormContainer from '../FormContainer.js';
 import {
@@ -31,6 +32,7 @@ import useStyles from './style';
  * <FormActivity prevActivity={activity} />
  */
 const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
+  const dispatch = useDispatch();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
@@ -42,7 +44,7 @@ const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
-      changeSubmit(values, setSubmitting, setTypeMSJ, prevActivity?.id);
+      changeSubmit(values, setSubmitting, setTypeMSJ, prevActivity?.id, dispatch);
     },
   });
   return (

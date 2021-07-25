@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useStyles from './style.js';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteNews } from 'redux/news/actions/news';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AlertDelete from '../utils/alertDelete/AlertDelete';
 import { makeDELETE } from 'services/httpRequest';
@@ -15,6 +16,7 @@ import {
 } from '@material-ui/core';
 
 const New = ({ news, filterNews }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { createdAt, name, image, id } = news;
   const [toastOpen, setToastOpen] = useState(false);
@@ -31,6 +33,7 @@ const New = ({ news, filterNews }) => {
     setToastOpen(true);
     const DeleteNew = await makeDELETE(`${ENDPOINT_NEWS}/${id}`);
     console.log(DeleteNew);
+    dispatch(deleteNews(id));
     filterNews(id);
   };
 

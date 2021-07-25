@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getNews } from 'redux/news/actions/news'
 import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_NEWS } from 'services/settings';
 import New from 'components/new/New';
 import { Grid, Box, Typography, Button } from '@material-ui/core';
 
 const NewsBackoffice = () => {
+  const dispatch = useDispatch();
+  const newsFromStore = useSelector(state => state.news.news);
   const history = useHistory();
   const {url} = useRouteMatch();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    obtainNews();
+    !newsFromStore ? obtainNews() : setNews(newsFromStore);
     return () => { };
   }, []);
 
   const obtainNews = async () => {
     try {
-      const result = await makeGET(ENDPOINT_NEWS);
-      setNews(result.news);
-      console.log(result.news);
+      console.log('Se llamo a la api');
+      const {news} = await makeGET(ENDPOINT_NEWS);
+      dispatch(getNews(news));
+      setNews(news);
     } catch {
       console.error('Error between obtain news');
     }
