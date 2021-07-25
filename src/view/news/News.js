@@ -1,9 +1,10 @@
 /**@module view/news */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
-import { makeGET } from 'services/httpRequest';
 import { ENDPOINT_NEWS } from 'services/settings';
+import { makeGET } from 'services/httpRequest';
 import Entry from 'components/entries/Entry';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 /**
  * Component New is a react component to render the organization news
@@ -13,26 +14,33 @@ import Entry from 'components/entries/Entry';
  * <New/>
  */
 const New = () => {
-    const [entries, setEntries] = useState({})
+    const [news, setNews] = useState(null)
 
     useEffect(() => {
-        makeGET(ENDPOINT_NEWS)
-        .then(res => setEntries(res['news']))
+        async function getAllNews() {
+            const { news } = await makeGET(ENDPOINT_NEWS)
+            setNews(news)
+        }
+        getAllNews()
     }, [])
 
-    console.log(entries)
+    if (!news) return (
+        <Typography variant="h4" color="initial">Cargando...</Typography>
+    )
 
     return (
-        <div style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
-            { entries?.[0] && (
-                entries.map((child, i) => (
-                    <Link style={{textDecoration: 'none'}} to={`/novedades/${child.id}`} key={i}>
-                    <Entry entry={child}/>
-                    </Link>
+        <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+        >
+            {
+                news.map(item => (
+                    <Entry news={item} key={item.id} />
                 ))
-            )}
-        </div>
-    );
+            }
+        </Grid>
+    )
 };
 
 export default New;

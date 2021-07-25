@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import { ENDPOINT_CONTACTS } from 'services/settings';
-import { makeDELETE, makeGET} from 'services/httpRequest';
+import { makeDELETE, makeGET } from 'services/httpRequest';
 import CloseIcon from '@material-ui/icons/Close';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
@@ -23,10 +23,10 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function ListOfContacts() {
-
   const [contacts, setContacts] = useState([]);
+  const [contentModalOpen, setContentModalOpen] = useState(false);
+  const [visibleContact, setVisibleContact] = useState(null);
   const [openAlert, setOpenAlert] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
   const [pendingContact, setPendingContact] = useState(null);
@@ -34,18 +34,24 @@ export default function ListOfContacts() {
 
   useEffect(() => {
     async function getContacts() {
-      const contactsAPI = await makeGET(
-        ENDPOINT_CONTACTS,
-      );
+      const contactsAPI = await makeGET(ENDPOINT_CONTACTS);
       setContacts(contactsAPI.contacts);
     }
     getContacts();
   }, []);
-  
+
+  const handleContentModalOpen = (id) => {
+    setVisibleContact(contacts.find((contact) => contact.id === id));
+    setContentModalOpen(true);
+  }
+
+  const handleContentModalClose = () => {
+    setContentModalOpen(false);
+    setVisibleContact(null);
+  }
+
   const handleOpenAlert = (id) => {
-    setPendingContact(
-      contacts.find((contact) => contact.id === id),
-    );
+    setPendingContact(contacts.find((contact) => contact.id === id));
     setOpenAlert(true);
   };
 
@@ -56,85 +62,104 @@ export default function ListOfContacts() {
 
   const handleDeleteConfirm = () => {
     makeDELETE(`${ENDPOINT_CONTACTS}/${pendingContact.id}`)
-    .then(() => {
-      setContacts(contacts.filter((contact) => contact.id !== pendingContact.id));
-    })
-    .catch((error) => {
-      console.error('Error deleting contact: ', error);
-    })
-    .finally(() => {
-      setPendingContact(null);
-      setOpenAlert(false);
-      setToastOpen(true);
-      setTimeout(window.location.reload(), 3000);
-    })
+      .then(() => {
+        setContacts(
+          contacts.filter((contact) => contact.id !== pendingContact.id),
+        );
+      })
+      .catch((error) => {
+        console.error('Error deleting contact: ', error);
+      })
+      .finally(() => {
+        setPendingContact(null);
+        setOpenAlert(false);
+        setToastOpen(true);
+        setTimeout(window.location.reload(), 3000);
+      });
   };
 
-  console.log(contacts)
-  return (
-    <>
-      <Container>
-      <h1 align='center'> Contactos</h1>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Nombre</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Mensaje</TableCell>
-                <TableCell align="center"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {contacts.map((res, i) => (
-                <TableRow key={i}>
-                  <TableCell align="center">{res.name}</TableCell>
-                  <TableCell align="center">{res.email}</TableCell>
-                  <TableCell align="center"> 
-                    <ContentModal message={res.message}></ContentModal>
-                  </TableCell>
-                  <TableCell align="center"><Button color="secondary" onClick={() => handleOpenAlert(res.id)}>Eliminar</Button></TableCell>
+  if (contacts) {
+    return (
+      <>
+        <Container>
+          <h1 align='center'> Contactos</h1>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell align='center'>Nombre</TableCell>
+                  <TableCell align='center'>Email</TableCell>
+                  <TableCell align='center'>Acciones</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-      {pendingContact &&
-        <AlertDelete
-          open={openAlert}
-          message={`¿Eliminar el contacto de "${pendingContact.name}"?`}
-          confirmar={handleDeleteConfirm}
-          cancelar={handleDeleteCancel}
-          onClose={() => setToastOpen(false)}
-          snack={toastOpen}
-          Message='Contacto eliminado'
-          closeIcon={() => setToastOpen(false)}
-          toastMessage="Se ha eliminado correctamente."
-        />
-      }
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={toastOpen}
-        autoHideDuration={2000}
-        onClose={() => setToastOpen(false)}
-        message='Contacto eliminado'
-        action={
-          <IconButton
-            size='small'
-            aria-label='close'
-            color='inherit'
-            onClick={() => setToastOpen(false)}
-          >
-            <CloseIcon fontSize='small' />
-          </IconButton>
+              </TableHead>
+              <TableBody>
+                {contacts.map((contact) => (
+                  <TableRow key={contact.id}>
+                    <TableCell align='center'>{contact.name}</TableCell>
+                    <TableCell align='center'>{contact.email}</TableCell>
+                    <TableCell align='center'>
+                      <Button
+                        color='secondary'
+                        onClick={() => handleContentModalOpen(contact.id)}
+                      >
+                        Ver mensaje
+                      </Button>
+                      <Button
+                        color='secondary'
+                        onClick={() => handleOpenAlert(contact.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+        {contentModalOpen &&
+          <ContentModal
+            message={visibleContact.message}
+            isOpen={contentModalOpen}
+            onClose={handleContentModalClose}
+          />
         }
-      />
-    </>
-  );
-};
-
-
+        {pendingContact && (
+          <AlertDelete
+            open={openAlert}
+            message={`¿Eliminar el contacto de "${pendingContact.name}"?`}
+            confirmar={handleDeleteConfirm}
+            cancelar={handleDeleteCancel}
+            onClose={() => setToastOpen(false)}
+            snack={toastOpen}
+            Message='Contacto eliminado'
+            closeIcon={() => setToastOpen(false)}
+            toastMessage='Se ha eliminado correctamente.'
+          />
+        )}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={toastOpen}
+          autoHideDuration={2000}
+          onClose={() => setToastOpen(false)}
+          message='Contacto eliminado'
+          action={
+            <IconButton
+              size='small'
+              aria-label='close'
+              color='inherit'
+              onClick={() => setToastOpen(false)}
+            >
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          }
+        />
+      </>
+    );
+  } else {
+    return <h1>No hay contactos para mostrar.</h1>;
+  }
+}
