@@ -31,7 +31,7 @@ const CreateTestimonial = lazy(() => import('./FormTestimonial'))
 const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
 const FormCategory = lazy(() => import('components/form/category/FormCategory'));
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
-
+const EditTestimony = lazy(() => import('view/editTestimony/EditTestimony.js'));
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -121,6 +121,10 @@ function BackOfficeView() {
               <Route 
                 path={`${path}/categories/edit`} 
                 component={FormCategory} 
+              />
+              <Route 
+                path={`${path}/testimonials/:id/edit`}
+                component={EditTestimony}
               />
               <Route 
                 path={`${path}/testimonials/create`} 
