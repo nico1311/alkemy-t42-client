@@ -7,14 +7,15 @@ import {
   ListItemIcon,
   IconButton,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
-import useUser from 'hooks/useUser';
-
+import { useSelector } from 'react-redux';
+import { logout } from 'services/auth';
 
 const DrawerComponent = () => {
-  const log  = useUser().isLogged;
+  const { user } = useSelector((state) => state.user);
+  const history = useHistory();
   const [openDrawer, setOpenDrawer] = useState(false);
   const classes = useStyles();
   return (
@@ -70,7 +71,7 @@ const DrawerComponent = () => {
               </ListItemText>
             </ListItemIcon>
           </ListItem>
-          {log ? (<List>
+          {user?.id ? (<List>
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
                 <ListItemIcon>
                   <ListItemText>
@@ -89,17 +90,21 @@ const DrawerComponent = () => {
                   </ListItemText>
                 </ListItemIcon>
               </ListItem>
-              <ListItem divider button onClick={() => setOpenDrawer(false)}>
+              <ListItem divider button onClick={() => {
+                logout();
+                setOpenDrawer(false);
+                history.push('/');
+              }}>
                 <ListItemIcon>
                   <ListItemText>
-                    <Link to='/' style={{ textDecoration: 'none' }}>
+                    <Link style={{ textDecoration: 'none' }}>
                       Log out
                     </Link>
                   </ListItemText>
                 </ListItemIcon>
               </ListItem>                 
             </List>
-          ):(<List>
+          ) : (<List>
               <ListItem divider button onClick={() => setOpenDrawer(false)}>
               <ListItemIcon>
                 <ListItemText>
