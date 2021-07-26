@@ -70,11 +70,6 @@ const ListadoTestimonios = () => {
     !testimonialsFromStore ? getAllTestimonials() : setTestimonials(testimonialsFromStore);
   }, []);
 
-  const getTestimonials = async () => {
-    const { Testimonials: testimonialsAPI } = await makeGET(ENDPOINT_GETTESTIMONIALS);
-    setTestimonials(testimonialsAPI);
-  }
-
   const handleContentModalOpen = (testimonialID) => {
     setVisibleTestimonial(testimonials.find((testimonial) => testimonial.id === testimonialID));
     setContentModalOpen(true);

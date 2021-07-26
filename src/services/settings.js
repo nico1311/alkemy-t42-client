@@ -75,10 +75,10 @@ export const ENDPOINT_GETTESTIMONIALS = `${BASE_URL}/testimonials`;
  * @constant
  * @readonly
  */
-export const ENDPOINT_MEMBERS = `${BASE_URL}members`;
+export const ENDPOINT_MEMBERS = `${BASE_URL}/members`;
 /**
  * Constant with ENDPOINT to members.
  * @constant
  * @readonly
  */
-export const ENDPOINT_PUBLICDATA = `${BASE_URL}organizations/1/public`;
+export const ENDPOINT_PUBLICDATA = `${BASE_URL}/organizations/1/public`;
