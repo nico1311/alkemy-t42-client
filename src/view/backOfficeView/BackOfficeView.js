@@ -29,9 +29,9 @@ const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
 const EditTestimony = lazy(() => import('view/editTestimony/EditTestimony'));
 const CreateTestimonial = lazy(() => import('./FormTestimonial'));
-const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
+const CategoriesView = lazy(() => import('../backoffice/categories/Categories'));
 const FormCategory = lazy(() => import('components/form/category/FormCategory'));
-const UsersView = lazy(() => import('../backoffice/Users/Users'));
+const UsersView = lazy(() => import('../backoffice/users/Users'));
 const PublicDataView = lazy(() => import('../backoffice/publicData/PublicData'));
 
 function BackOfficeView() {

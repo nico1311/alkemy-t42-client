@@ -18,6 +18,7 @@ const Home = () => {
   async function getAllNews() {
     try {
       const { news } = await makeGET(ENDPOINT_NEWS);
+      console.log(news);
       setNews(news.slice(-4));
       dispatch(getNews(news));
     } catch (error) {

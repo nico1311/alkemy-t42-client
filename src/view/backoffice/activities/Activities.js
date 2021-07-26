@@ -8,6 +8,8 @@ import {
   Button,
   Typography,
   Box,
+  IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -23,6 +25,9 @@ import EditActivityForm from 'components/form/editActivity/editActivityForm';
 import useStyles from './style';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 /**
  * Activities view in backoffice
  * @example
@@ -34,6 +39,8 @@ const Activities = () => {
   const activitiesFromStore = useSelector(state => state.activities.activities);
   const { url } = useRouteMatch();
   const history = useHistory();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [activities, setActivities] = useState([]);
@@ -87,7 +94,7 @@ const Activities = () => {
             <Box display='flex'>
               <Box width='100%'>
                 {' '}
-                <Typography variant='h4'> Actividades </Typography>{' '}
+                <Typography variant='h4' gutterBottom> Actividades </Typography>{' '}
               </Box>
               <Box>
                 {' '}
@@ -101,7 +108,7 @@ const Activities = () => {
               </Box>
             </Box>
           </div>
-          <TableContainer>
+          <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -110,35 +117,54 @@ const Activities = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {activities.map((activity, i) => {
+                {activities.map((activity) => {
                   return (
-                    <TableRow key={i}>
+                    <TableRow key={activity.id}>
                       <TableCell>{activity.name}</TableCell>
-                      <TableCell className={classes.right}>
-                        <Button
-                          variant='contained'
-                          color='primary'
-                          className={classes.button}
-                          startIcon={<EditIcon className={classes.icon} />}
-                          onClick={() => {
-                            editActivity(activity.id);
-                          }}
-                        >
-                          Editar
-                        </Button>
-                        <Button
-                          variant='contained'
-                          color='secondary'
-                          startIcon={<DeleteIcon className={classes.icon} />}
-                          className={classes.button}
-                          onClick={() => {
-                            setActivityToDelete(activity.id);
-                            setOpen(true);
-                          }}
-                        >
-                          Eliminar
-                        </Button>
-                      </TableCell>
+                      {isMobile ?
+                        <TableCell className={classes.right}>
+                          <IconButton
+                            color='primary'
+                            aria-label='Editar'
+                            onClick={() => editActivity(activity.id)}
+                          >
+                            <EditIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Eliminar'
+                            onClick={() => {
+                              setActivityToDelete(activity.id);
+                              setOpen(true);
+                            }}
+                          >
+                            <DeleteIcon className={classes.icon} />
+                          </IconButton>
+                        </TableCell> :
+                        <TableCell className={classes.right}>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<EditIcon className={classes.icon} />}
+                            onClick={() => editActivity(activity.id)}
+                          >
+                            Editar
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='secondary'
+                            className={classes.button}
+                            startIcon={<DeleteIcon className={classes.icon} />}
+                            onClick={() => {
+                              setActivityToDelete(activity.id);
+                              setOpen(true);
+                            }}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                      }
                     </TableRow>
                   );
                 })}

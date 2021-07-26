@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getCategories } from 'redux/categories/actions/categories'
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from 'redux/categories/actions/categories'
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
@@ -17,6 +18,8 @@ import Button from '@material-ui/core/Button'
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import EditCategoryForm from 'components/form/category/editFormCategory';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import useStyles from './style';
@@ -28,6 +31,8 @@ const Categories = () => {
   const categoriesFromStore = useSelector(state => state.categories.categories);
   const { url } = useRouteMatch();
   const history = useHistory();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [categories, setCategories] = useState([]);
   const [edit, setEdit] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState('');
@@ -48,7 +53,7 @@ const Categories = () => {
   const editCategory = async (id) => {
     const response = await makeGET(`${ENDPOINT_CATEGORY}/${id}`);
     console.log(response);
-    setCategoryToEdit(response.Category);
+    setCategoryToEdit(response.category);
     setEdit(true);
   };
 
@@ -91,7 +96,7 @@ const Categories = () => {
             <Box display='flex'>
               <Box width='100%'>
                 {' '}
-                <Typography variant='h4'> Categorias </Typography>{' '}
+                <Typography variant='h4' gutterBottom>Categorias</Typography>{' '}
               </Box>
               <Box>
                 {' '}
@@ -105,7 +110,7 @@ const Categories = () => {
               </Box>
             </Box>
           </div>
-          <TableContainer>
+          <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -114,34 +119,48 @@ const Categories = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {categories.map((category, i) => {
+                {categories.map((category) => {
                   return (
-                    <TableRow key={i}>
+                    <TableRow key={category.id}>
                       <TableCell>{category.name}</TableCell>
-                      <TableCell className={classes.right}>
-                        <Button
-                          variant='contained'
-                          color='primary'
-                          className={classes.button}
-                          startIcon={<EditIcon className={classes.icon} />}
-                          onClick={() => {
-                            editCategory(category.id);
-                          }}
-                        >
-                          Editar
-                        </Button>
-                        <Button
-                          variant='contained'
-                          color='secondary'
-                          startIcon={<DeleteIcon className={classes.icon} />}
-                          className={classes.button}
-                          onClick={() => {
-                            handleDeleteAction(category.id);
-                          }}
-                        >
-                          Eliminar
-                        </Button>
-                      </TableCell>
+                      {isMobile ?
+                        <TableCell className={classes.right}>
+                          <IconButton
+                            color='primary'
+                            aria-label='Editar'
+                            onClick={() => editCategory(category.id)}
+                          >
+                            <EditIcon className={classes.icon} />
+                          </IconButton>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Eliminar'
+                            onClick={() => handleDeleteAction(category.id)}
+                          >
+                            <DeleteIcon className={classes.icon} />
+                          </IconButton>
+                        </TableCell> :
+                        <TableCell className={classes.right}>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className={classes.button}
+                            startIcon={<EditIcon className={classes.icon} />}
+                            onClick={() => editCategory(category.id)}
+                          >
+                            Editar
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='secondary'
+                            className={classes.button}
+                            startIcon={<DeleteIcon className={classes.icon} />}
+                            onClick={() => handleDeleteAction(category.id)}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                      }
                     </TableRow>
                   );
                 })}
