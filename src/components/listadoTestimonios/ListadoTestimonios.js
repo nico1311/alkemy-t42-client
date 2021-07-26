@@ -229,13 +229,8 @@ const ListadoTestimonios = () => {
         {pendingTestimony && (
           <AlertDelete
             open={openAlert}
-<<<<<<< HEAD
-            message={`¿Eliminar el testimonio "${pendingTestimony.name}"?`}
-            confirmar={() => handleDeleteConfirm(pendingTestimony.id)}
-=======
             message={`¿Eliminar testimonio "${pendingTestimony.name}"?`}
             confirmar={handleDeleteConfirm}
->>>>>>> f66ad53a7c418d349646c37c790ea35a17014dee
             cancelar={handleDeleteCancel}
             onClose={() => setToastOpen(false)}
             snack={toastOpen}

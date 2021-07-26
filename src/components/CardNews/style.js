@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme) => {
       textAlign: 'center',
       padding: '1vw',
     },
+    media: {
+      width: '100%',
+      maxWidth: '50vh',
+      objectFit: 'contain',
+      objectPosition: 'center',
+    },
   };
 });
 

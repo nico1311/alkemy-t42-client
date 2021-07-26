@@ -27,10 +27,12 @@ const EditUserForm = lazy(() =>import('components/form/editUser/editUserForm.js'
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
+const EditTestimony = lazy(() => import('view/editTestimony/EditTestimony'));
 const CreateTestimonial = lazy(() => import('./FormTestimonial'));
 const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
 const FormCategory = lazy(() => import('components/form/category/FormCategory'));
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
+const PublicDataView = lazy(() => import('../backoffice/publicData/PublicData'));
 
 function BackOfficeView() {
   const { path } = useRouteMatch();

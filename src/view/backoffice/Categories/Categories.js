@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from 'redux/categories/actions/categories'
-=======
-import { useHistory, useRouteMatch } from 'react-router-dom';
->>>>>>> 87d322e4612ec71f4640c76b5e1aff22323cc0c8
-
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -19,26 +14,19 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
 import EditCategoryForm from 'components/form/category/editFormCategory';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import useStyles from './style';
-
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
 const Categories = () => {
-<<<<<<< HEAD
   const dispatch = useDispatch();
   const categoriesFromStore = useSelector(state => state.categories.categories);
   const { url } = useRouteMatch();
-=======
-  const {url} = useRouteMatch();
->>>>>>> 87d322e4612ec71f4640c76b5e1aff22323cc0c8
   const history = useHistory();
   const [categories, setCategories] = useState([]);
   const [edit, setEdit] = useState(false);
@@ -49,23 +37,13 @@ const Categories = () => {
 
   const classes = useStyles();
   useEffect(() => {
-<<<<<<< HEAD
     const fetchCategories = async () => {
       const {categories} = await makeGET(ENDPOINT_CATEGORY);
-      dispatch(getCategories(categories));
       setCategories(categories);
+      dispatch(getCategories(categories));
     };
     !categoriesFromStore ? fetchCategories() : setCategories(categoriesFromStore);
-=======
-    getCategories();
-    return () => {};
->>>>>>> 87d322e4612ec71f4640c76b5e1aff22323cc0c8
   }, []);
-
-  const getCategories = async () => {
-    const categories = await makeGET(ENDPOINT_CATEGORY);
-    setCategories(categories.categories);
-  };
 
   const editCategory = async (id) => {
     const response = await makeGET(`${ENDPOINT_CATEGORY}/${id}`);

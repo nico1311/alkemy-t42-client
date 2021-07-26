@@ -5,6 +5,7 @@ const listCategories = [
   'Ocio',
   'Entretenimiento',
   'Detalles',
+  'Example'
 ];
 
 export default listCategories;
