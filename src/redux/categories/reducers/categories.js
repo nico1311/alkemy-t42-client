@@ -12,6 +12,10 @@ export default function categoriesReducer(state = initialState, { type, payload 
                 categories: payload
             }
 
+        case actionCategories.ADD_CATEGORY:
+            state.categories.push(payload)
+            return state
+            
         default:
             return state
     }

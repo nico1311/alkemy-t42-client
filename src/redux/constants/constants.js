@@ -20,7 +20,8 @@ export const actionNews = {
 }
 
 export const actionCategories = {
-  GET_CATEGORIES : 'GET_CATEGORIES'
+  GET_CATEGORIES : 'GET_CATEGORIES',
+  ADD_CATEGORY: 'ADD_CATEGORY'
 }
 
 export const actionActivities = {

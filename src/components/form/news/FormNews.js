@@ -36,12 +36,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
  */
 
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
-  const [imgPreview, setImgPreview] = useState(null);
   const dispatch = useDispatch();
-  // React Router function to redirect user if register is correct.
   const [categories, setCategories] = useState([]);
-  const [imageURL, setImageURL] = useState([false]);
-  const [imageFile, setImageFile] = useState();
+  const [imgPreview, setImgPreview] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
