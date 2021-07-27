@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     height: '85%',
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default useStyles;
