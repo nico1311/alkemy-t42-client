@@ -10,6 +10,18 @@ const useStyles = makeStyles((theme) => {
     title: {
       margin: theme.spacing(5, 0),
     },
+    root: {
+      display: 'flex',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'hide',
+    },
+    table: {
+      minWidth: 300,
+    },
+    tableCell: {
+      paddingRight: 4,
+      paddingLeft: 5
+    }
   };
 });
 
