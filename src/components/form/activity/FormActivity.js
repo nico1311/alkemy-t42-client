@@ -9,6 +9,7 @@ import {
   FormHelperText,
   TextField,
   Button,
+  Input,
 } from '@material-ui/core';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -35,6 +36,7 @@ const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
   const dispatch = useDispatch();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
+  const [imgPreview, setImgPreview] = useState(null);
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -44,7 +46,13 @@ const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
-      changeSubmit(values, setSubmitting, setTypeMSJ, prevActivity?.id, dispatch);
+      changeSubmit(
+        values,
+        setSubmitting,
+        setTypeMSJ,
+        prevActivity?.id,
+        dispatch,
+      );
     },
   });
   return (
@@ -74,6 +82,49 @@ const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
           />
+        </Grid>
+        {/* Input file image */}
+        <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            container
+            direction='row'
+            justify='space-between'
+            alignItems='center'
+            className={classes.form}
+          >
+            <FormLabel required htmlFor='image'>
+              Archivo de Imagen:
+            </FormLabel>
+            <Button color='primary' variant='contained' component='label'>
+              Subir Archivo
+              <Input
+                id='image'
+                name='image'
+                type='file'
+                style={{ display: 'none' }}
+                accept='image/*'
+                fullWidth
+                onChange={(event) => {
+                  formik.setFieldValue('image', event.currentTarget.files[0]);
+                  setImgPreview(
+                    URL.createObjectURL(event.currentTarget.files[0]),
+                  );
+                }}
+              />
+            </Button>
+          </Grid>
+          {imgPreview && !formik.errors.image && (
+            <img
+              className={classes.imgPreview}
+              alt='Upload img'
+              src={imgPreview}
+            />
+          )}
+          <FormHelperText style={{ color: 'red' }}>
+            {!formik.touched.image && formik.errors.image}
+          </FormHelperText>
         </Grid>
         {/* Input content */}
         <Grid item xs={12} className={classes.submit}>

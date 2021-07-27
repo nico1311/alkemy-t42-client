@@ -1,4 +1,5 @@
 /** @module Form/Contact */
+import { addCategory } from 'redux/categories/actions/categories';
 import { makePOST, makePATCH } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 /**
@@ -18,6 +19,7 @@ const submit = async (
   setSubmit,
   setTypeMSJ,
   id = false,
+  dispatch
 ) => {
   let result;
   // Request Fetch with service http.
@@ -33,8 +35,9 @@ const submit = async (
     });
   }
   // Results
-  if (result.description) {
+  if (result) {
     // Need change for propiety of response.
+    dispatch(addCategory(result));
     setTypeMSJ('success');
     setSubmit(false);
   } else if (!result.ok) {

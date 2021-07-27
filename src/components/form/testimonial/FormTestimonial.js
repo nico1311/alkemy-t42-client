@@ -36,6 +36,7 @@ const FormTestimonial = ({ prevTestimony = null, changeSubmit = submit }) => {
   const dispatch = useDispatch();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
+  const [imgPreview, setImgPreview] = useState(null);
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -122,10 +123,20 @@ const FormTestimonial = ({ prevTestimony = null, changeSubmit = submit }) => {
                 fullWidth
                 onChange={(event) => {
                   formik.setFieldValue('image', event.currentTarget.files[0]);
+                  setImgPreview(
+                    URL.createObjectURL(event.currentTarget.files[0]),
+                  );
                 }}
               />
             </Button>
           </Grid>
+          {imgPreview && !formik.errors.image && (
+              <img
+                className={classes.imgPreview}
+                alt='Upload img'
+                src={imgPreview}
+              />
+            )}
           <FormHelperText style={{ color: 'red' }}>
             {formik.touched.image && formik.errors.image}
           </FormHelperText>

@@ -6,3 +6,10 @@ export const getCategories = (payload) => {
         payload
     }
 }
+
+export const addCategory = (payload) => {
+    return {
+        type: actionCategories.ADD_CATEGORY,
+        payload
+    }
+}

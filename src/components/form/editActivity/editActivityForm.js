@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import FormContainer from '../FormContainer.js';
-import { FormControl, TextField, FormLabel, Button } from '@material-ui/core';
+import {
+  FormControl,
+  TextField,
+  FormLabel,
+  Button,
+  Input,
+} from '@material-ui/core';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { useFormik } from 'formik';
 import useStyles from './style';
@@ -20,6 +26,7 @@ import submit from './submit';
 const EditActivityForm = ({ activityToEdit, getActivities, setEdit }) => {
   // State to handler alert error show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
+  const [imgPreview, setImgPreview] = useState(null);
 
   const classes = useStyles();
   const formik = useFormik({
@@ -53,14 +60,30 @@ const EditActivityForm = ({ activityToEdit, getActivities, setEdit }) => {
         </FormControl>
         <FormControl className={classes.formControl}>
           <FormLabel htmlFor='image'>Imagen: </FormLabel>
-          <TextField
-            id='image'
-            type='text'
-            onChange={formik.handleChange}
-            defaultValue={formik.values.image}
-            error={formik.touched.image && Boolean(formik.errors.image)}
-            helperText={formik.touched.image && formik.errors.image}
-          />
+          <Button color='primary' variant='contained' component='label'>
+            Subir Archivo
+            <Input
+              id='image'
+              name='image'
+              type='file'
+              style={{ display: 'none' }}
+              accept='image/*'
+              fullWidth
+              onChange={(event) => {
+                formik.setFieldValue('image', event.currentTarget.files[0]);
+                setImgPreview(
+                  URL.createObjectURL(event.currentTarget.files[0]),
+                );
+              }}
+            />
+          </Button>
+          {imgPreview && !formik.errors.image && (
+            <img
+              className={classes.imgPreview}
+              alt='Upload img'
+              src={imgPreview}
+            />
+          )}
         </FormControl>
         <FormControl className={classes.formControl}>
           <FormLabel htmlFor='content'>Content: </FormLabel>

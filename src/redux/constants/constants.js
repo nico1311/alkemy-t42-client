@@ -1,8 +1,5 @@
 export const actionHome = {
-  GET_WELCOME_TEXT: 'GET_WELCOME_TEXT',
-  GET_NEWS: 'GET_NEWS',
-  SET_SLIDE: 'SET_SLIDE',
-  SET_WELCOME_TEXT: 'SET_WELCOME_TEXT'
+  GET_PUBLIC_DATA : 'GET_PUBLIC_DATA'
 };
 
 export const actionUser = {
@@ -23,7 +20,8 @@ export const actionNews = {
 }
 
 export const actionCategories = {
-  GET_CATEGORIES : 'GET_CATEGORIES'
+  GET_CATEGORIES : 'GET_CATEGORIES',
+  ADD_CATEGORY: 'ADD_CATEGORY'
 }
 
 export const actionActivities = {

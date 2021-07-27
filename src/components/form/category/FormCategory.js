@@ -1,5 +1,6 @@
 /**@module Form/Category */
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import FormContainer from '../FormContainer.js';
 import { Grid, TextField, Button } from '@material-ui/core';
@@ -23,6 +24,7 @@ import useStyles from './style';
  * <FormCategory prevCategory={category} />
  */
 const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
+  const dispatch = useDispatch();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
@@ -34,7 +36,7 @@ const FormCategory = ({ prevCategory = null, changeSubmit = submit }) => {
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
-      changeSubmit(values, setSubmitting, setTypeMSJ, prevCategory?.id);
+      changeSubmit(values, setSubmitting, setTypeMSJ, prevCategory?.id, dispatch);
     },
   });
   return (

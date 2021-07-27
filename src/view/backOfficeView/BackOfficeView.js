@@ -27,12 +27,12 @@ const EditUserForm = lazy(() =>import('components/form/editUser/editUserForm.js'
 const DeleteProfile = lazy(() => import('view/myProfile/DeleteProfile'));
 const EditUserPage = lazy(() => import('view/editUser/editUserPage'));
 const ListadoTestimonios = lazy(() => import('components/listadoTestimonios/ListadoTestimonios'));
+const EditTestimony = lazy(() => import('view/editTestimony/EditTestimony'));
 const CreateTestimonial = lazy(() => import('./FormTestimonial'));
-const CategoriesView = lazy(() => import('../backoffice/categories/Categories'));
+const CategoriesView = lazy(() => import('../backoffice/Categories/Categories'));
 const FormCategory = lazy(() => import('components/form/category/FormCategory'));
 const UsersView = lazy(() => import('../backoffice/Users/Users'));
 const PublicDataView = lazy(() => import('../backoffice/publicData/PublicData'));
-const EditTestimony = lazy(() => import('../editTestimony/EditTestimony'));
 
 function BackOfficeView() {
   const { path } = useRouteMatch();
@@ -97,8 +97,6 @@ function BackOfficeView() {
         <AnimatePresence exitBeforeEnter>
           <motion.div initial={initial} animate={animate} exit={exit}>
             <Switch>
-              {/** `/backoffice/users/${user.id}/edit` */}
-              <Route path={`${path}/users/:id/edit`} component={EditUserForm} />
               <Route
                 path={`${path}/perfil/eliminar`}
                 component={DeleteProfile}

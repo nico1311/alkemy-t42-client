@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '2rem',
+    margin: '1rem',
   },
   container: {
     minHeight: '90vh',

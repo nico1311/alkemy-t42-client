@@ -107,7 +107,6 @@ const ListadoTestimonios = () => {
       setPendingTestimony(null);
       setOpenAlert(false);
       setToastOpen(true);
-      setTimeout(window.location.reload(), 5000);
     });
 
   };
