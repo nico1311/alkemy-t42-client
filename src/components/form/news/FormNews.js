@@ -16,6 +16,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './style';
+import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 /**
@@ -39,15 +40,16 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [imgPreview, setImgPreview] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await makeGET(ENDPOINT_CATEGORY);
       setCategories(data.categories);
-    }
-  fetchCategories();
+    };
+    fetchCategories();
   }, []);
-  
+
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
@@ -58,6 +60,7 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
+      setSuccess(true);
       changeSubmit(values, setSubmitting, prevNews?.id, dispatch);
     },
   });
@@ -179,6 +182,16 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
           >
             {formik.isSubmitting ? 'Cargando...' : 'Enviar'}
           </Button>
+          {/* Alert Success*/}
+          {success && (
+            <AlertGenerator
+              alertTitle='Success:'
+              contentText='Se ha enviado con exito el formulario de actividades. Gracias.'
+              variant='filled'
+              severity='success'
+              className={classes.alert}
+            />
+          )}
         </Grid>
       </form>
     </FormContainer>
