@@ -3,9 +3,8 @@ import {
   InputLabel,
   NativeSelect,
   MenuItem,
-  FormHelperText,
+  FormHelperText
 } from '@material-ui/core';
-
 
 /**
  * This component is part from EditUserForm but it only renderizes itself when isBackOffice's prop is true 
@@ -15,7 +14,7 @@ import {
  * import RoleID from './roleID.js'
  * <RoleID></RoleID>
  */
-const RoleID = ({role}) => {
+const RoleID = ({ role, onChange }) => {
   return (
     <FormControl>
       <InputLabel shrink id='demo-simple-select-placeholder-label-label'>
@@ -23,11 +22,12 @@ const RoleID = ({role}) => {
       </InputLabel>
       <NativeSelect
         labelId='demo-simple-select-placeholder-label-label'
-        id='demo-simple-select-placeholder-label'
+        id='roleID'
         defaultValue={role}
+        onChange={onChange}
       >
         <option value={1}>1 - Administrador</option>
-        <option value={2}>2 - Standar</option>
+        <option value={2}>2 - Usuario estándar</option>
       </NativeSelect>
       <FormHelperText>
         Esta opción sólo está disponible para administradores

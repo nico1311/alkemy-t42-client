@@ -16,7 +16,7 @@ import submit from './submit';
  * @param {Object} userInfo -{name: string, lastName: string, roleID: 1 or 2}
  * @example
  * import EditUserForm from 'components/forms/contact/editUserForm.js'
- * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
+ * <EditUserForm userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
 const EditUserForm = ({ userInfo }) => {
@@ -24,7 +24,7 @@ const EditUserForm = ({ userInfo }) => {
   const { user } = useSelector((state) => state.user);
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
-  const isBackOffice = (user.roleId === 1);
+  const isBackOffice = (user.roleId === 1 && userInfo);
 
   const initialValues = isBackOffice ? {
     id: userInfo.id,
@@ -74,7 +74,7 @@ const EditUserForm = ({ userInfo }) => {
             helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
-        {isBackOffice === 1 ? <RoleID role={formik.values.roleID}></RoleID> : null}
+        {user.roleId === 1 && <RoleID role={formik.values.roleID} onChange={formik.handleChange} />}
         <div className={classes.buttonContainer}>
           <Button
             disabled={formik.isSubmitting}

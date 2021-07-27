@@ -20,7 +20,7 @@ const submit = async ({ id, name, lastName, roleID }, setSubmit, setTypeMSJ) => 
 
   if (res.id) {
     setTypeMSJ('success');
-    store.dispatch(getLoggedUser(res));
+    if (id === 'me') store.dispatch(getLoggedUser(res));
   } else {
     setTypeMSJ('error');
   }

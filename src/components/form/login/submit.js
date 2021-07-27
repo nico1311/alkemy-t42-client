@@ -28,7 +28,8 @@ const submit = async (
   if (result.token) {
     login(result);
     setSubmit(false);
-    return redirect('/');
+    redirect('/');
+    window.location.reload();
   }
   else if (!result.ok) setShowError(true);
   setSubmit(false);
