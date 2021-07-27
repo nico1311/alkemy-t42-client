@@ -28,7 +28,7 @@ const CardComponent = ({ botton, activities, vermas }) => {
 
   return (
     <Grid className={classes.container}>
-      <Card>
+      <Card className={classes.card}>
         <CardMedia
           component='img'
           image={image}
@@ -36,13 +36,14 @@ const CardComponent = ({ botton, activities, vermas }) => {
           className={classes.media}
         />
         <CardContent className={classes.content}>
-          <Typography gutterBottom variant='h5' component='h3'>
+          <Typography gutterBottom variant='h5' component='h3' className={classes.text}>
             {name}
           </Typography>
-          <Typography variant='body1' component='p'>
+          <Typography variant='body1' component='p' className={classes.text}>
             {content}
           </Typography>
           <Button
+          className={classes.button}
             size='medium'
             variant='contained'
             color='secondary'

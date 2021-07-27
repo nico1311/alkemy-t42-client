@@ -5,7 +5,13 @@ const useStyles = makeStyles((theme) => {
     container: {
       padding: theme.spacing(1, 3),
       textAlign: 'center',
-      margin: theme.spacing(2)
+      margin: theme.spacing(2),
+    },
+    card: {
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign: 'center',
+      alignItems: 'center',
     },
     media: {
       width: '100%',
@@ -14,8 +20,14 @@ const useStyles = makeStyles((theme) => {
       objectPosition: 'center',
     },
     content: {
-      padding: theme.spacing(5, 1),
-      backgroundColor: '#99CCFF',
+      backgroundColor: '#0086FF',
+      width: '100%',
+    },
+    text: {
+      margin: theme.spacing(1, 1),
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   };
 });
