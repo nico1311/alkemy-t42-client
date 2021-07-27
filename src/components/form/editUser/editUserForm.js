@@ -16,23 +16,30 @@ import submit from './submit';
  * @param {Object} userInfo -{name: string, lastName: string, roleID: 1 or 2}
  * @example
  * import EditUserForm from 'components/forms/contact/editUserForm.js'
- * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
+ * <EditUserForm userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-const EditUserForm = ({userInfo}) => {
+const EditUserForm = ({ userInfo }) => {
   // State to handler alert error show/hide.
-  const isBackOffice = useSelector((state) => state.user.user.roleId);
+  const { user } = useSelector((state) => state.user);
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
+  const isBackOffice = (user.roleId === 1 && userInfo);
 
-  
+  const initialValues = isBackOffice ? {
+    id: userInfo.id,
+    name: userInfo.firstName,
+    lastName: userInfo.lastName,
+    roleID: userInfo.roleId
+  } : {
+    id: 'me',
+    name: user.firstName,
+    lastName: user.lastName,
+    roleID: user.roleId
+  };
 
   const formik = useFormik({
-    initialValues: {
-      name: userInfo.firstName,
-      lastName: userInfo.lastName,
-      roleID: userInfo.roleId,
-    },
+    initialValues,
     enableReinitialize: true,
     validate,
     onSubmit: (values, { setSubmitting }) => {
@@ -67,7 +74,7 @@ const EditUserForm = ({userInfo}) => {
             helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
-        {isBackOffice === 1 ? <RoleID role={formik.values.roleID}></RoleID> : null}
+        {user.roleId === 1 && <RoleID role={formik.values.roleID} onChange={formik.handleChange} />}
         <div className={classes.buttonContainer}>
           <Button
             disabled={formik.isSubmitting}
@@ -83,7 +90,7 @@ const EditUserForm = ({userInfo}) => {
         {typeMSJ === 'success' && (
           <AlertGenerator
             alertTitle='Success:'
-            contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
+            contentText={`Se ha guardado ${isBackOffice ? 'el usuario' : 'su perfil'}.`}
             variant='filled'
             severity='success'
             className={classes.alert}
@@ -92,7 +99,7 @@ const EditUserForm = ({userInfo}) => {
         {typeMSJ === 'error' && (
           <AlertGenerator
             alertTitle='Error:'
-            contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
+            contentText={`Lo sentimos, ocurrió un error al intentar editar ${isBackOffice ? 'el usuario' : 'su perfil'}.`}
             variant='filled'
             className={classes.alert}
           />

@@ -6,18 +6,21 @@ import { ENDPOINT_USER } from 'services/settings';
 import { useHistory } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { logout } from 'services/auth';
 
 const DeleteProfile = (redirect) => {
     const classes = useStyles();
     const history = useHistory();
-    const id = 1;
 
     const handleClickDelete = async () => {
         try {
-            const result = await makeDELETE(`${ENDPOINT_USER}/${id}`);
-            if (result.status === 200) redirect('/');
+            const result = await makeDELETE(`${ENDPOINT_USER}/me`);
+            if (result) {
+                logout();
+                history.push('/');
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 

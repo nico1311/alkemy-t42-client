@@ -9,7 +9,7 @@ const DrawerList = () => {
     const history = useHistory();
     const { url } = useRouteMatch();
     const classes = useStyles();
-    const userIsAdmin = useSelector(state => state.user.user.roleId === 1 ? true : false);
+    const userIsAdmin = useSelector(state => state.user?.user?.roleId === 1 ? true : false);
 
     const onClickHandler = (path) => {
         switch (path) {
