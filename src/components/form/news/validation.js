@@ -19,17 +19,20 @@ import {
 const validation = ({ title, image, category, contain }) => {
   const errors = {};
   // Check Title.
-  const isValidTitle = validationTitle(title);
-  if (isValidTitle) errors.title = isValidTitle;
+  // const isValidTitle = validationTitle(title);
+  // if (isValidTitle) errors.title = isValidTitle;
+
   // Check Image.
-  const isValidImage = validationImage(image);
-  if (isValidImage) errors.image = isValidImage;
+  // const isValidImage = validationImage(image);
+  // if (isValidImage) errors.image = isValidImage;
+
   // Check Category.
-  const isValidCategory = validationCategory(category);
-  if (isValidCategory) errors.category = isValidCategory;
+  // const isValidCategory = validationCategory(category);
+  // if (isValidCategory) errors.category = isValidCategory;
+  
   // Check Containt.
-  const isValidContain = validationContain(contain);
-  if (isValidContain) errors.contain = isValidContain;
+  // const isValidContain = validationContain(contain);
+  // if (isValidContain) errors.contain = isValidContain;
 
   return errors;
 };

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getCategories } from 'redux/categories/actions/categories'
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -16,18 +15,14 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 import EditCategoryForm from 'components/form/category/editFormCategory';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import useStyles from './style';
-
 import { makeGET, makeDELETE } from 'services/httpRequest';
 import { ENDPOINT_CATEGORY } from 'services/settings';
 
@@ -49,8 +44,8 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       const {categories} = await makeGET(ENDPOINT_CATEGORY);
-      dispatch(getCategories(categories));
       setCategories(categories);
+      dispatch(getCategories(categories));
     };
     !categoriesFromStore ? fetchCategories() : setCategories(categoriesFromStore);
   }, []);
@@ -58,7 +53,7 @@ const Categories = () => {
   const editCategory = async (id) => {
     const response = await makeGET(`${ENDPOINT_CATEGORY}/${id}`);
     console.log(response);
-    setCategoryToEdit(response.Category);
+    setCategoryToEdit(response.category);
     setEdit(true);
   };
 

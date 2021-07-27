@@ -4,24 +4,27 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
 } from '@material-ui/core';
 import useStyles from './style';
 
-const CardNews = ({ n }) => {
+const CardNews = ({ item }) => {
   const classes = useStyles();
   return (
     <Card className={classes.item}>
       <CardContent>
         <Typography className={classes.title}>
-          {n.id} {n.title}
+          {item.name}
         </Typography>
-        <Typography component='p' className={classes.pos}>
-          Noticias <br />
-          {n.content}
-        </Typography>
+        <CardMedia
+          component='img'
+          image={item.image}
+          title={`image`}
+          className={classes.media}
+        />
       </CardContent>
       <CardActions>
-        <Button size='medium' variant='contained' color='secondary' key={n.id}>
+        <Button size='medium' variant='contained' color='secondary'>
           Ver mas
         </Button>
       </CardActions>

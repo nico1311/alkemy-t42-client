@@ -1,39 +1,18 @@
 import { actionHome } from 'redux/constants/constants';
 
 const initialState = {
-  welcomeMessage: { message: 'Es mejor, cuando Somos Mas' },
-  homeNews: [
-    { id: 1, title: ' Título', content: 'Cuerpo de la tarjeta 1' },
-    { id: 2, title: ' Título', content: 'Cuerpo de la tarjeta 2' },
-    { id: 3, title: ' Título', content: 'Cuerpo de la tarjeta 3' },
-    { id: 4, title: ' Título', content: 'Cuerpo de la tarjeta 4' },
-    { id: 5, title: ' Título', content: 'Cuerpo de la tarjeta 5' },
-  ],
-  slider: [{text:'Default', image: 'imagen.jpg'}]
+  publicData: null,
+  slider: null
 };
 
 export default function homeReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case actionHome.GET_WELCOME_TEXT:
+    case actionHome.GET_PUBLIC_DATA:
       return {
         ...state,
-        welcomeMessage: payload,
-      };
-    case actionHome.GET_NEWS:
-      return {
-        ...state,
-        homeNews: payload,
-      };
-    case actionHome.SET_WELCOME_TEXT:
-        return {
-            state,
-          welcomeMessage: payload
-        };
-    case actionHome.SET_SLIDE:
-        return {
-            ...state,
-          slider: payload
-        }
+        publicData: payload
+      }
+
     default:
       return state;
   }

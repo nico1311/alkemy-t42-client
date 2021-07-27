@@ -36,12 +36,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
  */
 
 const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
-  const [imgPreview, setImgPreview] = useState(null);
   const dispatch = useDispatch();
-  // React Router function to redirect user if register is correct.
   const [categories, setCategories] = useState([]);
-  const [imageURL, setImageURL] = useState([false]);
-  const [imageFile, setImageFile] = useState();
+  const [imgPreview, setImgPreview] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -54,10 +51,10 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
   const classes = useStyles();
   const formik = useFormik({
     initialValues: {
-      title: prevNews ? prevNews.title : '',
+      name: prevNews ? prevNews.name : '',
       image: prevNews ? prevNews.image : '',
-      category: prevNews ? prevNews.category : '',
-      contain: prevNews ? prevNews.contain : '',
+      type: prevNews ? prevNews.type : '',
+      content: prevNews ? prevNews.content : '',
     },
     validate: validation,
     onSubmit: (values, { setSubmitting }) => {
@@ -76,40 +73,40 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
             </FormLabel>
             <TextField
               autoComplete='ftitle'
-              name='title'
+              name='name'
               variant='outlined'
               required
               fullWidth
-              id='title'
+              id='name'
               autoFocus
-              value={formik.values.title}
+              value={formik.values.name}
               onChange={formik.handleChange}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
           </Grid>
           {/* Input category */}
           <Grid item xs={12}>
-            <FormLabel required htmlFor='category'>
+            <FormLabel required htmlFor='type'>
               Categorías:
             </FormLabel>
             <Select
               required
               className={classes.select}
-              id='category'
-              name='category'
+              id='type'
+              name='type'
               variant='outlined'
-              value={formik.values.category}
+              value={formik.values.type}
               onChange={formik.handleChange}
             >
               {categories.map((category, i) => (
-                <MenuItem key={i} value={category}>
+                <MenuItem key={i} value={category.name}>
                   {category.name}
                 </MenuItem>
               ))}
             </Select>
             <FormHelperText style={{ color: 'red' }}>
-              {formik.touched.category && formik.errors.category}
+              {formik.touched.type && formik.errors.type}
             </FormHelperText>
           </Grid>
           {/* Input file image */}
@@ -157,18 +154,18 @@ const FormNews = ({ prevNews = null, changeSubmit = submit }) => {
           {/* Input contain in CKEDITOR */}
           <Grid item xs={12}>
             <CKEditor
-              id='contain'
+              id='content'
               editor={ClassicEditor}
               data={
-                prevNews ? prevNews.contain : '¡Escribe el contenido, Aquí!'
+                prevNews ? prevNews.content : '¡Escribe el contenido, Aquí!'
               }
-              value={formik.values.contain}
+              value={formik.values.content}
               onChange={(event, editor) => {
-                formik.setFieldValue('contain', editor.getData());
+                formik.setFieldValue('content', editor.getData());
               }}
             />
             <FormHelperText style={{ color: 'red' }}>
-              {formik.touched.contain && formik.errors.contain}
+              {formik.touched.content && formik.errors.content}
             </FormHelperText>
           </Grid>
           {/* Button Submit */}
