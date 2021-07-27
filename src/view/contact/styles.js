@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-  textContainer: {
-    marginTop: '2rem',
+  text: {
+    textAlign: 'center'
   },
+
 }));
 
 export default useStyles;

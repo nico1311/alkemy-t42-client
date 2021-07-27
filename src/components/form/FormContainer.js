@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '2rem',
+    margin: '1rem',
   },
 }));
 /**

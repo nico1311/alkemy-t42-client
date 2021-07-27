@@ -13,19 +13,9 @@ import useStyles from './styles';
 const Contact = () => {
   const classes = useStyles();
   return (
-    <Container maxWidth='lg'>
-      <Grid container justify='center' alignItems='center'>
-      <Box textAlign='center' marginTop='2vh'>
-          <Typography variant='h5'>Texto Predeterminado</Typography>
-      </Box>
-      
-      <Grid item md={6} xs={12}>
-      <Box textAlign='center'>
-          <FormContact></FormContact>
-      </Box>
-          
-      </Grid>
-      </Grid>
+    <Container > 
+      <h1 className={classes.text}>¡Escríbenos un mensaje!</h1>
+      <FormContact></FormContact>
     </Container>
   );
 };
