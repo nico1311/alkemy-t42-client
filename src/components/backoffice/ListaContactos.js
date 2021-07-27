@@ -21,14 +21,11 @@ import { Container } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 400,
-  },
-  button: {
-    margin: theme.spacing(1),
   },
   right: {
     textAlign: 'end',
@@ -101,10 +98,10 @@ export default function ListOfContacts() {
   if (contacts) {
     return (
       <>
-        <Container>
+        <Container className={classes.table}>
           <h1 align='center'> Contactos</h1>
           <TableContainer component={Paper}>
-            <Table className={classes.table}>
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Nombre</TableCell>
@@ -127,7 +124,7 @@ export default function ListOfContacts() {
                             aria-label='Edit'
                             onClick={() => handleContentModalOpen(contact.id)}
                           >
-                            <EditIcon />
+                            <VisibilityIcon />
                           </IconButton>
                           <IconButton
                             color='secondary'
