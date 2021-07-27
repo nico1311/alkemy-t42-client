@@ -19,20 +19,27 @@ import submit from './submit';
  * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-const EditUserForm = ({userInfo}) => {
+const EditUserForm = ({ userInfo }) => {
   // State to handler alert error show/hide.
-  const isBackOffice = useSelector((state) => state.user.user.roleId);
+  const { user } = useSelector((state) => state.user);
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
+  const isBackOffice = (user.roleId === 1);
 
-  
+  const initialValues = isBackOffice ? {
+    id: userInfo.id,
+    name: userInfo.firstName,
+    lastName: userInfo.lastName,
+    roleID: userInfo.roleId
+  } : {
+    id: 'me',
+    name: user.firstName,
+    lastName: user.lastName,
+    roleID: user.roleId
+  };
 
   const formik = useFormik({
-    initialValues: {
-      name: userInfo.firstName,
-      lastName: userInfo.lastName,
-      roleID: userInfo.roleId,
-    },
+    initialValues,
     enableReinitialize: true,
     validate,
     onSubmit: (values, { setSubmitting }) => {
@@ -83,7 +90,7 @@ const EditUserForm = ({userInfo}) => {
         {typeMSJ === 'success' && (
           <AlertGenerator
             alertTitle='Success:'
-            contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
+            contentText={`Se ha guardado ${isBackOffice ? 'el usuario' : 'su perfil'}.`}
             variant='filled'
             severity='success'
             className={classes.alert}
@@ -92,7 +99,7 @@ const EditUserForm = ({userInfo}) => {
         {typeMSJ === 'error' && (
           <AlertGenerator
             alertTitle='Error:'
-            contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
+            contentText={`Lo sentimos, ocurrió un error al intentar editar ${isBackOffice ? 'el usuario' : 'su perfil'}.`}
             variant='filled'
             className={classes.alert}
           />
