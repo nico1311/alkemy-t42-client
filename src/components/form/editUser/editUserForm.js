@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FormContainer from '../FormContainer.js';
 import { FormControl, TextField, FormLabel, Button } from '@material-ui/core';
@@ -19,19 +19,21 @@ import submit from './submit';
  * <EditUserForm isBackOffice={true} userInfo={name:'Example', lastName:'Test', roleID:1} />
  */
 
-function EditUserForm() {
+const EditUserForm = ({userInfo}) => {
   // State to handler alert error show/hide.
   const isBackOffice = useSelector((state) => state.user.user.roleId);
-  const userInfo = useSelector((state) => state.user.user);
   const [typeMSJ, setTypeMSJ] = useState();
   const classes = useStyles();
 
+  
+
   const formik = useFormik({
     initialValues: {
-      name: userInfo ? userInfo.firstName : '',
-      lastName: userInfo ? userInfo.lastName : '',
-      roleID: userInfo ? userInfo.roleId : 1,
+      name: userInfo.firstName,
+      lastName: userInfo.lastName,
+      roleID: userInfo.roleId,
     },
+    enableReinitialize: true,
     validate,
     onSubmit: (values, { setSubmitting }) => {
       setTypeMSJ();
@@ -39,6 +41,7 @@ function EditUserForm() {
     },
   });
 
+  console.log(formik.values);
   return (
     <FormContainer titleForm='Editar Usuario'>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
@@ -64,7 +67,7 @@ function EditUserForm() {
             helperText={formik.touched.lastName && formik.errors.lastName}
           />
         </FormControl>
-        {isBackOffice === 1 ? <RoleID></RoleID> : null}
+        {isBackOffice === 1 ? <RoleID role={formik.values.roleID}></RoleID> : null}
         <div className={classes.buttonContainer}>
           <Button
             disabled={formik.isSubmitting}

@@ -20,13 +20,19 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import { ButtonGroup, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ENDPOINT_USER } from 'services/settings';
 import { makeDELETE, makeGET } from 'services/httpRequest';
+import EditUserForm from 'components/form/editUser/editUserForm';
+
+
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+
 });
 
 /**
@@ -44,6 +50,8 @@ const Users = () => {
   const [pendingUser, setPendingUser] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -53,6 +61,12 @@ const Users = () => {
     }
     !usersFromStorage ? getUser() : setUsers(usersFromStorage);
   }, []);
+
+  const editUser = async (id) => {
+    const response = await makeGET(`${ENDPOINT_USER}/${id}`);
+    setUserToEdit(response);
+    setEdit(true);
+  };
 
   const handleDeleteAction = (userId) => {
     setPendingUser(users.find((user) => user.id === userId));
@@ -80,6 +94,14 @@ const Users = () => {
       });
   };
 
+  if(edit)  {
+    return(
+      <>
+      <EditUserForm userInfo={userToEdit}></EditUserForm>
+      <Button onClick={() => window.location.reload()} variant="contained" color="secondary">Volver</Button>
+      </>
+    )
+  }
   if (users) {
     return (
       <>
@@ -110,8 +132,7 @@ const Users = () => {
                     <TableCell align='right'>
                       <Button
                         color='primary'
-                        component={Link}
-                        to={`/backoffice/users/${user.id}/edit`}
+                        onClick={() => editUser(user.id)}
                       >
                         Editar
                       </Button>
