@@ -10,13 +10,23 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import useStyles from './style';
 import {makeGET} from 'services/httpRequest';
-import {ENDPOINT_GETLOGGED} from 'services/settings';
+import {ENDPOINT_GETLOGGED, ENDPOINT_USER} from 'services/settings';
+import EditUserForm from 'components/form/editUser/editUserForm';
 
 function MyProfile() {
   const classes = useStyles();
   const history = useHistory();
   const { url } = useRouteMatch();
   const [usuario, setUsuario] = useState();
+  const [edit, setEdit] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(false);
+
+  const editUser = async (id) => {
+    const response = await makeGET(`${ENDPOINT_USER}/${id}`);
+    setUserToEdit(response);
+    setEdit(true);
+  };
+
 
   useEffect(() => {
     const fetchUsuario = async () => {
@@ -30,6 +40,14 @@ function MyProfile() {
     history.push(`${url}${route}`);
   };
 
+  if(edit)  {
+    return(
+      <>
+      <EditUserForm userInfo={userToEdit}></EditUserForm>
+      <Button onClick={() => window.location.reload()} variant="contained" color="secondary">Volver</Button>
+      </>
+    )
+  }
   return (
     <Grid className={classes.root} container>
       <Grid item xs={10} md={8} xl={4}>
@@ -56,7 +74,7 @@ function MyProfile() {
       <Grid container className={classes.root}>
         <Button
           color='primary'
-          onClick={() => onClickHandler('/perfil/editar')}
+          onClick={() => editUser(usuario.id)}
           className={classes.button}
           variant='contained'
           startIcon={<EditIcon className={classes.iconos} />}
