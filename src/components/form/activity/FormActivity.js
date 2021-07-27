@@ -1,6 +1,7 @@
 /**@module Form/Activity */
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import AlertGenerator from 'components/utils/alert/AlertGenerator';
 import FormContainer from '../FormContainer.js';
 import {
@@ -34,6 +35,7 @@ import useStyles from './style';
  */
 const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   // State to handler alert error/success show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
   const [imgPreview, setImgPreview] = useState(null);
@@ -148,6 +150,16 @@ const FormActivity = ({ prevActivity = null, changeSubmit = submit }) => {
             {formik.touched.content && formik.errors.content}
           </FormHelperText>
         </Grid>
+        {/* Button for submit form */}
+        <Button
+            className={`${classes.button}`}
+            variant='contained'
+            color='secondary'
+            onClick={() => history.push(`/backoffice/activities`)
+            }
+          >
+            Volver
+          </Button>
         {/* Button for submit form */}
         <Button
           disabled={formik.isSubmitting}
