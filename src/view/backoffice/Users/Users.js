@@ -20,13 +20,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ENDPOINT_USER } from 'services/settings';
 import { makeDELETE, makeGET } from 'services/httpRequest';
+import EditUserForm from 'components/form/editUser/editUserForm';
+
+
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  button:
+  {
+    width: '10rem'
+  }
 });
 
 /**
@@ -44,6 +53,8 @@ const Users = () => {
   const [pendingUser, setPendingUser] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [toastOpen, setToastOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -53,6 +64,12 @@ const Users = () => {
     }
     !usersFromStorage ? getUser() : setUsers(usersFromStorage);
   }, []);
+
+  const editUser = async (id) => {
+    const response = await makeGET(`${ENDPOINT_USER}/${id}`);
+    setUserToEdit(response);
+    setEdit(true);
+  };
 
   const handleDeleteAction = (userId) => {
     setPendingUser(users.find((user) => user.id === userId));
@@ -80,6 +97,19 @@ const Users = () => {
       });
   };
 
+  if(edit)  {
+    return(
+      <>
+      <EditUserForm userInfo={userToEdit}></EditUserForm>
+      <ListItem button onClick={() => window.location.reload()} className={classes.button}>
+        <ListItemIcon>
+          <KeyboardReturnIcon />
+        </ListItemIcon>
+        <ListItemText primary={'Volver'} />
+      </ListItem>
+      </>
+    )
+  }
   if (users) {
     return (
       <>
@@ -110,8 +140,7 @@ const Users = () => {
                     <TableCell align='right'>
                       <Button
                         color='primary'
-                        component={Link}
-                        to={`/backoffice/users/${user.id}/edit`}
+                        onClick={() => editUser(user.id)}
                       >
                         Editar
                       </Button>

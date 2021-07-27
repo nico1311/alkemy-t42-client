@@ -1,7 +1,7 @@
 import {
   FormControl,
   InputLabel,
-  Select,
+  NativeSelect,
   MenuItem,
   FormHelperText,
 } from '@material-ui/core';
@@ -15,23 +15,20 @@ import {
  * import RoleID from './roleID.js'
  * <RoleID></RoleID>
  */
-const RoleID = () => {
+const RoleID = ({role}) => {
   return (
     <FormControl>
       <InputLabel shrink id='demo-simple-select-placeholder-label-label'>
         Role ID:
       </InputLabel>
-      <Select
+      <NativeSelect
         labelId='demo-simple-select-placeholder-label-label'
         id='demo-simple-select-placeholder-label'
-        displayEmpty
+        defaultValue={role}
       >
-        <MenuItem>
-          <em> </em>
-        </MenuItem>
-        <MenuItem value={10}>1 - Administrador</MenuItem>
-        <MenuItem value={20}>2 - Standar</MenuItem>
-      </Select>
+        <option value={1}>1 - Administrador</option>
+        <option value={2}>2 - Standar</option>
+      </NativeSelect>
       <FormHelperText>
         Esta opción sólo está disponible para administradores
       </FormHelperText>
