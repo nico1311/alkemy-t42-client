@@ -13,7 +13,7 @@ import useStyles from './styles';
 const Contact = () => {
   const classes = useStyles();
   return (
-    <Container > 
+    <Container className={classes.container}>
       <h1 className={classes.text}>¡Escríbenos un mensaje!</h1>
       <FormContact></FormContact>
     </Container>

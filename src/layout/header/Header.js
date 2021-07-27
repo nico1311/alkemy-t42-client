@@ -32,14 +32,14 @@ const NavBar = () => {
   return (
     <AppBar color='primary' className={classes.offset}>
       <Toolbar className={classes.spaced}>
-        <Link to='/'>
-          <img src={LogoImage} className={classes.logo} alt='ONG'></img>
-        </Link>
         {isMatch ? (
           <DrawerComponent className={classes.drawer} />
         ) : (
           <>
             <Grid container className={classes.align}>
+              <Link to='/'>
+                <img src={LogoImage} className={classes.logo} alt='ONG'></img>
+              </Link>
               <Grid item className={classes.align}>
                 <Tabs
                   onChange={handleClick}

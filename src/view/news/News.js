@@ -6,8 +6,8 @@ import Entry from 'components/entries/Entry';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNews } from 'redux/news/actions/news'
-
+import { getNews } from 'redux/news/actions/news';
+import useStyles from './style';
 /**
  * Component New is a react component to render the organization news
  * @function New
@@ -16,37 +16,36 @@ import { getNews } from 'redux/news/actions/news'
  * <New/>
  */
 const New = () => {
-    const newsFromStore = useSelector(state => state.news.news);
-    const dispatch = useDispatch();
-    const [news, setNews] = useState(null);
+  const newsFromStore = useSelector((state) => state.news.news);
+  const dispatch = useDispatch();
+  const [news, setNews] = useState(null);
+  const classes = useStyles();
+  useEffect(() => {
+    async function getAllNews() {
+      const { news } = await makeGET(ENDPOINT_NEWS);
+      dispatch(getNews(news));
+      setNews(news);
+      console.log('Se llamo a la api');
+    }
+    !newsFromStore ? getAllNews() : setNews(newsFromStore);
+  }, []);
 
-    useEffect(() => {
-        async function getAllNews() {
-            const { news } = await makeGET(ENDPOINT_NEWS);
-            dispatch(getNews(news));
-            setNews(news);
-            console.log('Se llamo a la api');
-        }
-        !newsFromStore ? getAllNews() : setNews(newsFromStore)
-    }, [])
-
-    if (!news) return (
-        <Typography variant="h4" color="initial">Cargando...</Typography>
-    )
-
+  if (!news)
     return (
-        <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-        >
-            {
-                news.map(item => (
-                    <Entry news={item} key={item.id} />
-                ))
-            }
-        </Grid>
-    )
+      <Typography variant='h4' color='initial'>
+        Cargando...
+      </Typography>
+    );
+
+  return (
+    <Grid className={classes.container}>
+      <Grid container justifyContent='center' alignItems='center'>
+        {news.map((item) => (
+          <Entry news={item} key={item.id} />
+        ))}
+      </Grid>
+    </Grid>
+  );
 };
 
 export default New;
