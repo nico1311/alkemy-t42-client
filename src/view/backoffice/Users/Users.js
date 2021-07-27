@@ -21,7 +21,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ButtonGroup, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ENDPOINT_USER } from 'services/settings';
 import { makeDELETE, makeGET } from 'services/httpRequest';
 import EditUserForm from 'components/form/editUser/editUserForm';
@@ -32,10 +32,7 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-  button:
-  {
-    width: '10rem'
-  }
+
 });
 
 /**
@@ -101,12 +98,7 @@ const Users = () => {
     return(
       <>
       <EditUserForm userInfo={userToEdit}></EditUserForm>
-      <ListItem button onClick={() => window.location.reload()} className={classes.button}>
-        <ListItemIcon>
-          <KeyboardReturnIcon />
-        </ListItemIcon>
-        <ListItemText primary={'Volver'} />
-      </ListItem>
+      <Button onClick={() => window.location.reload()} variant="contained" color="secondary">Volver</Button>
       </>
     )
   }
