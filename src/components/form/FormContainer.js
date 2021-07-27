@@ -3,13 +3,21 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 // Styles for this components.
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '5vh',
-    marginBottom: '5vh',
+    margin: '1rem',
+  },
+  container: {
+    minHeight: '90vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  titleForm: {
+    margin: theme.spacing(2, 0),
   },
 }));
 /**
@@ -26,11 +34,16 @@ const useStyles = makeStyles(() => ({
  * </FormContainer>
  */
 const FormContainer = ({ children, titleForm }) => {
-  const { paper } = useStyles();
+  const classes = useStyles();
   return (
-    <Container component='main' maxWidth='xs' fixed>
-      <section className={paper}></section>
-      <Typography component='h4' variant='h5'>
+    <Container
+      component='main'
+      maxWidth='xs'
+      fixed
+      className={classes.container}
+    >
+      <section className={classes.paper}></section>
+      <Typography component='h4' variant='h5' className={classes.titleForm}>
         {titleForm}
       </Typography>
       {children}
