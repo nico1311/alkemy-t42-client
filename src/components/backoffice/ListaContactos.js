@@ -18,16 +18,31 @@ import CloseIcon from '@material-ui/icons/Close';
 import AlertDelete from 'components/utils/alertDelete/AlertDelete';
 import ContentModal from 'components/utils/contentModal/ContentModal';
 import { Container } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 400,
   },
-});
+  button: {
+    margin: theme.spacing(1),
+  },
+  right: {
+    textAlign: 'end',
+  },
+  center: {
+    textAlign: 'center',
+  },
+}));
 
 export default function ListOfContacts() {
   const dispatch = useDispatch();
-  const contactsFromStore = useSelector(state => state.contacts.contacts);
+  const contactsFromStore = useSelector((state) => state.contacts.contacts);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [contacts, setContacts] = useState([]);
   const [contentModalOpen, setContentModalOpen] = useState(false);
   const [visibleContact, setVisibleContact] = useState(null);
@@ -48,12 +63,12 @@ export default function ListOfContacts() {
   const handleContentModalOpen = (id) => {
     setVisibleContact(contacts.find((contact) => contact.id === id));
     setContentModalOpen(true);
-  }
+  };
 
   const handleContentModalClose = () => {
     setContentModalOpen(false);
     setVisibleContact(null);
-  }
+  };
 
   const handleOpenAlert = (id) => {
     setPendingContact(contacts.find((contact) => contact.id === id));
@@ -89,46 +104,69 @@ export default function ListOfContacts() {
         <Container>
           <h1 align='center'> Contactos</h1>
           <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label='simple table'>
+            <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell align='center'>Nombre</TableCell>
-                  <TableCell align='center'>Email</TableCell>
-                  <TableCell align='center'>Acciones</TableCell>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell className={classes.center}>Email</TableCell>
+                  <TableCell className={classes.right}>Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {contacts.map((contact) => (
-                  <TableRow key={contact.id}>
-                    <TableCell align='center'>{contact.name}</TableCell>
-                    <TableCell align='center'>{contact.email}</TableCell>
-                    <TableCell align='center'>
-                      <Button
-                        color='secondary'
-                        onClick={() => handleContentModalOpen(contact.id)}
-                      >
-                        Ver mensaje
-                      </Button>
-                      <Button
-                        color='secondary'
-                        onClick={() => handleOpenAlert(contact.id)}
-                      >
-                        Eliminar
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {contacts.map((contact) => {
+                  return (
+                    <TableRow key={contact.id}>
+                      <TableCell>{contact.name}</TableCell>
+                      <TableCell className={classes.center}>
+                        {contact.email}
+                      </TableCell>
+                      {isMobile ? (
+                        <TableCell className={classes.right}>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Edit'
+                            onClick={() => handleContentModalOpen(contact.id)}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            color='secondary'
+                            aria-label='Eliminar'
+                            onClick={() => handleOpenAlert(contact.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      ) : (
+                        <TableCell className={classes.right}>
+                          <Button
+                            color='secondary'
+                            onClick={() => handleContentModalOpen(contact.id)}
+                          >
+                            Ver mensaje
+                          </Button>
+                          <Button
+                            color='secondary'
+                            onClick={() => handleOpenAlert(contact.id)}
+                          >
+                            Eliminar
+                          </Button>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
         </Container>
-        {contentModalOpen &&
+        {contentModalOpen && (
           <ContentModal
             message={visibleContact.message}
             isOpen={contentModalOpen}
             onClose={handleContentModalClose}
           />
-        }
+        )}
         {pendingContact && (
           <AlertDelete
             open={openAlert}
