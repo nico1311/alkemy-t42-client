@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     margin: theme.spacing(2),
   },
+  imgPreview: {
+    border: '2px solid black',
+    marginTop: '1vh',
+    width: '100%', // Fix IE 11 issue.
+    height: '85%',
+  },
 }));
 
 export default useStyles;
