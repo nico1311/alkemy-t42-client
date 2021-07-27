@@ -17,7 +17,7 @@ import useStyles from './style';
 const FormContact = ({ changeSubmit = submit }) => {
   // State to handler alert error show/hide.
   const [typeMSJ, setTypeMSJ] = useState();
-  const clases = useStyles();
+  const classes = useStyles();
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -32,8 +32,8 @@ const FormContact = ({ changeSubmit = submit }) => {
   });
   return (
     <FormContainer titleForm='Formulario de Contacto'>
-      <form className={clases.form} onSubmit={formik.handleSubmit}>
-        <FormControl className={clases.formControl}>
+      <form className={classes.form} onSubmit={formik.handleSubmit}>
+        <FormControl className={classes.formControl}>
           <FormLabel required htmlFor='nameInput'>
             Nombre
           </FormLabel>
@@ -46,7 +46,7 @@ const FormContact = ({ changeSubmit = submit }) => {
             helperText={formik.touched.name && formik.errors.name}
           />
         </FormControl>
-        <FormControl className={clases.formControl}>
+        <FormControl className={classes.formControl}>
           <FormLabel required htmlFor='emailInput'>
             Email de Contacto
           </FormLabel>
@@ -59,7 +59,7 @@ const FormContact = ({ changeSubmit = submit }) => {
             helperText={formik.touched.email && formik.errors.email}
           />
         </FormControl>
-        <FormControl className={clases.formControl}>
+        <FormControl className={classes.formControl}>
           <FormLabel required htmlFor='messageInput'>
             Mensaje
           </FormLabel>
@@ -78,7 +78,7 @@ const FormContact = ({ changeSubmit = submit }) => {
         <Button
           disabled={formik.isSubmitting}
           variant='contained'
-          className={clases.button}
+          className={classes.button}
           color='secondary'
           type='submit'
         >
@@ -91,7 +91,7 @@ const FormContact = ({ changeSubmit = submit }) => {
             contentText='Se ha enviado con exito el formulario de contacto. Tendrá una respuesta lo más pronto posible. Gracias.'
             variant='filled'
             severity='success'
-            className={clases.alert}
+            className={classes.alert}
           />
         )}
         {typeMSJ === 'error' && (
@@ -99,7 +99,7 @@ const FormContact = ({ changeSubmit = submit }) => {
             alertTitle='Error:'
             contentText='Lo sentimos, un error a ocurrido con su intento por enviar este formulario de contacto. Por favor, contactar con el soporte.'
             variant='filled'
-            className={clases.alert}
+            className={classes.alert}
           />
         )}
       </form>

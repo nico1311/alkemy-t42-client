@@ -33,19 +33,20 @@ const Activities = () => {
       >
         <Typography variant='h4'>Actividades de la ONG</Typography>
       </Box>
-      <Grid container justify='space-between' item xs={12}>
-        {activities ? (
-          activities.map((item, i) => (
-            <CardComponent
-              key={i}
-              botton={'Ver más'}
-              activities={item}
-              vermas={() => handleActivity(item.id)}
-            ></CardComponent>
-          ))
-        ) : (
-          'Cargando...'
-        )}
+
+      <Grid container alignItems='center'>
+        {activities
+          ? activities.map((item, i) => (
+              <Grid item xs='12' sm='6' md='4'>
+                <CardComponent
+                  key={i}
+                  botton={'Ver más'}
+                  activities={item}
+                  vermas={() => handleActivity(item.id)}
+                />
+              </Grid>
+            ))
+          : 'Cargando...'}
       </Grid>
     </Container>
   );
