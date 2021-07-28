@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: '100%',
     minHeight: '90vh',
     padding: theme.spacing(4, 4),
   },

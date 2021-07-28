@@ -9,10 +9,10 @@ import useStyles from './style';
 const Testimonials = () => {
   const classes = useStyles();
   return (
-    <>
+    <Grid container>
       {listTestimonials.map(({ id, name, image }) => (
-        <Grid item xs={12} md={5} lg={3} xl={2} className={classes.grid}>
-          <Card>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.grid}>
             <CardMedia
               className={classes.cardImage}
               component='img'
@@ -28,7 +28,7 @@ const Testimonials = () => {
           </Card>
         </Grid>
       ))}
-    </>
+    </Grid>
   );
 };
 

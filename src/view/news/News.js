@@ -38,12 +38,10 @@ const New = () => {
     );
 
   return (
-    <Grid className={classes.container}>
-      <Grid container justifyContent='center' alignItems='center'>
-        {news.map((item) => (
-          <Entry news={item} key={item.id} />
-        ))}
-      </Grid>
+    <Grid container className={classes.container}>
+      {news.map((item) => (
+        <Entry news={item} key={item.id} />
+      ))}
     </Grid>
   );
 };

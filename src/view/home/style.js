@@ -6,9 +6,13 @@ const useStyles = makeStyles((theme) => {
       width: '90%',
       backgroundColor: 'white',
       padding: theme.spacing(4, 0),
+      minHeight: '80vh',
+    },
+    newsContainer: {
+      padding: theme.spacing(1, 4),
     },
     pageTitle: {
-      margin: theme.spacing(4, 0),
+      margin: theme.spacing(4, 0, 1, 0),
     },
     root: {
       width: '100%',

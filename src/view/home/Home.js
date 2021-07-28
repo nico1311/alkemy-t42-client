@@ -10,8 +10,8 @@ import { ENDPOINT_NEWS, ENDPOINT_PUBLICDATA } from 'services/settings';
 const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const newsFromStore = useSelector(state => state.news.news);
-  const publicDataFromStore = useSelector(state => state.home.publicData);
+  const newsFromStore = useSelector((state) => state.news.news);
+  const publicDataFromStore = useSelector((state) => state.home.publicData);
   const [news, setNews] = useState([]);
   const [welcomeMessage, setWelcomeMessage] = useState('Bienvenido');
 
@@ -37,15 +37,16 @@ const Home = () => {
 
   useEffect(() => {
     !newsFromStore ? getAllNews() : setNews(newsFromStore.slice(-4));
-    !publicDataFromStore ? getPublicData() : setWelcomeMessage(publicDataFromStore.welcomeText);
-  }, [])
+    !publicDataFromStore
+      ? getPublicData()
+      : setWelcomeMessage(publicDataFromStore.welcomeText);
+  }, []);
 
   return (
     <main className={classes.root}>
       <Grid
         container
         align='center'
-        justify='center'
         direction='column'
         className={classes.container}
       >
@@ -64,14 +65,11 @@ const Home = () => {
         {news.lenght === 0 ? (
           <h2>No hay novedades que mostrar</h2>
         ) : (
-          <Grid
-            container
-            justify='space-around'
-            direction='row'
-            alignItems='center'
-          >
+          <Grid container className={classes.newsContainer}>
             {news.map((item) => (
-              <CardNews item={item} key={item.id} />
+              <Grid item xs='12' sm='6' md='4'>
+                <CardNews item={item} key={item.id} />
+              </Grid>
             ))}
           </Grid>
         )}
