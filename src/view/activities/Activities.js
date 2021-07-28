@@ -29,7 +29,8 @@ const Activities = () => {
         marginBottom='5vh'
         marginTop='2vh'
         padding='1vh'
-        boxShadow='0px 20px 10px -10px rgba(0,0,0,0.5)'
+        bgcolor='#0086FF'
+        color='white'
       >
         <Typography variant='h4'>Actividades de la ONG</Typography>
       </Box>

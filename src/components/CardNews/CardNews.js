@@ -13,9 +13,7 @@ const CardNews = ({ item }) => {
   return (
     <Card className={classes.item}>
       <CardContent>
-        <Typography className={classes.title}>
-          {item.name}
-        </Typography>
+        <Typography className={classes.title}>{item.name}</Typography>
         <CardMedia
           component='img'
           image={item.image}
@@ -23,14 +21,8 @@ const CardNews = ({ item }) => {
           className={classes.media}
         />
       </CardContent>
-      <CardActions>
-        <Button size='medium' variant='contained' color='secondary'>
-          Ver mas
-        </Button>
-      </CardActions>
     </Card>
   );
 };
-
 
 export default CardNews;

@@ -3,11 +3,16 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => {
   return {
     container: {
-      padding: theme.spacing(1, 3),
+      padding: theme.spacing(4, 3),
       textAlign: 'center',
       margin: theme.spacing(2),
+      minHeight: '40vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     card: {
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       textAlign: 'center',
@@ -15,7 +20,6 @@ const useStyles = makeStyles((theme) => {
     },
     media: {
       width: '100%',
-      maxWidth: '50vh',
       objectFit: 'contain',
       objectPosition: 'center',
     },
