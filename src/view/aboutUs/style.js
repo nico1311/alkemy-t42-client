@@ -13,6 +13,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0086FF',
     color: 'white',
   },
+  textContainer: {
+    margin: theme.spacing(0, 4),
+    padding: theme.spacing(4, 4),
+    backgroundColor: '#80C3FF',
+  },
+  text: {
+    backgroundColor: '#80C3FF',
+  },
 }));
 
 export default useStyles;
