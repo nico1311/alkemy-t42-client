@@ -21,11 +21,6 @@ const CardNews = ({ item }) => {
           className={classes.media}
         />
       </CardContent>
-      <CardActions>
-        <Button size='medium' variant='contained' color='secondary'>
-          Ver mas
-        </Button>
-      </CardActions>
     </Card>
   );
 };
